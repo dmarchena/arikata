@@ -1,0 +1,217 @@
+<svg width="1313" height="820" xmlns="http://www.w3.org/2000/svg">
+  <defs/>
+  <g>
+    <rect x="0" y="0" width="1313" height="897" fill="#ffffff"/>
+  </g>
+  <g>
+    <rect x="0" y="0" width="1313" height="30" fill="#ffffff"/>
+    <rect x="0" y="30" width="1313" height="30" fill="#f5f5f5"/>
+    <rect x="0" y="60" width="1313" height="30" fill="#ffffff"/>
+    <rect x="0" y="90" width="1313" height="30" fill="#f5f5f5"/>
+    <rect x="0" y="120" width="1313" height="30" fill="#ffffff"/>
+    <rect x="0" y="150" width="1313" height="30" fill="#f5f5f5"/>
+    <rect x="0" y="180" width="1313" height="30" fill="#ffffff"/>
+    <rect x="0" y="210" width="1313" height="30" fill="#f5f5f5"/>
+    <rect x="0" y="240" width="1313" height="30" fill="#ffffff"/>
+    <rect x="0" y="270" width="1313" height="30" fill="#f5f5f5"/>
+    <rect x="0" y="300" width="1313" height="30" fill="#ffffff"/>
+    <rect x="0" y="330" width="1313" height="30" fill="#f5f5f5"/>
+    <rect x="0" y="360" width="1313" height="30" fill="#ffffff"/>
+    <rect x="0" y="390" width="1313" height="30" fill="#f5f5f5"/>
+    <rect x="0" y="420" width="1313" height="30" fill="#ffffff"/>
+    <rect x="0" y="450" width="1313" height="30" fill="#f5f5f5"/>
+    <rect x="0" y="480" width="1313" height="30" fill="#ffffff"/>
+    <rect x="0" y="510" width="1313" height="30" fill="#f5f5f5"/>
+    <rect x="0" y="540" width="1313" height="30" fill="#ffffff"/>
+    <rect x="0" y="570" width="1313" height="30" fill="#f5f5f5"/>
+    <rect x="0" y="600" width="1313" height="30" fill="#ffffff"/>
+    <rect x="0" y="630" width="1313" height="30" fill="#f5f5f5"/>
+    <rect x="0" y="660" width="1313" height="30" fill="#ffffff"/>
+    <rect x="0" y="690" width="1313" height="30" fill="#f5f5f5"/>
+    <rect x="0" y="720" width="1313" height="30" fill="#ffffff"/>
+    <rect x="0" y="750" width="1313" height="30" fill="#f5f5f5"/>
+    <rect x="0" y="0" width="1313" height="780" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="30" y2="30" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="60" y2="60" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="90" y2="90" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="120" y2="120" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="150" y2="150" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="180" y2="180" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="210" y2="210" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="240" y2="240" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="270" y2="270" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="300" y2="300" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="330" y2="330" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="360" y2="360" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="390" y2="390" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="420" y2="420" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="450" y2="450" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="480" y2="480" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="510" y2="510" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="540" y2="540" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="570" y2="570" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="600" y2="600" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="630" y2="630" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="660" y2="660" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="690" y2="690" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="720" y2="720" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <line x1="0" x2="1313" y1="750" y2="750" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+    <text x="248.95873427525348" y="802" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Arial;font-size:13px;font-weight:700" fill="black" dx="-20.591796875px">
+      Feb 23
+    </text>
+    <text x="317.95098925084494" y="802" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Arial;font-size:13px;font-weight:400" fill="black" dx="-16.614990234375px">
+      Mar 1
+    </text>
+    <text x="386.9432442264364" y="802" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Arial;font-size:13px;font-weight:400" fill="black" dx="-16.614990234375px">
+      Mar 8
+    </text>
+    <text x="455.9354992020278" y="802" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Arial;font-size:13px;font-weight:400" fill="black" dx="-20.22998046875px">
+      Mar 15
+    </text>
+    <text x="524.9277541776191" y="802" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Arial;font-size:13px;font-weight:400" fill="black" dx="-20.22998046875px">
+      Mar 22
+    </text>
+    <text x="593.9200091532107" y="802" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Arial;font-size:13px;font-weight:400" fill="black" dx="-20.22998046875px">
+      Mar 29
+    </text>
+    <text x="662.5015959444236" y="802" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Arial;font-size:13px;font-weight:400" fill="black" dx="-15.535888671875px">
+      Apr 5
+    </text>
+    <text x="731.493850920015" y="802" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Arial;font-size:13px;font-weight:400" fill="black" dx="-19.15087890625px">
+      Apr 12
+    </text>
+    <text x="800.4861058956064" y="802" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Arial;font-size:13px;font-weight:400" fill="black" dx="-19.15087890625px">
+      Apr 19
+    </text>
+    <text x="869.4783608711979" y="802" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Arial;font-size:13px;font-weight:400" fill="black" dx="-19.15087890625px">
+      Apr 26
+    </text>
+    <text x="938.4706158467893" y="802" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Arial;font-size:13px;font-weight:400" fill="black" dx="-17.700439453125px">
+      May 3
+    </text>
+    <text x="1007.4628708223808" y="802" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Arial;font-size:13px;font-weight:400" fill="black" dx="-21.3154296875px">
+      May 10
+    </text>
+    <text x="1076.4551257979722" y="802" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Arial;font-size:13px;font-weight:400" fill="black" dx="-21.3154296875px">
+      May 17
+    </text>
+    <text x="1145.4473807735635" y="802" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Arial;font-size:13px;font-weight:400" fill="black" dx="-21.3154296875px">
+      May 24
+    </text>
+    <text x="1214.439635749155" y="802" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Arial;font-size:13px;font-weight:400" fill="black" dx="-21.3154296875px">
+      May 31
+    </text>
+    <text x="1283.4318907247466" y="802" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Arial;font-size:13px;font-weight:400" fill="black" dx="-15.90087890625px">
+      Jun 7
+    </text>
+  </g>
+  <g/>
+  <g/>
+  <g/>
+  <g>
+    <rect x="219.390625" y="2" width="39.42414570033799" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="268.67080712542247" y="32" width="9.856036425084483" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="268.67080712542247" y="62" width="9.856036425084483" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="298.2389164006759" y="92" width="9.856036425084483" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="317.95098925084494" y="122" width="9.856036425084426" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="396.7992806515208" y="152" width="9.85603642508454" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="396.7992806515208" y="182" width="9.85603642508454" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="455.9354992020278" y="212" width="9.856036425084426" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="475.6475720521968" y="242" width="9.856036425084483" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="495.35964490236574" y="272" width="49.28018212542247" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="584.0639727281261" y="302" width="19.301404665790415" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="613.2214138190011" y="332" width="9.85603642508454" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="632.9334866691702" y="362" width="49.28018212542236" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="741.3498873450995" y="392" width="68.99225497559144" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="820.1981787457754" y="422" width="9.85603642508454" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="899.0464701464514" y="452" width="49.28018212542247" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="958.1826886969583" y="482" width="19.712072850168965" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="987.7507979722118" y="512" width="19.712072850168965" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="1017.3189072474653" y="542" width="19.712072850168965" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="1046.8870165227186" y="572" width="59.13621855050724" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="1115.8792714983101" y="602" width="9.85603642508454" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="1135.5913443484792" y="632" width="9.856036425084312" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="1145.4473807735635" y="662" width="9.856036425084767" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="1224.2956721742396" y="692" width="68.99225497559132" height="26" rx="5" ry="5" fill="#5e97f6"/>
+    <rect x="1303.1439635749155" y="722" width="9.85603642508454" height="26" rx="5" ry="5" fill="#5e97f6"/>
+  </g>
+  <g/>
+  <g>
+    <text x="0" y="20" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Elección del proyecto y objetivos
+    </text>
+    <text x="0" y="50" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Plantilla de documento
+    </text>
+    <text x="0" y="80" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Redacción de documento
+    </text>
+    <text x="0" y="110" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Captura inicial de requisitos
+    </text>
+    <text x="0" y="140" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Planificación y riesgos
+    </text>
+    <text x="0" y="170" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Stakeholders identificados
+    </text>
+    <text x="0" y="200" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Casos de uso UML
+    </text>
+    <text x="0" y="230" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Diagrama de casos de uso UML
+    </text>
+    <text x="0" y="260" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Modelo de dominio
+    </text>
+    <text x="0" y="290" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Diseño de la arquitectura
+    </text>
+    <text x="0" y="320" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Wireframes
+    </text>
+    <text x="0" y="350" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Selección final de tecnologías
+    </text>
+    <text x="0" y="380" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Preparar entorno de desarrollo
+    </text>
+    <text x="0" y="410" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Docker para backend local
+    </text>
+    <text x="0" y="440" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Preparar datos de ejemplo
+    </text>
+    <text x="0" y="469.890625" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Editor online (editor, consola)
+    </text>
+    <text x="0" y="500" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Ejecutar código de usuario
+    </text>
+    <text x="0" y="530" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Gestión de desafíos tipo test
+    </text>
+    <text x="0" y="560" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Gestión de módulos
+    </text>
+    <text x="0" y="590" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Parte pública
+    </text>
+    <text x="0" y="620" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Registro y login
+    </text>
+    <text x="0" y="650" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Gestión de preguntas tipo test
+    </text>
+    <text x="0" y="680" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Plan de pruebas
+    </text>
+    <text x="0" y="710" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Redacción de memoria
+    </text>
+    <text x="0" y="740" style="cursor:default;user-select:none;-webkit-font-smoothing:antialiased;font-family:Roboto;font-size:14px" fill="#5e97f6">
+      Presentación
+    </text>
+  </g>
+  <g/>
+</svg>

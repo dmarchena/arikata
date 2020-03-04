@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "stylelint-prettier/recommended",
+    "stylelint-a11y/recommended",
+    "stylelint-config-standard",
+    "stylelint-config-rational-order"
+  ],
+  "plugins": [
+    "stylelint-prettier",
+    "stylelint-a11y",
+    "stylelint-order",
+    "stylelint-config-rational-order/plugin"
+  ],
+  "rules": {
+    "prettier/prettier": true
+  }
+}
