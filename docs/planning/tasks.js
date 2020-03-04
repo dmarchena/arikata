@@ -1,13 +1,20 @@
+/*
 const leadingZero = num => (num + '').padStart(2, '0');
+
 const dateStr = (month, day) =>
   `2020-${leadingZero(month)}-${leadingZero(day)}`;
+*/
+
 const date = str => {
   const dateParts = str.split('-');
   return new Date(+dateParts[0], dateParts[1] - 1, +dateParts[2]);
 };
+
 const oneDayMilliseconds = 24 * 60 * 60 * 1000;
+
 const diffDays = (firstDate, secondDate) =>
   1 + Math.round(Math.abs((firstDate - secondDate) / oneDayMilliseconds));
+
 const task = (id, name, start, end, dependencies = []) => {
   let startDate = date(start);
   let endDate = date(end);
@@ -23,6 +30,7 @@ const task = (id, name, start, end, dependencies = []) => {
   ];
 };
 
+// eslint-disable-next-line no-unused-vars
 const tasks = [
   task(
     'PT1',
