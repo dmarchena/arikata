@@ -1,0 +1,7 @@
+@import 'codemirror/lib/codemirror.css';
+@import 'codemirror/theme/monokai.css';
+
+body {
+  font-family: system-ui;
+  background-color: ghostwhite;
+}
