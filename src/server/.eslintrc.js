@@ -1,10 +1,10 @@
 module.exports = {
   env: {
+    browser: false,
     commonjs: true,
-    es6: true,
-    node: true
+    node: true,
   },
   parserOptions: {
-    parser: 'babel-eslint'
-  }
+    parser: 'babel-eslint',
+  },
 };

@@ -1,8 +1,6 @@
-'use strict';
-
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const baseConfig = require('./client.base.config');
+const baseConfig = require('./webpack.config.client-base');
 
 module.exports = merge(baseConfig, {
   devtool: '#source-map',

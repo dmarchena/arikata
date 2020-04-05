@@ -1,11 +1,9 @@
-'use strict';
-
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 
-const baseConfig = require('./client.base.config');
+const baseConfig = require('./webpack.config.client-base');
 
 module.exports = merge(baseConfig, {
   devtool: '#source-map',

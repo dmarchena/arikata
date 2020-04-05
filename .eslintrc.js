@@ -1,11 +1,13 @@
 module.exports = {
-  extends: [
-    'eslint:recommended',
-    'prettier',
-  ],
-  parserOptions: {
-    sourceType: 'module',
-    ecmaVersion: 2018
+  env: {
+    es6: true,
+    node: true,
   },
-  plugins: ["prettier"],
+  extends: ['eslint:recommended', 'airbnb/base', 'prettier'],
+  parserOptions: {
+    parser: 'babel-eslint',
+    sourceType: 'module',
+    ecmaVersion: 2020,
+    // ecmaFeatures: { experimentalObjectRestSpread: true },
+  },
 };

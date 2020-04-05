@@ -1,8 +1,6 @@
 const express = require('express');
 const expressStaticGzip = require('express-static-gzip');
 const path = require('path');
-const DIST_DIR = path.join(__dirname, '..', 'dist');
-const HTML_FILE = path.join(DIST_DIR, 'index.html');
 
 /**
  * Check if server is in development mode
@@ -21,11 +19,13 @@ function isDevelopmentMode() {
 function initWebpack(app) {
   // Webpack middleware in development mode
   if (isDevelopmentMode()) {
+    /* eslint-disable import/no-extraneous-dependencies, global-require */
     const webpack = require('webpack');
-    const webpackConfig = require('../webpack/client.dev.config');
+    const webpackConfig = require('../../webpack/webpack.config.client-dev');
     const webpackDevMiddleware = require('webpack-dev-middleware');
     const webpackHotMiddleware = require('webpack-hot-middleware');
     // let HtmlWebpackPlugin = require('html-webpack-plugin');
+    /* eslint-enable import/no-extraneous-dependencies, global-require */
 
     const compiler = webpack(webpackConfig);
 
@@ -47,6 +47,8 @@ function initWebpack(app) {
 }
 
 function initHtml(app) {
+  const DIST_DIR = path.resolve(__dirname);
+  const HTML_FILE = path.join(DIST_DIR, 'index.html');
   app.use(
     '/',
     expressStaticGzip(DIST_DIR, {
@@ -69,6 +71,7 @@ module.exports = function serve() {
   initHtml(app);
 
   app.listen(PORT, () => {
+    // eslint-disable-next-line no-console
     console.log(`App listening to ${PORT}....`);
   });
 };
