@@ -1,0 +1,16 @@
+// {type:class}
+// {direction:topDown}
+// {generate:true}
+
+[User|email|password]
+[Challenge|id: int]-[note: Patrón: Composite]
+[Kata|id: int]
+[Mcq|id: int]
+[Module|id: int]
+
+[User]<*-*>[Challenge][Results]
+[Challenge]^[Kata]
+[Challenge]^[Module]
+[Challenge]^[Mcq]
+[Module]++0..1-*>[Challenge]
+

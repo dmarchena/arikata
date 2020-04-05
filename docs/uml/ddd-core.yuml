@@ -1,0 +1,40 @@
+// {type:class}
+// {direction:topDown}
+// {generate:true}
+
+
+[<<aggregateRoot>>;Kata|code;details;solution;tests]
+[<<valueObject>>;Tag|name]
+[<<aggregateRoot>>;Kata]-*>[<<valueObject>>;Tag]
+[<<aggregateRoot>>;Kata]->[<<valueObject>>;ModuleId]
+
+[<<aggregateRoot>>;Module]
+[<<entity>>;MultipleChoiceQuery|details;solution]
+[<<valueObject>>;Choice]
+[<<aggregateRoot>>;Module]-*>[<<entity>>;MultipleChoiceQuery]
+[<<aggregateRoot>>;Module]-*>[<<valueObject>>;KataId]
+[<<aggregateRoot>>;Module]-*>[<<valueObject>>;Tag]
+[<<entity>>;MultipleChoiceQuery]-2..*>[<<valueObject>>;Choice]
+
+[<<aggregateRoot>>;User|username;email;password;role]
+
+[<<aggregateRoot>>;Training]
+[<<aggregateRoot>>;Training]-1..*>[<<valueObject>>;Solution]
+[<<aggregateRoot>>;Training]-1>[<<valueObject>>;UserId]
+[<<aggregateRoot>>;Training]-0..1>[<<valueObject>>;KataId]
+[<<aggregateRoot>>;Training]-0..1>[<<valueObject>>;ModuleId]
+
+
+// [<<entity>>;Challenge|details;solution]
+// [<<entity>>;Challenge]^[<<entity>>;Kata]
+// [<<entity>>;Challenge]^[<<entity>>;Module]
+// [<<entity>>;Challenge]-*>[<<valueObject>>;Tag|name]
+
+
+//[<<aggregate root>> User]1-*>[Challenge]
+//[Challenge]^[Kata]
+
+// [Challenge]^[Module]
+// [Challenge]^[Mcq]
+// [Module]++0..1-*>[Challenge]
+

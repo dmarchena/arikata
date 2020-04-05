@@ -1,0 +1,21 @@
+// {type:usecase}
+// {direction:topDown}
+// {generate:true}
+
+[Usuario]-(Realizar una kata)
+[Usuario]-(Realizar un módulo)
+[Usuario]-(Acceder a una kata)
+[Usuario]-(Cambiar contraseña)
+[Usuario]-(Identificación)
+[Usuario]-(Registro)
+[Administrador]-(Identificación)
+[Administrador]-(Gestión de katas)
+[Administrador]-(Gestión de módulos)
+// (Identificación)<(Realizar una kata)
+// (Identificación)<(Realizar un módulo)
+(Cambiar contraseña)>(Identificación)
+(Realizar una kata)>(Acceder a una kata)
+(Realizar un módulo)>(Acceder a una kata)
+(Gestión de katas)>(Identificación)
+(Gestión de módulos)>(Identificación)
+(Realizar un módulo)>(Realizar una kata)
