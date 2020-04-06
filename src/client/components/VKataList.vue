@@ -32,7 +32,7 @@
 
 <script>
 import listKatas from '@app/listKatasFactory';
-import kataRepo from '@infra/db/kataRepo';
+import kataRepo from '@infra/api/kataRepo';
 
 export default {
   name: 'VKataList',

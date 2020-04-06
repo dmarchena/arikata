@@ -1,6 +1,9 @@
-const express = require('express');
-const expressStaticGzip = require('express-static-gzip');
-const path = require('path');
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import express from 'express';
+import expressStaticGzip from 'express-static-gzip';
+import path from 'path';
+import apiRouter from './api';
 
 /**
  * Check if server is in development mode
@@ -62,11 +65,18 @@ function initHtml(app) {
   app.get('/', (req, res) => res.sendFile(HTML_FILE));
 }
 
-module.exports = function serve() {
-  const app = express();
+export default function serve() {
   const PORT = process.env.PORT || 8080;
+  const app = express();
+
+  app.use(cors());
+  // Configuring body parser middleware
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json());
 
   initWebpack(app);
+
+  app.use('/api', apiRouter);
 
   initHtml(app);
 
@@ -74,4 +84,4 @@ module.exports = function serve() {
     // eslint-disable-next-line no-console
     console.log(`App listening to ${PORT}....`);
   });
-};
+}

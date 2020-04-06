@@ -1,3 +1,3 @@
-const serve = require('./serve');
+import serve from './serve';
 
 serve();
