@@ -3,7 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import expressStaticGzip from 'express-static-gzip';
 import path from 'path';
-import apiRouter from './api';
+import restApiRouter from '../infrastructure/ui/rest';
 
 /**
  * Check if server is in development mode
@@ -76,7 +76,7 @@ export default function serve() {
 
   initWebpack(app);
 
-  app.use('/api', apiRouter);
+  app.use('/api', restApiRouter);
 
   initHtml(app);
 

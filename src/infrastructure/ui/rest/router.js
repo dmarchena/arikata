@@ -1,5 +1,5 @@
 import express from 'express';
-import app from '../application';
+import app from './application';
 
 const katasRouter = express.Router();
 

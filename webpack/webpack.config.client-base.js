@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const appDir = path.join(__dirname, '..', 'src/application');
 const infrastructureDir = path.join(__dirname, '..', 'src/infrastructure');
-const clientDir = path.join(__dirname, '..', 'src/client');
+const clientDir = path.join(__dirname, '..', 'src/infrastructure/ui/web');
 const distDir = path.join(__dirname, '..', 'dist');
 
 module.exports = {
