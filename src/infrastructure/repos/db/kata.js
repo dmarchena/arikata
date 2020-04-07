@@ -1,4 +1,4 @@
-import fakeKataRepo from '../mock/kataRepo';
+import fakeKataRepo from '../mock/kata';
 
 const kataRepo = fakeKataRepo;
 

@@ -31,8 +31,7 @@
 </template>
 
 <script>
-import listKatas from '@app/listKatasFactory';
-import kataRepo from '@infra/api/kataRepo';
+import app from '../application';
 
 export default {
   name: 'VKataList',
@@ -47,14 +46,12 @@ export default {
 
   methods: {
     filterByTag(tag) {
-      listKatas(kataRepo, tag)
-        .execute()
+      app.kataService
+        .getAllKatasWithTag(tag)
         .then((data) => (this.katas = data));
     },
     listAll() {
-      listKatas(kataRepo)
-        .execute()
-        .then((data) => (this.katas = data));
+      app.kataService.getAll().then((data) => (this.katas = data));
     },
   },
 };
