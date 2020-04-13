@@ -1,12 +1,12 @@
-'use strict';
-
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-const clientDir = path.join(__dirname, '..', 'client');
+const appDir = path.join(__dirname, '..', 'src/application');
+const infrastructureDir = path.join(__dirname, '..', 'src/infrastructure');
+const clientDir = path.join(__dirname, '..', 'src/infrastructure/ui/web');
 const distDir = path.join(__dirname, '..', 'dist');
 
 module.exports = {
@@ -76,6 +76,8 @@ module.exports = {
   resolve: {
     alias: {
       '@': clientDir,
+      '@app': appDir,
+      '@infra': infrastructureDir,
     },
     extensions: ['.vue', '.mjs', '.js', '.json'],
     mainFiles: ['index'],

@@ -7,5 +7,5 @@ module.exports = {
         corejs: 3,
       },
     ],
-  ],
+  ]
 };
