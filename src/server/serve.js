@@ -1,8 +1,9 @@
-const express = require('express');
-const expressStaticGzip = require('express-static-gzip');
-const path = require('path');
-const DIST_DIR = path.join(__dirname, '..', 'dist');
-const HTML_FILE = path.join(DIST_DIR, 'index.html');
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import express from 'express';
+import expressStaticGzip from 'express-static-gzip';
+import path from 'path';
+import restApiRouter from '../infrastructure/ui/rest';
 
 /**
  * Check if server is in development mode
@@ -21,11 +22,13 @@ function isDevelopmentMode() {
 function initWebpack(app) {
   // Webpack middleware in development mode
   if (isDevelopmentMode()) {
+    /* eslint-disable import/no-extraneous-dependencies, global-require */
     const webpack = require('webpack');
-    const webpackConfig = require('../webpack/client.dev.config');
+    const webpackConfig = require('../../webpack/webpack.config.client-dev');
     const webpackDevMiddleware = require('webpack-dev-middleware');
     const webpackHotMiddleware = require('webpack-hot-middleware');
     // let HtmlWebpackPlugin = require('html-webpack-plugin');
+    /* eslint-enable import/no-extraneous-dependencies, global-require */
 
     const compiler = webpack(webpackConfig);
 
@@ -47,6 +50,8 @@ function initWebpack(app) {
 }
 
 function initHtml(app) {
+  const DIST_DIR = path.resolve(__dirname);
+  const HTML_FILE = path.join(DIST_DIR, 'index.html');
   app.use(
     '/',
     expressStaticGzip(DIST_DIR, {
@@ -60,15 +65,23 @@ function initHtml(app) {
   app.get('/', (req, res) => res.sendFile(HTML_FILE));
 }
 
-module.exports = function serve() {
-  const app = express();
+export default function serve() {
   const PORT = process.env.PORT || 8080;
+  const app = express();
+
+  app.use(cors());
+  // Configuring body parser middleware
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json());
 
   initWebpack(app);
+
+  app.use('/api', restApiRouter);
 
   initHtml(app);
 
   app.listen(PORT, () => {
+    // eslint-disable-next-line no-console
     console.log(`App listening to ${PORT}....`);
   });
-};
+}

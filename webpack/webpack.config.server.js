@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    server: path.join(__dirname, '..', 'server', 'index.js'),
+    server: path.join(__dirname, '..', 'src', 'server', 'index.js'),
   },
 
   externals: [nodeExternals()], // Need this to avoid error when working with Express
