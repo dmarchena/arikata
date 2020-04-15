@@ -3,12 +3,12 @@ FROM node:lts-alpine
 WORKDIR /app
 
 COPY ./package.json .
-COPY ./package-lock.json .
+COPY ./yarn.lock .
+COPY .env .
+COPY . .
 
 RUN yarn install
 
-COPY . .
-
-EXPOSE 8080
+EXPOSE 3000
 
 CMD yarn start
