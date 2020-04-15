@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes, Model) => {
+export default (sequelize, DataTypes, Model) => {
   class Kata extends Model {}
   Kata.init(
     {

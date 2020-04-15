@@ -1,5 +1,5 @@
-module.exports = {
-  up: (queryInterface, Sequelize) => {
+export default {
+  up: function up(queryInterface, Sequelize) {
     return queryInterface.createTable('kata', {
       id: {
         type: Sequelize.UUID,
@@ -25,7 +25,7 @@ module.exports = {
       },
     });
   },
-  down: (queryInterface) => {
+  down: function down(queryInterface) {
     return queryInterface.dropTable('kata');
   },
 };

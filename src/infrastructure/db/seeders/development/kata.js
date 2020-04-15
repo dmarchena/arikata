@@ -1,21 +1,21 @@
-const faker = require('faker');
-const populator = require('../populator');
+import { random, lorem, company } from 'faker';
+import populator from '../populator';
 
 const numKatas = 10;
 
 const fakeKata = () => ({
-  id: faker.random.uuid(),
-  details: faker.lorem.paragraphs(3),
-  code: `console.log(${faker.random.words(3)})`,
+  id: random.uuid(),
+  details: lorem.paragraphs(3),
+  code: `console.log(${random.words(3)})`,
   test: `// Some fake test are needed`,
-  name: faker.company.catchPhrase(),
+  name: company.catchPhrase(),
   // tags: [faker.commerce.productAdjective(), faker.commerce.productAdjective()],
 });
 
 const populateTable = populator(fakeKata);
 
-module.exports = {
+export default {
   up: (queryInterface) =>
-    queryInterface.bulkInsert('katas', populateTable(numKatas), {}),
-  down: (queryInterface) => queryInterface.bulkDelete('katas', null, {}),
+    queryInterface.bulkInsert('kata', populateTable(numKatas), {}),
+  down: (queryInterface) => queryInterface.bulkDelete('kata', null, {}),
 };

@@ -1,19 +1,19 @@
-const faker = require('faker');
-const populator = require('../populator');
+import { random, internet } from 'faker';
+import populator from '../populator';
 
 const numUsers = 10;
 
 const fakeUser = () => ({
-  id: faker.random.uuid(),
-  email: faker.internet.email(),
-  password: faker.internet.password(),
-  roleId: faker.random.number(),
+  id: random.uuid(),
+  email: internet.email(),
+  password: internet.password(),
+  roleId: random.number(),
 });
 
 const populateTable = populator(fakeUser);
 
-module.exports = {
+export default {
   up: (queryInterface) =>
-    queryInterface.bulkInsert('users', populateTable(numUsers), {}),
-  down: (queryInterface) => queryInterface.bulkDelete('users', null, {}),
+    queryInterface.bulkInsert('user', populateTable(numUsers), {}),
+  down: (queryInterface) => queryInterface.bulkDelete('user', null, {}),
 };

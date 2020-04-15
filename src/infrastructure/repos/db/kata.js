@@ -8,9 +8,9 @@ const katasOfTag = (ormModel) => (tag) => ormModel.findAll();
 const save = (ormModel) => (kataDto) => ormModel.create(kataDto);
 
 const kataRepo = createKataRepo(
-  allKatas(db.kata),
-  katasOfTag(db.kata),
-  save(db.kata)
+  allKatas(db.Kata),
+  katasOfTag(db.Kata),
+  save(db.Kata)
 );
 
 export default kataRepo;

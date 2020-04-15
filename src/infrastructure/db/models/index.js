@@ -1,12 +1,12 @@
-const Sequelize = require('sequelize');
-const configuration = require('../config');
+import Sequelize, { DataTypes, Model } from 'sequelize';
+import configuration from '../config';
+
+import kata from './kata';
+import user from './user';
 
 const env = process.env.NODE_ENV || 'development';
 const config = configuration[env];
 const db = {};
-
-const kata = require('./kata');
-const user = require('./user');
 
 let sequelize;
 if (config.use_env_variable) {
@@ -20,8 +20,8 @@ if (config.use_env_variable) {
   );
 }
 
-db.kata = kata(sequelize, Sequelize.DataTypes, Sequelize.Model);
-db.user = user(sequelize, Sequelize.DataTypes, Sequelize.Model);
+db.Kata = kata(sequelize, DataTypes, Model);
+db.User = user(sequelize, DataTypes, Model);
 
 /* Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
@@ -32,4 +32,4 @@ db.user = user(sequelize, Sequelize.DataTypes, Sequelize.Model);
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-module.exports = db;
+export default db;

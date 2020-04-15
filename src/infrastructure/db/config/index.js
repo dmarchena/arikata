@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv-flow').config();
 
 const {
   DATABASE_USER: username,
@@ -10,6 +10,14 @@ const {
 } = process.env;
 
 module.exports = {
+  localhost: {
+    username,
+    password,
+    database,
+    host,
+    port,
+    dialect,
+  },
   development: {
     username,
     password,

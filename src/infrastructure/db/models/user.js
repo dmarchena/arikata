@@ -1,6 +1,6 @@
-const encryption = require('../../encryption');
+import { encryptPassword } from '../../encryption';
 
-module.exports = (sequelize, DataTypes, Model) => {
+export default (sequelize, DataTypes, Model) => {
   class User extends Model {}
   User.init(
     {
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes, Model) => {
       hooks: {
         beforeCreate: (user) => {
           // eslint-disable-next-line no-param-reassign
-          user.password = encryption.encryptPassword(user.password);
+          user.password = encryptPassword(user.password);
         },
       },
       modelName: 'user',
