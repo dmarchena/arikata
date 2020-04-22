@@ -9,6 +9,8 @@ services:
       - postgres
     env_file:
       - .env
+    environment:
+      DATABASE_HOST: postgres
     command: yarn dev
     volumes:
       - .:/app/
