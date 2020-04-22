@@ -3,7 +3,7 @@ import db from '../../db';
 
 const allKatas = (ormModel) => () => ormModel.findAll();
 
-const katasOfTag = (ormModel) => (tag) => ormModel.findAll();
+const katasOfTag = (ormModel) => (tag) => ormModel.findAll(tag);
 
 const save = (ormModel) => (kataDto) => ormModel.create(kataDto);
 
