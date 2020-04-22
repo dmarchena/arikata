@@ -3,30 +3,52 @@ version: '3'
 services:
   app:
     build: .
+    image: tfg-app
+    container_name: tfg-app
     depends_on:
       - postgres
     env_file:
       - .env
-    # environment:
-    #   DATABASE_URL: postgres://user:pass@postgres:5432/db
-    #   NODE_ENV: development
-    #   PORT: 3000
-    ports:
-      - '3000:3000'
     command: yarn dev
     volumes:
       - .:/app/
       - /app/node_modules
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  webserver:
+    image: nginx:mainline-alpine
+    container_name: tfg-www
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      # - web-root:/var/www/html
+      - ./docker/nginx-conf:/etc/nginx/conf.d
+      - ./docker/ssl:/etc/ssl
+    depends_on:
+      - app
+    networks:
+      - app-network
 
   postgres:
     image: postgres:12-alpine
+    container_name: tfg-db
     restart: always
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
-      #- ./docker/postgres-initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+      # - ./docker/postgres-initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
     ports:
       - '5432:5432'
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
       POSTGRES_DB: db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

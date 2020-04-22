@@ -1,0 +1,14 @@
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+distinguished_name = dn
+
+[dn]
+C=ES
+ST=Alava
+L=Vitoria-Gasteiz
+O=Arikata
+OU=Arikata Dev
+emailAddress=hi@arikata.dev
+CN=dev.arikata
