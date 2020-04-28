@@ -1,11 +1,9 @@
-import kataDto from './transformers/kata';
-
 const createListKataService = (kataRepo) => ({
   getAll() {
-    return kataRepo.allKatas().then((data) => data.map(kataDto));
+    return kataRepo.allKatas();
   },
   getAllKatasWithTag(tag) {
-    return kataRepo.katasOfTag(tag).then((data) => data.map(kataDto));
+    return kataRepo.katasOfTag(tag);
   },
 });
 

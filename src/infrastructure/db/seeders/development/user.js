@@ -1,5 +1,5 @@
 import { random, internet } from 'faker';
-import populator from '../populator';
+import { populator } from '../populator';
 
 const numUsers = 10;
 

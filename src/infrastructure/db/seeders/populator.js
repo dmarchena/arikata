@@ -1,8 +1,23 @@
-const R = require('ramda');
+/* eslint no-underscore-dangle: ["error", { "allow": ["__"] }] */
 
-const rangeWithLength = R.range(0);
+import * as R from 'ramda';
 
-const populator = (generateDataModelFn) =>
-  R.compose(R.map(generateDataModelFn), rangeWithLength);
+const appendUniqueFromGenerator = (generateDataModelFn) => (arr) => {
+  const appendItem = R.ifElse(
+    R.includes(R.__, arr),
+    () => appendItem(generateDataModelFn()),
+    R.append(R.__, arr)
+  );
+  return appendItem(generateDataModelFn());
+};
 
-module.exports = populator;
+const arrayLengthEq = (times) => R.compose(R.equals(times), R.length);
+
+export const uniqPopulator = (generateDataModelFn) => (times) =>
+  R.until(
+    arrayLengthEq(times),
+    appendUniqueFromGenerator(generateDataModelFn),
+    []
+  );
+
+export const populator = (generateDataModelFn) => R.times(generateDataModelFn);

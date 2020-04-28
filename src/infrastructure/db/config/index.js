@@ -9,7 +9,11 @@ const {
   DATABASE_PORT: port,
 } = process.env;
 
-module.exports = {
+const uuidNamespaces = {
+  tag: 'dffd62cd-3684-4703-914c-731c8729c0c0',
+};
+
+const config = {
   localhost: {
     username,
     password,
@@ -17,6 +21,7 @@ module.exports = {
     host,
     port,
     dialect,
+    uuidNamespaces,
   },
   development: {
     username,
@@ -25,6 +30,7 @@ module.exports = {
     host,
     port,
     dialect,
+    uuidNamespaces,
   },
   test: {
     username,
@@ -33,6 +39,7 @@ module.exports = {
     host,
     port,
     dialect,
+    uuidNamespaces,
   },
   production: {
     username,
@@ -41,5 +48,10 @@ module.exports = {
     host,
     port,
     dialect,
+    uuidNamespaces,
   },
 };
+
+const env = process.env.NODE_ENV || 'development';
+
+module.exports = config[env];

@@ -32,5 +32,14 @@ export default (sequelize, DataTypes, Model) => {
       timestamps: false,
     }
   );
+
+  Kata.associate = function associate(models) {
+    this.belongsToMany(models.Tag, {
+      through: models.KataTags,
+      foreignKey: 'kataId',
+      otherKey: 'tagId',
+    });
+  };
+
   return Kata;
 };

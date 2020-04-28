@@ -1,11 +1,11 @@
 import Sequelize, { DataTypes, Model } from 'sequelize';
-import configuration from '../config';
+import config from '../config';
 
+import kataTags from './kata_tags';
 import kata from './kata';
 import user from './user';
+import tag from './tag';
 
-const env = process.env.NODE_ENV || 'development';
-const config = configuration[env];
 const db = {};
 
 let sequelize;
@@ -20,14 +20,16 @@ if (config.use_env_variable) {
   );
 }
 
+db.KataTags = kataTags(sequelize, DataTypes, Model);
 db.Kata = kata(sequelize, DataTypes, Model);
+db.Tag = tag(sequelize, DataTypes, Model);
 db.User = user(sequelize, DataTypes, Model);
 
-/* Object.keys(db).forEach((modelName) => {
+Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
-}); */
+});
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
