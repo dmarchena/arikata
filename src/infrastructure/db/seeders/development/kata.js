@@ -1,5 +1,5 @@
 import { random, lorem, company } from 'faker';
-import { populator } from '../populator';
+import { dataPopulator } from '../../../../utils/dataPopulator';
 
 const numKatas = 10;
 
@@ -11,7 +11,7 @@ const fakeKata = () => ({
   name: company.catchPhrase(),
 });
 
-export const records = populator(fakeKata)(numKatas);
+export const records = dataPopulator(fakeKata)(numKatas);
 
 export default {
   up: (queryInterface) => queryInterface.bulkInsert('kata', records, {}),

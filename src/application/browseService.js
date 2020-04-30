@@ -1,4 +1,4 @@
-const createListKataService = (kataRepo) => ({
+const createBrowseService = (kataRepo) => ({
   getAll() {
     return kataRepo.allKatas();
   },
@@ -7,4 +7,4 @@ const createListKataService = (kataRepo) => ({
   },
 });
 
-export default createListKataService;
+export default createBrowseService;

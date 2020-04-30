@@ -5,9 +5,12 @@ import tagDto from '../../../application/dtos/tag';
 import kataDto, { kataDtoKeys } from '../../../application/dtos/kata';
 
 const parseTagDtoFromDbModel = R.compose(tagDto, R.prop('tag'));
-const parseKataTags = R.over(R.lensProp('tags'), R.map(parseTagDtoFromDbModel));
+const parseKataTags = R.over(
+  R.lensProp('tags'),
+  R.compose(R.map(parseTagDtoFromDbModel), R.defaultTo([]))
+);
 const removeKataTags = R.set(R.lensProp('tags'), []);
-const filterKataValidKeys = R.pick(kataDtoKeys);
+const filterKataValidKeys = R.pickAll(kataDtoKeys);
 const parseKataDtoFromDbModel = R.compose(
   kataDto,
   parseKataTags,

@@ -1,7 +1,7 @@
-import createListKataService from './listKataService';
+import createBrowseService from './browseService';
 
 const createApp = ({ kataRepo }) => ({
-  kataService: createListKataService(kataRepo),
+  browseService: createBrowseService(kataRepo),
 });
 
 export default createApp;

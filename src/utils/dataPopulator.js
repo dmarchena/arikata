@@ -1,5 +1,3 @@
-/* eslint no-underscore-dangle: ["error", { "allow": ["__"] }] */
-
 import * as R from 'ramda';
 
 const appendUniqueFromGenerator = (generateDataModelFn) => (arr) => {
@@ -11,13 +9,14 @@ const appendUniqueFromGenerator = (generateDataModelFn) => (arr) => {
   return appendItem(generateDataModelFn());
 };
 
-const arrayLengthEq = (times) => R.compose(R.equals(times), R.length);
+const arrayLengthEqual = (times) => R.compose(R.equals(times), R.length);
 
-export const uniqPopulator = (generateDataModelFn) => (times) =>
+export const uniqDataPopulator = (generateDataModelFn) => (times) =>
   R.until(
-    arrayLengthEq(times),
+    arrayLengthEqual(times),
     appendUniqueFromGenerator(generateDataModelFn),
     []
   );
 
-export const populator = (generateDataModelFn) => R.times(generateDataModelFn);
+export const dataPopulator = (generateDataModelFn) =>
+  R.times(generateDataModelFn);
