@@ -1,13 +1,14 @@
 import supertest from 'supertest';
-import router from './router';
 import express from 'express';
+import router from './router';
+
 jest.mock('./application');
 
 const server = express();
 server.use(router);
 const request = supertest(server);
 
-describe('API Rest endpoints', () => {
+describe('aPI Rest endpoints', () => {
   it.each([['/katas/'], ['/katas/sample-tag']])(
     'should provide endpoint: %s',
     (url) => {

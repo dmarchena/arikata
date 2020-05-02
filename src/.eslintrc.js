@@ -6,9 +6,11 @@ module.exports = {
   rules: {
     'no-underscore-dangle': ['error', { allow: ['__'] }],
   },
-  overrides: {
-    files: ['*.test.js'],
-    extends: ['plugin:jest/all'],
-    rules: { 'jest/require-to-throw-message': 'warn' },
-  },
+  overrides: [
+    {
+      files: ['*.test.js'],
+      extends: ['plugin:jest/all'],
+      rules: { 'jest/require-to-throw-message': 'warn' },
+    },
+  ],
 };

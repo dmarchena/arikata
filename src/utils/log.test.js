@@ -1,6 +1,6 @@
 import { log, logMsg } from './log';
 
-describe('Log', () => {
+describe('log', () => {
   const consoleSpy = jest.spyOn(global.console, 'log');
 
   it('should log', () => {
@@ -16,7 +16,7 @@ describe('Log', () => {
   });
 });
 
-describe('LogMsg', () => {
+describe('logMsg', () => {
   const consoleSpy = jest.spyOn(global.console, 'log');
   const logResult = logMsg('Result: ');
 

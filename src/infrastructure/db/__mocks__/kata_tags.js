@@ -1,4 +1,3 @@
-import { commerce } from 'faker';
 import { tagId } from '../models/tag';
 
 const data = {

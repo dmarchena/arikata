@@ -20,12 +20,9 @@ describe('encryption', () => {
     const pass = 'qwerty1234';
     const encoded1 = encryption.encryptPassword(pass);
     const encoded2 = encryption.encryptPassword(pass);
-    expect(encryption.comparePassword(pass, encoded1)).toBeTruthy();
-    expect(encryption.comparePassword(pass, encoded2)).toBeTruthy();
+    expect(encryption.comparePassword(pass, encoded1)).toBe(true);
+    expect(encryption.comparePassword(pass, encoded2)).toBe(true);
     expect(encoded1).not.toStrictEqual(encoded2);
-    expect(
-      encryption.comparePassword('newQwerty4321', encoded1)
-    ).not.toBeTruthy();
+    expect(encryption.comparePassword('newQwerty4321', encoded1)).toBe(false);
   });
-  it;
 });

@@ -1,6 +1,6 @@
+import mockAxios from 'jest-mock-axios';
 import apiRepo from './api/kata';
 import dbRepo from './db/kata';
-import mockAxios from 'jest-mock-axios';
 
 jest.mock('../db');
 
@@ -8,14 +8,15 @@ describe.each([
   [{ type: 'api', repo: apiRepo }],
   [{ type: 'db', repo: dbRepo }],
 ])('KataRepo (global)', ({ type, repo }) => {
-  describe(type, () => {
+  describe(`${type}`, () => {
     it('should be a Kata repository', () => {
+      expect.assertions(1);
       expect(repo).toBeKataRepo();
     });
   });
 });
 
-describe('KataRepo (api)', () => {
+describe('kataRepo (api)', () => {
   it('should request all katas', () => {
     expect.hasAssertions();
     apiRepo.allKatas();
@@ -28,15 +29,15 @@ describe('KataRepo (api)', () => {
   });
 });
 
-describe('KataRepo (db)', () => {
+describe('kataRepo (db)', () => {
   it('should request all katas', async () => {
     expect.assertions(2);
-    await expect(dbRepo.allKatas()).resolves.toBeArray();
-    await expect(dbRepo.allKatas()).resolves.not.toBeEmpty();
+    expect(await dbRepo.allKatas()).toBeArray();
+    expect(await dbRepo.allKatas()).not.toBeEmpty();
   });
   it('should request katas by tag', async () => {
     expect.assertions(1);
-    await expect(dbRepo.katasOfTag('test')).resolves.toBeArray();
+    expect(await dbRepo.katasOfTag('test')).toBeArray();
     /*
     TODO: Sequelize-mock does not support association query via include
     await expect(dbRepo.katasOfTag('test')).resolves.not.toBeEmpty();

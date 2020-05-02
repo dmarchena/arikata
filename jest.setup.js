@@ -1,5 +1,5 @@
 /* globals expect */
-import { matcherHint, printExpected, printReceived } from 'jest-matcher-utils';
+import { matcherHint, printReceived } from 'jest-matcher-utils';
 import * as R from 'ramda';
 
 const buildMessage = (matcherName, message) => (
@@ -9,7 +9,7 @@ const buildMessage = (matcherName, message) => (
 ${message}. Received:
   ${printReceived(received)}`;
 
-const buildMessageWithExpected = (matcherName, message) => (
+/* const buildMessageWithExpected = (matcherName, message) => (
   received,
   expected
 ) => () => `${matcherHint(matcherName, 'received', '')}
@@ -17,7 +17,7 @@ const buildMessageWithExpected = (matcherName, message) => (
 ${message}:
   ${printExpected(expected)}
 Received:
-  ${printReceived(received)}`;
+  ${printReceived(received)}`; */
 
 const makeToBeMatcher = (matcherName, predicate, expectedTypeName) => {
   const passMessage = buildMessage(

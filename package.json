@@ -26,8 +26,8 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
     "@babel/register": "^7.9.0",
     "@vue/test-utils": "^1.0.0-beta.33",
     "autoprefixer": "^9.7.6",
@@ -49,8 +49,8 @@
     "eslint-plugin-vue": "^6.2.2",
     "eslint-plugin-vue-a11y": "^0.0.31",
     "html-loader": "^1.1.0",
-    "html-webpack-plugin": "^4.2.1",
-    "jest": "^25.5.1",
+    "html-webpack-plugin": "^4.3.0",
+    "jest": "^25.5.4",
     "jest-extended": "^0.11.5",
     "jest-matcher-utils": "^25.5.0",
     "jest-matcher-vue-test-utils": "^2.0.0",
@@ -75,9 +75,9 @@
     "stylelint-order": "^4.0.0",
     "stylelint-prettier": "^1.1.2",
     "supertest": "^4.0.2",
-    "terser-webpack-plugin": "^2.3.6",
+    "terser-webpack-plugin": "^3.0.0",
     "vue-jest": "^3.0.5",
-    "vue-loader": "^15.9.1",
+    "vue-loader": "^15.9.2",
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.43.0",
     "webpack-bundle-analyzer": "^3.7.0",
@@ -102,7 +102,7 @@
     "ramda": "^0.27.0",
     "regenerator-runtime": "^0.13.5",
     "sequelize": "^5.21.7",
-    "uuid": "^7.0.3",
+    "uuid": "^8.0.0",
     "vue": "^2.6.11",
     "vue-codemirror": "^4.0.6"
   }

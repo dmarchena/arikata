@@ -14,10 +14,11 @@ describe('VKataList', () => {
     expect(wrapper.isVueInstance()).toBeTruthy();
   });
 
-  it('should render a list of katas', async () => {
+  it('should render a list of katas', () => {
     const wrapper = shallowMount(VKataList);
     expect.hasAssertions();
-    await Vue.nextTick();
-    expect(wrapper.findAll('li').length).toBeGreaterThan(0);
+    return Vue.nextTick().then(() =>
+      expect(wrapper.findAll('li').length).toBeGreaterThan(0)
+    );
   });
 });

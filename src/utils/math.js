@@ -1,5 +1,4 @@
 import * as R from 'ramda';
-import log from './log';
 
 export const multiplyByRandom = (num) => R.multiply(Math.random(), num);
 

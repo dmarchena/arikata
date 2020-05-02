@@ -1,4 +1,4 @@
-import { randomNaturalWithZero, randomInt } from '../../src/utils/math';
+import { randomNaturalWithZero, randomInt } from "./math";
 
 describe('math:randomNaturalWithZero', () => {
   it('should return a natural number', () => {
