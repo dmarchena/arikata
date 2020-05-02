@@ -1,9 +1,10 @@
 <template>
   <button
-    @click="runCode"
-    @keydown="runCode"
+    @click="run"
+    @keydown.enter="run"
+    @keydown.space="run"
   >
-    Run
+    <slot>Run</slot>
     <iframe
       v-if="sandbox.running"
       :src="iframeSrc"
@@ -29,12 +30,19 @@ const messages = {
       {
         type: 'log',
         data: data
-          .map(i =>
+          .map((i) =>
             Object.prototype.toString.call(i) === '[object Object]'
               ? JSON.stringify(i, null, 2)
               : i
           )
           .join(', '),
+      },
+      '*'
+    ),
+  end: () =>
+    parent.postMessage(
+      {
+        type: 'end',
       },
       '*'
     ),
@@ -46,7 +54,7 @@ const messages = {
       },
       '*'
     ),
-  notAllowed: callee =>
+  notAllowed: (callee) =>
     parent.postMessage(
       {
         type: 'error',
@@ -85,7 +93,7 @@ const forbiddenGlobals = {
   eval: () => forbidden('eval'),
   execScript: () => forbidden('execScript'),
   // function: () => forbidden('function'),
-  Function: () => (forbidden('Function'), function() {}),
+  Function: () => (forbidden('Function'), function () {}),
   open: () => forbidden('open'),
   setInterval: () => forbidden('setInterval'),
   setTimeout: () => forbidden('setTimeout'),
@@ -136,6 +144,7 @@ const sandboxIframeGlobals = {
     warn: messages.log,
     error: messages.error,
   },
+  sandboxCodeExecuted: messages.end,
 };
 
 const sandboxInitJs = extend('window', sandboxIframeGlobals).replace(
@@ -144,7 +153,7 @@ const sandboxInitJs = extend('window', sandboxIframeGlobals).replace(
 );
 
 export default {
-  name: 'RunCode',
+  name: 'VCodeRunner',
   props: {
     code: {
       type: String,
@@ -154,9 +163,17 @@ export default {
   data() {
     return {
       sandbox: {
-        callback: e => {
+        console: (e) => {
           // console[e.data.type](e.data.data);
-          this.$emit('log', e.data.data);
+          const { type, data } = e.data;
+          if (type === 'log' || type === 'error') {
+            this.$emit('log', data);
+          }
+        },
+        codeExecuted: (e) => {
+          if (e.data.type === 'end') {
+            this.$_sandboxStop();
+          }
         },
         running: false,
         useBase64: false,
@@ -176,6 +193,9 @@ export default {
             catch(err) {
               console.error(err);
             }
+            finally {
+              sandboxCodeExecuted();
+            }
           }());
         <\/script>
       `;
@@ -193,18 +213,20 @@ export default {
   },
 
   methods: {
-    runCode() {
+    run() {
       this.$_sandboxStop();
       this.$nextTick().then(() => this.$_sandboxRun());
     },
 
     $_sandboxRun() {
-      window.addEventListener('message', this.sandbox.callback);
+      window.addEventListener('message', this.sandbox.codeExecuted);
+      window.addEventListener('message', this.sandbox.console);
       this.sandbox.running = true;
     },
 
     $_sandboxStop() {
-      window.removeEventListener('message', this.sandbox.callback);
+      window.removeEventListener('message', this.sandbox.codeExecuted);
+      window.removeEventListener('message', this.sandbox.console);
       this.sandbox.running = false;
     },
   },

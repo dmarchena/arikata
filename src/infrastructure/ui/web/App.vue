@@ -2,20 +2,20 @@
   <div id="app">
     Hello TFG
     <VKataList />
-    <CodeEditor />
+    <VKataAdmin />
   </div>
 </template>
 
 <script>
 import VKataList from './components/VKataList';
-import CodeEditor from '@/components/CodeEditor.vue';
+import VKataAdmin from './components/VKataAdmin';
 
 export default {
   name: 'App',
 
   components: {
     VKataList,
-    CodeEditor,
+    VKataAdmin,
   },
 };
 </script>

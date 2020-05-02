@@ -12,6 +12,7 @@
     "build:server": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.server.js",
     "build:server:dev": "cross-env NODE_ENV=development webpack --config webpack/webpack.config.server.js",
     "clean": "rm -rf ./dist",
+    "coverage": "jest --coverage",
     "db:migrate": "cross-env NODE_ENV=localhost npx sequelize-cli db:migrate",
     "db:migrate:undo": "cross-env NODE_ENV=localhost npx sequelize-cli db:migrate:undo:all",
     "db:seed": "cross-env NODE_ENV=localhost npx sequelize-cli db:seed:all",

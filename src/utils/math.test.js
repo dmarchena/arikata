@@ -1,4 +1,4 @@
-import { randomNaturalWithZero, randomInt } from "./math";
+import { randomNaturalWithZero, randomInt } from './math';
 
 describe('math:randomNaturalWithZero', () => {
   it('should return a natural number', () => {
@@ -14,7 +14,7 @@ describe('math:randomNaturalWithZero', () => {
 describe('math:randomInt', () => {
   it('should return a integer number', () => {
     expect.assertions(3);
-    expect(randomInt(-10)(-1)).toBeLessThan(0);
+    expect(randomInt()(-1)).toBeLessThan(0);
     expect(randomInt(1)(10)).toBeGreaterThan(0);
     expect(randomInt(1)(1)).toBe(1);
   });

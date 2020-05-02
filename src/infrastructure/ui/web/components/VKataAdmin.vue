@@ -1,29 +1,30 @@
 <template>
   <div id="app">
-    <codemirror
-      v-model="code"
-      :options="codemirrorOptions"
-    />
-    <CodeRunner
+    <VCodeEditor v-model="code" />
+    <VCodeRunner
       :code="code"
       @log="log"
     >
       RUN
-    </CodeRunner>
+    </VCodeRunner>
     <button
       @click="clearConsole"
-      @keydown="clearConsole"
+      @keydown.enter="clearConsole"
+      @keydown.space="clearConsole"
     >
       Clear console
     </button>
-    <pre>{{ console.join('\r\n') }}</pre>
+    <VConsole />
   </div>
 </template>
 
 <script>
 import 'codemirror/mode/javascript/javascript.js';
 import { codemirror } from 'vue-codemirror';
-import CodeRunner from '@/components/CodeRunner';
+import { publish, events } from '../event-bus';
+import VCodeEditor from './VCodeEditor';
+import VCodeRunner from './VCodeRunner';
+import VConsole from './VConsole';
 
 const sampleCode = `const A = 10;
 console.log(A);
@@ -44,44 +45,26 @@ setTimeout(function () { console.log(this, window); }, 100);
 `;
 
 export default {
-  name: 'CodeEditor',
+  name: 'VKataAdmin',
+
   components: {
-    codemirror,
-    CodeRunner,
+    VCodeEditor,
+    VCodeRunner,
+    VConsole,
   },
+
   data() {
     return {
       code: sampleCode,
-      console: [],
-      codemirrorOptions: {
-        tabSize: 4,
-        styleActiveLine: true,
-        lineNumbers: true,
-        line: true,
-        foldGutter: true,
-        styleSelectedText: true,
-        mode: 'text/javascript',
-        matchBrackets: true,
-        showCursorWhenSelecting: true,
-        theme: 'monokai',
-        extraKeys: { Ctrl: 'autocomplete' },
-        hintOptions: {
-          completeSingle: false,
-        },
-      },
     };
   },
-  computed: {
-    codemirror() {
-      return this.$refs.myCm.codemirror;
-    },
-  },
+
   methods: {
     log(data) {
-      this.console.push(data);
+      publish(events.CONSOLE_LOG, data);
     },
     clearConsole() {
-      this.console = [];
+      publish(events.CONSOLE_CLEAR);
     },
   },
 };
