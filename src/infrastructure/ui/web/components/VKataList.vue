@@ -6,10 +6,11 @@
     >
       All
     </button>
-    <ul>
+    <ul class="katalist__list">
       <li
         v-for="kata in katas"
         :key="kata.id"
+        class="katalist__list-item"
       >
         {{ kata.name }}
         <ul>
@@ -46,12 +47,12 @@ export default {
 
   methods: {
     filterByTag(tag) {
-      app.kataService
+      app.browseService
         .getAllKatasWithTag(tag)
         .then((data) => (this.katas = data));
     },
     listAll() {
-      app.kataService.getAll().then((data) => (this.katas = data));
+      app.browseService.getAll().then((data) => (this.katas = data));
     },
   },
 };

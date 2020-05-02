@@ -1,5 +1,5 @@
 import { random, internet } from 'faker';
-import { populator } from '../populator';
+import { dataPopulator } from '../../../../utils/dataPopulator';
 
 const numUsers = 10;
 
@@ -10,7 +10,7 @@ const fakeUser = () => ({
   roleId: random.number(),
 });
 
-const populateTable = populator(fakeUser);
+const populateTable = dataPopulator(fakeUser);
 
 export default {
   up: (queryInterface) =>

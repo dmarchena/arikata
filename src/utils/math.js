@@ -1,14 +1,14 @@
-import { compose, add, multiply, subtract, __, defaultTo } from 'ramda';
+import * as R from 'ramda';
 
-export const multiplyByRandom = (num) => multiply(Math.random(), num);
+export const multiplyByRandom = (num) => R.multiply(Math.random(), num);
 
-export const randomInt = (min) =>
-  compose(
-    add(min),
+export const randomInt = (min = Number.MIN_VALUE) =>
+  R.compose(
+    R.add(min),
     Math.floor,
     multiplyByRandom,
-    subtract(__, min),
-    defaultTo(Number.MAX_SAFE_INTEGER)
+    R.subtract(R.__, min),
+    (max = Number.MAX_VALUE - min) => max
   );
 
 export const randomNaturalWithZero = randomInt(0);

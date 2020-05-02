@@ -2,22 +2,24 @@
 import faker from 'faker';
 import kata from '../../../domain/kata';
 import createKataRepo from '../../../application/factories/repos/kata';
+import { dataPopulator, uniqDataPopulator } from '../../../utils/dataPopulator';
+import { randomNaturalWithZero } from '../../../utils/math';
 
-const katas = [...Array(10)].map(() =>
-  kata(null, {
+const populateTags = uniqDataPopulator(() => faker.commerce.productAdjective());
+
+const generateKata = () =>
+  kata(undefined, {
     details: faker.lorem.paragraphs(3),
     name: faker.company.catchPhrase(),
-    tags: [
-      faker.commerce.productAdjective(),
-      faker.commerce.productAdjective(),
-    ],
-  })
-);
+    tags: populateTags(randomNaturalWithZero(4)),
+  });
+
+const katas = dataPopulator(generateKata)(10);
 
 const allKatas = () => Promise.resolve(katas);
 
 const katasOfTag = (tag) =>
-  Promise.resolve(katas.filter((k) => k.isTaggedAs(tag)));
+  Promise.resolve(katas.filter((k) => k.tags.includes(tag)));
 
 const save = (kataDto) => {
   katas.push(kataDto);

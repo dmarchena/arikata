@@ -1,6 +1,14 @@
-export const kataDtoKeys = ['details', 'name', 'code', 'test', 'tags'];
+export const kataDtoKeys = ['id', 'details', 'name', 'code', 'test', 'tags'];
 
-const kataDto = ({ details, name, code, test, tags = [] }) => ({
+const kataDto = ({
+  id = '',
+  details = '',
+  name = '',
+  code = '',
+  test = '',
+  tags = [],
+}) => ({
+  id,
   details,
   name,
   code,

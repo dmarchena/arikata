@@ -1,8 +1,10 @@
-import tagDto from './tag';
+/* eslint-disable import/prefer-default-export */
+import * as R from 'ramda';
+import tagDto from '../dtos/tag';
+import kataDto, { kataDtoKeys } from '../dtos/kata';
 
-const kataDto = (kataModel) => {
-  const { details, name, code, test, tags = [] } = kataModel;
-  return { details, name, code, test, tags: tagDto(tags) };
-};
-
-export default kataDto;
+export const toKataDto = R.compose(
+  kataDto,
+  R.over(R.lensProp('tags'), R.compose(R.map(tagDto), R.defaultTo([]))),
+  R.pickAll(kataDtoKeys)
+);
