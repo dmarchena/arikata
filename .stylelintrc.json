@@ -1,9 +1,9 @@
 {
   "extends": [
-    "stylelint-prettier/recommended",
-    "stylelint-a11y/recommended",
     "stylelint-config-standard",
-    "stylelint-config-rational-order"
+    "stylelint-a11y/recommended",
+    "stylelint-config-rational-order",
+    "stylelint-prettier/recommended"
   ],
   "plugins": [
     "stylelint-prettier",
