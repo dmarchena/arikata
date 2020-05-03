@@ -11,7 +11,7 @@ describe('VKataList', () => {
   it('should render', () => {
     const wrapper = shallowMount(VKataList);
     expect.hasAssertions();
-    expect(wrapper.isVueInstance()).toBeTruthy();
+    expect(wrapper.isVueInstance()).toBe(true);
   });
 
   it('should render a list of katas', () => {
