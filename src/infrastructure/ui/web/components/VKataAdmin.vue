@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <VCodeEditor v-model="code" />
+    <VCodeEditor v-model="test" />
     <VCodeRunner
       :code="code"
+      :test="test"
       @log="log"
     >
       RUN
@@ -26,7 +28,7 @@ import VCodeEditor from './VCodeEditor';
 import VCodeRunner from './VCodeRunner';
 import VConsole from './VConsole';
 
-const sampleCode = `const A = 10;
+const testCode = `const A = 10;
 console.log(A);
 alert("hi!");
 eval("console.log(A)");
@@ -44,6 +46,11 @@ console.log(this, window, self, top, frames, document, parent, document.defaultV
 setTimeout(function () { console.log(this, window); }, 100);
 `;
 
+const sampleCode = `const add = (a, b) => a + b;
+const mul = (a, b) => a * b;`;
+const sampleTest = `it('should add', () => expect(add(1,2)).to.be.equal(3));
+it('should mul', () => expect(mul(1,2)).to.be.equal(2));`;
+
 export default {
   name: 'VKataAdmin',
 
@@ -56,6 +63,7 @@ export default {
   data() {
     return {
       code: sampleCode,
+      test: sampleTest,
     };
   },
 

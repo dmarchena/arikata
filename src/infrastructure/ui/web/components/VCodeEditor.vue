@@ -1,14 +1,19 @@
 <template>
   <codemirror
-    v-model="value"
+    v-model="code"
     class="code-editor"
     :options="codemirrorOptions"
   />
 </template>
 
 <script>
-import 'codemirror/mode/javascript/javascript.js';
 import { codemirror } from 'vue-codemirror';
+import 'codemirror/mode/javascript/javascript.js';
+import 'codemirror/addon/edit/closebrackets.js';
+import 'codemirror/addon/edit/matchbrackets.js';
+import 'codemirror/addon/hint/show-hint.js';
+import 'codemirror/addon/hint/javascript-hint.js';
+import 'codemirror/addon/selection/active-line.js';
 
 export default {
   name: 'VCodeEditor',
@@ -31,17 +36,20 @@ export default {
 
   data() {
     return {
+      code: this.value,
       codemirrorOptions: {
-        tabSize: 4,
+        tabSize: 2,
+        indentUnit: 2,
         styleActiveLine: true,
-        lineNumbers: true,
         line: true,
+        lineNumbers: true,
+        lineWiseCopyCut: true,
         foldGutter: true,
         styleSelectedText: true,
         mode: 'text/javascript',
         matchBrackets: true,
         showCursorWhenSelecting: true,
-        theme: 'monokai',
+        theme: 'pastel-on-dark',
         extraKeys: { Ctrl: 'autocomplete' },
         hintOptions: {
           completeSingle: false,
@@ -51,8 +59,8 @@ export default {
   },
 
   watch: {
-    value() {
-      this.$emit('input', this.value);
+    code() {
+      this.$emit('input', this.code);
     },
   },
 };

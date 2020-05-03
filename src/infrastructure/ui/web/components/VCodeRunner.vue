@@ -24,6 +24,11 @@
 </template>
 
 <script>
+// import testIt from 'test_it';
+// import test from '../test-runner';
+import chai from 'chai';
+import testRunner from '../test-runner';
+
 const messages = {
   log: (...data) =>
     parent.postMessage(
@@ -145,6 +150,9 @@ const sandboxIframeGlobals = {
     error: messages.error,
   },
   sandboxCodeExecuted: messages.end,
+  testRunner,
+  it: testRunner.it,
+  test: testRunner.test,
 };
 
 const sandboxInitJs = extend('window', sandboxIframeGlobals).replace(
@@ -156,6 +164,10 @@ export default {
   name: 'VCodeRunner',
   props: {
     code: {
+      type: String,
+      default: '',
+    },
+    test: {
       type: String,
       default: '',
     },
@@ -184,11 +196,17 @@ export default {
   computed: {
     iframeSrc() {
       let iframeContent = `,
+        <script src="http://chaijs.com/chai.js"><\/script>
         <script>
+          ${sandboxInitJs}
+          const expect = chai.expect;
+          const assert = chai.assert;
           (function () {
-            ${sandboxInitJs}
             try {
               ${this.code}
+              testRunner.reset();
+              ${this.test}
+              testRunner.run();
             }
             catch(err) {
               console.error(err);
