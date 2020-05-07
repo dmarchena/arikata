@@ -1,9 +1,6 @@
 /* globals expect */
 import { matcherHint, printReceived } from 'jest-matcher-utils';
-import vueTestUtilMatchers from 'jest-matcher-vue-test-utils';
 import * as R from 'ramda';
-
-expect.extend({ ...vueTestUtilMatchers });
 
 const buildMessage = (matcherName, message) => (
   received

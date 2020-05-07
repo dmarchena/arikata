@@ -1,8 +1,12 @@
 <template>
   <div id="app">
-    Hello TFG
-    <VKataList />
-    <VKataAdmin />
+    <header>
+      <h1>Arikata</h1>
+    </header>
+    <main>
+      <VKataList />
+      <VKataAdmin />
+    </main>
   </div>
 </template>
 

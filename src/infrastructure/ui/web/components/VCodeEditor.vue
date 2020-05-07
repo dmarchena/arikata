@@ -1,7 +1,7 @@
 <template>
   <codemirror
     v-model="code"
-    class="code-editor"
+    class="v-code-editor"
     :options="codemirrorOptions"
   />
 </template>

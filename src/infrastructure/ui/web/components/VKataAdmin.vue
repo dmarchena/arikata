@@ -1,5 +1,11 @@
 <template>
-  <div id="app">
+  <form class="form">
+    <VFieldText v-model="name">
+      Kata name
+    </VFieldText>
+    <VFieldTextarea v-model="details">
+      Detailed info about Kata
+    </VFieldTextarea>
     <VCodeEditor v-model="code" />
     <VCodeEditor v-model="test" />
     <VCodeRunner
@@ -17,7 +23,7 @@
       Clear console
     </button>
     <VConsole />
-  </div>
+  </form>
 </template>
 
 <script>
@@ -27,6 +33,8 @@ import { publish, events } from '../event-bus';
 import VCodeEditor from './VCodeEditor';
 import VCodeRunner from './VCodeRunner';
 import VConsole from './VConsole';
+import VFieldText from './forms/VFieldText';
+import VFieldTextarea from './forms/VFieldTextarea';
 
 const testCode = `const A = 10;
 console.log(A);
@@ -58,10 +66,13 @@ export default {
     VCodeEditor,
     VCodeRunner,
     VConsole,
+    VFieldText,
+    VFieldTextarea,
   },
 
   data() {
     return {
+      name: '',
       code: sampleCode,
       test: sampleTest,
     };

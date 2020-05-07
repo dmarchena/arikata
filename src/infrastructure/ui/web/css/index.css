@@ -1,17 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&display=swap');
-@import 'codemirror/lib/codemirror.css';
-@import 'codemirror/theme/pastel-on-dark.css';
-
-body {
-  font-family: system-ui;
-  background-color: ghostwhite;
-}
-
-pre,
-.CodeMirror {
-  font-family: 'Roboto Mono', monospace;
-}
-
-.code-editor {
-  font-size: 1em;
-}
+@import './vendors';
+@import './abstracts';
+@import './base';
+@import './layout';
+@import './components';
