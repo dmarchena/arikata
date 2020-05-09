@@ -55,6 +55,7 @@
     "jest-extended": "^0.11.5",
     "jest-matcher-utils": "^25.5.0",
     "jest-mock-axios": "^4.0.0",
+    "jest-silent-reporter": "^0.2.1",
     "jest-tap-reporter": "^1.9.0",
     "jsdom": "^16.2.2",
     "mini-css-extract-plugin": "^0.9.0",
@@ -108,8 +109,10 @@
     "regenerator-runtime": "^0.13.5",
     "sanitize.css": "^11.0.0",
     "sequelize": "^5.21.7",
+    "statuses": "^2.0.0",
     "uuid": "^8.0.0",
     "vue": "^2.6.11",
-    "vue-codemirror": "^4.0.6"
+    "vue-codemirror": "^4.0.6",
+    "vue-multiselect": "^2.1.6"
   }
 }

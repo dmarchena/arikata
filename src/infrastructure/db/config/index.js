@@ -1,4 +1,5 @@
 require('dotenv-flow').config();
+const config = require('../../../config.json');
 
 const {
   DATABASE_USER: username,
@@ -9,11 +10,7 @@ const {
   DATABASE_PORT: port,
 } = process.env;
 
-const uuidNamespaces = {
-  tag: 'dffd62cd-3684-4703-914c-731c8729c0c0',
-};
-
-const config = {
+const dbconfig = {
   localhost: {
     username,
     password,
@@ -21,7 +18,7 @@ const config = {
     host,
     port,
     dialect,
-    uuidNamespaces,
+    uuidNamespaces: config.uuidNamespaces,
   },
   development: {
     username,
@@ -30,7 +27,7 @@ const config = {
     host,
     port,
     dialect,
-    uuidNamespaces,
+    uuidNamespaces: config.uuidNamespaces,
   },
   test: {
     username,
@@ -39,7 +36,7 @@ const config = {
     host,
     port,
     dialect,
-    uuidNamespaces,
+    uuidNamespaces: config.uuidNamespaces,
   },
   production: {
     username,
@@ -48,10 +45,10 @@ const config = {
     host,
     port,
     dialect,
-    uuidNamespaces,
+    uuidNamespaces: config.uuidNamespaces,
   },
 };
 
 const env = process.env.NODE_ENV || 'development';
 
-module.exports = config[env];
+module.exports = dbconfig[env];

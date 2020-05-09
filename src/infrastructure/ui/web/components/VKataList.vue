@@ -46,13 +46,11 @@ export default {
   },
 
   methods: {
-    filterByTag(tag) {
-      app.browseService
-        .getAllKatasWithTag(tag)
-        .then((data) => (this.katas = data));
+    async filterByTag(tag) {
+      this.katas = await app.browseService.getAllKatasWithTag(tag);
     },
-    listAll() {
-      app.browseService.getAll().then((data) => (this.katas = data));
+    async listAll() {
+      this.katas = await app.browseService.getAll();
     },
   },
 };

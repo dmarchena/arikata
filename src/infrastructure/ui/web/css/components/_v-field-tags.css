@@ -1,0 +1,21 @@
+.multiselect__tag {
+  background-color: var(--color-secondary);
+}
+
+.multiselect__tag-icon::after {
+  color: currentColor;
+}
+
+.multiselect__tag-icon:focus,
+.multiselect__tag-icon:hover {
+  background-color: var(--color-light-stale-grey);
+}
+
+.multiselect__option--highlight {
+  background-color: var(--color-secondary);
+}
+
+.multiselect__option--highlight::after {
+  color: black;
+  background-color: var(--color-primary);
+}

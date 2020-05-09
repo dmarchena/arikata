@@ -21,9 +21,9 @@ const allKatas = () => Promise.resolve(katas);
 const katasOfTag = (tag) =>
   Promise.resolve(katas.filter((k) => k.tags.includes(tag)));
 
-const save = (kataDto) => {
-  katas.push(kataDto);
-  return Promise.resolve(katas);
+const save = (kataEntity) => {
+  katas.push(kataEntity);
+  return Promise.resolve(kataEntity);
 };
 
 const kataRepo = createKataRepo(allKatas, katasOfTag, save);

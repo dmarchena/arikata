@@ -22,6 +22,7 @@ describe('kataRepo (api)', () => {
     apiRepo.allKatas();
     expect(mockAxios.get).toHaveBeenCalledWith('/api/katas/');
   });
+
   it('should request katas by tag', () => {
     expect.hasAssertions();
     apiRepo.katasOfTag('newbie');
@@ -35,6 +36,7 @@ describe('kataRepo (db)', () => {
     expect(await dbRepo.allKatas()).toBeArray();
     expect(await dbRepo.allKatas()).not.toBeEmpty();
   });
+
   it('should request katas by tag', async () => {
     expect.assertions(1);
     expect(await dbRepo.katasOfTag('test')).toBeArray();
@@ -44,5 +46,14 @@ describe('kataRepo (db)', () => {
     await expect(dbRepo.katasOfTag('wontFind')).resolves.toBeArray();
     await expect(dbRepo.katasOfTag('wontFind')).resolves.toBeEmpty();
     */
+  });
+
+  /*
+  it seems that Sequelize-mock does not support creation with association
+  */
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip('should save katas', async () => {
+    expect.assertions(1);
+    expect(await dbRepo.save(mockKataEntity())).toBeKataEntity();
   });
 });

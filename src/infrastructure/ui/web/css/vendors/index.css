@@ -1,1 +1,2 @@
-@import './_codemirror.css'
+@import './_codemirror.css';
+@import 'vue-multiselect/dist/vue-multiselect.min.css';

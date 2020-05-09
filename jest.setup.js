@@ -1,6 +1,28 @@
 /* globals expect */
 import { matcherHint, printReceived } from 'jest-matcher-utils';
 import * as R from 'ramda';
+import { v4, v5 } from 'uuid';
+import configJson from './src/config.json';
+
+global.mockKataDto = () => ({
+  id: v4(),
+  name: 'test-name',
+  details: 'test-details',
+  code: 'const code = true',
+  test: '// tests',
+  tags: ['new', 'perf'],
+});
+
+global.mockKataEntity = () => {
+  const dto = global.mockKataDto();
+  return {
+    ...dto,
+    tags: dto.tags.map((t) => ({
+      id: v5(t, configJson.uuidNamespaces.tag),
+      tag: t,
+    })),
+  };
+};
 
 const buildMessage = (matcherName, message) => (
   received
@@ -52,8 +74,9 @@ expect.extend({
     R.both(
       R.where({
         browseService: isApplicationService,
+        manageKataService: isApplicationService,
       }),
-      R.compose(R.equals(1), R.length, R.keys)
+      R.compose(R.equals(2), R.length, R.keys)
     ),
     'Application with injected dependencies'
   ),
@@ -66,16 +89,39 @@ expect.extend({
     'toBeKataDto',
     R.both(
       R.where({
+        id: R.either(R.isNil, R.is(String)),
+        details: R.is(String),
+        name: R.is(String),
+        code: R.is(String),
+        test: R.is(String),
+        tags: R.both(R.is(Array), R.all(R.is(String))),
+      }),
+      R.compose(R.equals(6), R.length, R.keys)
+    ),
+    'kata DTO'
+  ),
+  toBeKataEntity: makeToBeMatcher(
+    'toBeKataEntity',
+    R.both(
+      R.where({
         id: R.is(String),
         details: R.is(String),
         name: R.is(String),
         code: R.is(String),
         test: R.is(String),
-        tags: R.is(Array),
+        tags: R.both(
+          R.is(Array),
+          R.all(
+            R.where({
+              id: R.is(String),
+              tag: R.is(String),
+            })
+          )
+        ),
       }),
       R.compose(R.equals(6), R.length, R.keys)
     ),
-    'kata DTO'
+    'kata entity'
   ),
   toBeKataRepo: makeToBeMatcher(
     'toBeKataRepo',

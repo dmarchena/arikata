@@ -1,14 +1,14 @@
-import { toKataDto } from './kata';
+import kataTransformer from './kataTransformer';
 
 describe('kata transform to DTO', () => {
   it('should return an object', () => {
     expect.assertions(1);
-    expect(toKataDto({})).toStrictEqual(expect.any(Object));
+    expect(kataTransformer.toKataDto({})).toStrictEqual(expect.any(Object));
   });
 
   it('should return a kata DTO', () => {
     expect.assertions(1);
-    expect(toKataDto({})).toBeKataDto();
+    expect(kataTransformer.toKataDto({})).toBeKataDto();
   });
 
   it('should return valid kata DTO', () => {
@@ -18,10 +18,13 @@ describe('kata transform to DTO', () => {
       details: 'Mocked kata details',
       code: 'console.log("Hello World!")',
       test: 'spec code',
-      tags: ['first', 'second'],
+      tags: [
+        { id: '?', tag: 'first' },
+        { id: '?', tag: 'second' },
+      ],
       save: () => {},
     };
-    const dto = toKataDto(model);
+    const dto = kataTransformer.toKataDto(model);
     expect(dto.name).toBe(model.name);
     expect(dto.details).toBe(model.details);
     expect(dto.test).toBe(model.test);

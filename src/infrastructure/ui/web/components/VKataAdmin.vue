@@ -1,11 +1,30 @@
 <template>
-  <form class="form">
-    <VFieldText v-model="name">
+  <form
+    class="form"
+    action="/api/katas/"
+    method="post"
+    @submit="handleSubmit"
+  >
+    <button type="submit">
+      Save
+    </button>
+    <VFieldText
+      v-model="name"
+      name="name"
+    >
       Kata name
     </VFieldText>
-    <VFieldTextarea v-model="details">
+    <VFieldTags
+      v-model="tags"
+      name="tags"
+    />
+    <VFieldTextarea
+      v-model="details"
+      name="details"
+    >
       Detailed info about Kata
     </VFieldTextarea>
+
     <VCodeEditor v-model="code" />
     <VCodeEditor v-model="test" />
     <VCodeRunner
@@ -27,12 +46,12 @@
 </template>
 
 <script>
-import 'codemirror/mode/javascript/javascript.js';
-import { codemirror } from 'vue-codemirror';
 import { publish, events } from '../event-bus';
+import application from '../application';
 import VCodeEditor from './VCodeEditor';
 import VCodeRunner from './VCodeRunner';
 import VConsole from './VConsole';
+import VFieldTags from './forms/VFieldTags';
 import VFieldText from './forms/VFieldText';
 import VFieldTextarea from './forms/VFieldTextarea';
 
@@ -66,6 +85,7 @@ export default {
     VCodeEditor,
     VCodeRunner,
     VConsole,
+    VFieldTags,
     VFieldText,
     VFieldTextarea,
   },
@@ -73,17 +93,23 @@ export default {
   data() {
     return {
       name: '',
+      details: '',
       code: sampleCode,
       test: sampleTest,
+      tags: [],
     };
   },
 
   methods: {
-    log(data) {
-      publish(events.CONSOLE_LOG, data);
-    },
     clearConsole() {
       publish(events.CONSOLE_CLEAR);
+    },
+    handleSubmit(evt) {
+      evt.preventDefault();
+      application.manageKataService.save(this.$data);
+    },
+    log(data) {
+      publish(events.CONSOLE_LOG, data);
     },
   },
 };

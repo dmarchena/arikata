@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import VKataList from './VKataList';
-import { shallowMount } from '@vue/test-utils';
+import { shallowMount, mount } from '@vue/test-utils';
 import Vue from 'vue';
 
 jest.mock('../application');
@@ -14,11 +14,11 @@ describe('VKataList', () => {
     expect(wrapper.isVueInstance()).toBe(true);
   });
 
-  it('should render a list of katas', () => {
+  it('should render a list of katas', async () => {
     const wrapper = shallowMount(VKataList);
     expect.hasAssertions();
-    return Vue.nextTick().then(() =>
-      expect(wrapper.findAll('li').length).toBeGreaterThan(0)
-    );
+    await Vue.nextTick(); // Load after creation
+    await Vue.nextTick(); // Generate li's
+    expect(wrapper.findAll('li').length).toBeGreaterThan(0);
   });
 });
