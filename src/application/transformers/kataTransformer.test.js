@@ -1,4 +1,4 @@
-import kataTransformer from './kataTransformer';
+import { kataTransformer } from './kataTransformer';
 
 describe('kata transform to DTO', () => {
   it('should return an object', () => {

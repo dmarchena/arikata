@@ -1,28 +1,37 @@
 import createKataRepo from './kata';
 
+const mockRepo = () => ({
+  getAllKatas: jest.fn(),
+  getAllKatasWithTag: jest.fn(),
+  getAllTags: jest.fn(),
+  getKataWithId: jest.fn(),
+  save: jest.fn(),
+  update: jest.fn(),
+});
+
+const mockRepoWithout = (method) => {
+  const mock = mockRepo();
+  delete mock[method];
+  return mock;
+};
+
 describe('kata repository', () => {
   it('should assure that returns an object that implements the interface', () => {
     expect.assertions(1);
-    const mock = jest.fn();
-    expect(createKataRepo(mock, mock, mock)).toStrictEqual(
-      expect.objectContaining({
-        allKatas: expect.any(Function),
-        katasOfTag: expect.any(Function),
-        save: expect.any(Function),
-      })
-    );
+    expect(createKataRepo(mockRepo())).toBeKataRepo();
   });
-  it('should throw an error if some functions are not provided', () => {
-    expect.assertions(3);
-    const mock = jest.fn();
+
+  it.each([
+    ['getAllKatas'],
+    ['getAllTags'],
+    ['getAllKatasWithTag'],
+    ['getKataWithId'],
+    ['save'],
+    ['update'],
+  ])('should throw an error if "%s" function is not provided', (method) => {
+    expect.assertions(1);
     expect(() => {
-      createKataRepo();
-    }).toThrow('function "allKatas" is required for Application Service');
-    expect(() => {
-      createKataRepo(mock);
-    }).toThrow('function "katasOfTag" is required for Application Service');
-    expect(() => {
-      createKataRepo(mock, mock);
-    }).toThrow('function "save" is required for Application Service');
+      createKataRepo(mockRepoWithout(method));
+    }).toThrow(`function "${method}" is required for Application Service`);
   });
 });

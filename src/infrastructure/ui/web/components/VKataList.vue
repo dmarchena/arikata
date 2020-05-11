@@ -1,11 +1,9 @@
 <template>
   <section>
-    <button
-      @click="listAll()"
-      @keydown.enter="listAll()"
-    >
+    <VPageTitle>{{ title }}</VPageTitle>
+    <router-link :to="{ name: 'katas' }">
       All
-    </button>
+    </router-link>
     <ul class="katalist__list">
       <li
         v-for="kata in katas"
@@ -13,17 +11,17 @@
         class="katalist__list-item"
       >
         {{ kata.name }}
+        <router-link :to="{ name: 'editKata', params: { id: kata.id } }">
+          edit
+        </router-link>
         <ul>
           <li
-            v-for="tag in kata.tags"
-            :key="`${kata.id}-${tag}`"
+            v-for="item in kata.tags"
+            :key="`${kata.id}-${item}`"
           >
-            <button
-              @click="filterByTag(tag)"
-              @keydown.enter="filterByTag(tag)"
-            >
-              {{ tag }}
-            </button>
+            <router-link :to="{ name: 'katas', query: { tag: item } }">
+              {{ item }}
+            </router-link>
           </li>
         </ul>
       </li>
@@ -33,24 +31,59 @@
 
 <script>
 import app from '../application';
+import VPageTitle from './VPageTitle.vue';
 
 export default {
   name: 'VKataList',
+
+  components: {
+    VPageTitle,
+  },
+
+  props: {
+    tag: {
+      type: String,
+      default: null,
+    },
+  },
 
   data: () => ({
     katas: [],
   }),
 
+  computed: {
+    title() {
+      return this.tag !== null
+        ? `Katas tagged with ${this.tag}`
+        : 'Available katas';
+    },
+  },
+
+  watch: {
+    tag() {
+      this.listKatas();
+    },
+  },
+
   created() {
-    this.listAll();
+    this.listKatas();
   },
 
   methods: {
-    async filterByTag(tag) {
+    listKatas() {
+      console.log({ tag: this.tag });
+      if (this.tag !== null) {
+        console.log({ tag: this.tag });
+        this.listAllKatasWithTag(this.tag);
+      } else {
+        this.listAllKatas();
+      }
+    },
+    async listAllKatasWithTag(tag) {
       this.katas = await app.browseService.getAllKatasWithTag(tag);
     },
-    async listAll() {
-      this.katas = await app.browseService.getAll();
+    async listAllKatas() {
+      this.katas = await app.browseService.getAllKatas();
     },
   },
 };

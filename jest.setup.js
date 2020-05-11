@@ -1,16 +1,29 @@
 /* globals expect */
+import { createLocalVue } from '@vue/test-utils';
 import { matcherHint, printReceived } from 'jest-matcher-utils';
-import * as R from 'ramda';
 import { v4, v5 } from 'uuid';
+import * as R from 'ramda';
+import VueRouter from 'vue-router';
+
 import configJson from './src/config.json';
 
-global.mockKataDto = () => ({
-  id: v4(),
+global.createCustomLocalVue = () => {
+  const localVue = createLocalVue();
+  localVue.use(VueRouter);
+  return localVue;
+};
+
+global.mockKataData = () => ({
   name: 'test-name',
   details: 'test-details',
   code: 'const code = true',
   test: '// tests',
   tags: ['new', 'perf'],
+});
+
+global.mockKataDto = () => ({
+  ...global.mockKataData(),
+  id: v4(),
 });
 
 global.mockKataEntity = () => {
@@ -127,11 +140,15 @@ expect.extend({
     'toBeKataRepo',
     R.both(
       R.where({
-        allKatas: R.is(Function),
-        katasOfTag: R.is(Function),
+        getAllKatas: R.is(Function),
+        getAllKatasWithTag: R.is(Function),
+        getAllTags: R.is(Function),
+        getKataWithId: R.is(Function),
         save: R.is(Function),
+        transformer: R.is(Object),
+        update: R.is(Function),
       }),
-      R.compose(R.equals(3), R.length, R.keys)
+      R.compose(R.equals(7), R.length, R.keys)
     ),
     'kata repository'
   ),

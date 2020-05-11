@@ -1,9 +1,11 @@
 /**
  * @jest-environment jsdom
  */
-import VKataAdmin from './VKataAdmin';
 import { shallowMount } from '@vue/test-utils';
 import Vue from 'vue';
+
+import VKataAdmin from './VKataAdmin';
+
 jest.mock('../application');
 import application from '../application';
 
@@ -11,32 +13,69 @@ describe('VKataAdmin', () => {
   it('should render', () => {
     const wrapper = shallowMount(VKataAdmin);
     expect.hasAssertions();
-    expect(wrapper.isVueInstance()).toBe(true);
+    expect(wrapper.exists()).toBe(true);
   });
 
-  it('should submit data', async () => {
-    const spy = jest.spyOn(application.manageKataService, 'save');
-    const wrapper = shallowMount(VKataAdmin, {
-      data() {
-        return {
-          name: 'test-name',
-          details: 'test-details',
-          code: 'const code = true',
-          test: '// tests',
-          tags: ['new', 'perf'],
-        };
-      },
+  describe('Save new kata', () => {
+    it('should submit data', async () => {
+      expect.hasAssertions();
+      const spy = jest.spyOn(application.manageKataService, 'save');
+      const wrapper = shallowMount(VKataAdmin, {
+        data() {
+          return mockKataData();
+        },
+      });
+      await wrapper.find('form').trigger('submit');
+      expect(spy).toHaveBeenNthCalledWith(1, mockKataData());
+      spy.mockRestore();
     });
-    expect.hasAssertions();
-    wrapper.find('form').trigger('submit');
-    await Vue.nextTick();
-    expect(spy).toHaveBeenNthCalledWith(1, {
-      name: 'test-name',
-      details: 'test-details',
-      code: 'const code = true',
-      test: '// tests',
-      tags: ['new', 'perf'],
+  });
+
+  describe('Edit a existing kata', () => {
+    let spyGetKata;
+
+    beforeEach(() => {
+      spyGetKata = jest
+        .spyOn(application.manageKataService, 'getKataWithId')
+        .mockImplementation(() => Promise.resolve(mockKataDto()));
     });
-    spy.mockRestore();
+
+    afterEach(() => {
+      spyGetKata.mockRestore();
+    });
+
+    it('should load kata data', async () => {
+      expect.hasAssertions();
+      const wrapper = shallowMount(VKataAdmin, {
+        propsData: {
+          id: 'foo-uuid-001',
+        },
+      });
+      await wrapper.setProps({
+        id: 'foo-uuid-002',
+      });
+      expect(spyGetKata).toHaveBeenCalledTimes(2);
+    });
+
+    it('should submit modified kata data', async () => {
+      expect.hasAssertions();
+      const spyUpdate = jest.spyOn(application.manageKataService, 'update');
+
+      const kata = mockKataDto();
+      const wrapper = shallowMount(VKataAdmin, {
+        propsData: {
+          id: kata.id,
+        },
+      });
+      await wrapper.vm.$nextTick();
+      await wrapper.setData({
+        name: 'New name',
+      });
+      await wrapper.find('form').trigger('submit');
+      expect(spyUpdate).toHaveBeenNthCalledWith(1, {
+        ...kata,
+        name: 'New name',
+      });
+    });
   });
 });

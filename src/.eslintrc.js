@@ -10,6 +10,8 @@ module.exports = {
     {
       files: ['*.test.js'],
       globals: {
+        createCustomLocalVue: 'readonly',
+        mockKataData: 'readonly',
         mockKataDto: 'readonly',
         mockKataEntity: 'readonly',
       },

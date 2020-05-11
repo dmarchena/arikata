@@ -11,6 +11,6 @@ describe('App', () => {
   it('should render', () => {
     const wrapper = shallowMount(App);
     expect.hasAssertions();
-    expect(wrapper.isVueInstance()).toBeTruthy();
+    expect(wrapper.exists()).toBeTruthy();
   });
 });

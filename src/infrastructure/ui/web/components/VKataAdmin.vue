@@ -90,6 +90,13 @@ export default {
     VFieldTextarea,
   },
 
+  props: {
+    id: {
+      type: String,
+      default: undefined,
+    },
+  },
+
   data() {
     return {
       name: '',
@@ -100,13 +107,51 @@ export default {
     };
   },
 
+  watch: {
+    id() {
+      this.fetchKata();
+    },
+  },
+
+  created() {
+    this.fetchKata();
+  },
+
   methods: {
     clearConsole() {
       publish(events.CONSOLE_CLEAR);
     },
+    fetchKata() {
+      if (this.id) {
+        application.manageKataService
+          .getKataWithId(this.id)
+          .then(this.loadKataData);
+      }
+    },
     handleSubmit(evt) {
       evt.preventDefault();
-      application.manageKataService.save(this.$data);
+      const kataData = {
+        name: this.name,
+        details: this.details,
+        code: this.code,
+        test: this.test,
+        tags: this.tags,
+      };
+      if (this.id) {
+        application.manageKataService.update({
+          ...kataData,
+          id: this.id,
+        });
+      } else {
+        application.manageKataService.save(kataData);
+      }
+    },
+    loadKataData({ name, details, code, test, tags }) {
+      this.name = name;
+      this.details = details;
+      this.code = code;
+      this.test = test;
+      this.tags = tags;
     },
     log(data) {
       publish(events.CONSOLE_LOG, data);

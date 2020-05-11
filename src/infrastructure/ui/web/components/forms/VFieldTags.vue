@@ -17,6 +17,8 @@
 
 <script>
 import Multiselect from 'vue-multiselect';
+import application from '../../application';
+import { sortAscending } from '../../../../../utils/array';
 
 export default {
   name: 'FieldTags',
@@ -44,11 +46,29 @@ export default {
     };
   },
 
+  watch: {
+    tags() {
+      this.$emit('tag', this.tags);
+    },
+    value() {
+      this.options = sortAscending(this.options);
+      if (this.tags !== this.value) {
+        this.tags = this.value;
+      }
+    },
+  },
+
+  mounted() {
+    application.manageKataService
+      .getAllTags()
+      .then(sortAscending)
+      .then((tags) => (this.options = tags));
+  },
+
   methods: {
     addTag(newTag) {
       this.options = [...this.options, newTag];
       this.tags = [...this.tags, newTag];
-      this.$emit('tag', this.tags);
     },
   },
 };

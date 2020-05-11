@@ -104,7 +104,15 @@ module.exports = {
   // projects: undefined,
 
   // Use this configuration option to add custom reporters to Jest
-  reporters: [['jest-silent-reporter', { showPaths: true, useDots: true }]],
+  // ['jest-silent-reporter', { showPaths: true, useDots: true }]
+  reporters: [
+    [
+      'jest-tap-reporter',
+      {
+        logLevel: 'INFO',
+      },
+    ],
+  ],
 
   // Automatically reset mock state between every test
   // resetMocks: false,

@@ -18,7 +18,7 @@ describe('VCodeEditor', () => {
 
   it('should render', () => {
     expect.hasAssertions();
-    expect(wrapper.isVueInstance()).toBe(true);
+    expect(wrapper.exists()).toBe(true);
   });
 
   it('should support v-model', async () => {

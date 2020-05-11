@@ -196,7 +196,7 @@ export default {
   computed: {
     iframeSrc() {
       let iframeContent = `,
-        <script src="http://chaijs.com/chai.js"><\/script>
+        <script src="https://cdn.jsdelivr.net/npm/chai@4.2.0/chai.js" integrity="sha256-Oe35Xz+Zi1EffYsTw5ENBhzOS06LOTV5PSV4OVvnyU8=" crossorigin="anonymous"><\/script>
         <script>
           ${sandboxInitJs}
           const expect = chai.expect;
@@ -240,6 +240,15 @@ export default {
       window.addEventListener('message', this.sandbox.codeExecuted);
       window.addEventListener('message', this.sandbox.console);
       this.sandbox.running = true;
+      setTimeout(() => {
+        if (this.sandbox.running) {
+          this.$emit(
+            'log',
+            'Unknown error: Code execution has not ended. It is likely to be a SyntaxError.'
+          );
+          this.$_sandboxStop();
+        }
+      }, 3000);
     },
 
     $_sandboxStop() {

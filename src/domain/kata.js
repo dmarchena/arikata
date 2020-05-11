@@ -1,7 +1,8 @@
 import { v4, v5 } from 'uuid';
 import * as R from 'ramda';
-import config from '../config';
+
 import { isUuid } from '../utils/uuid';
+import config from '../config';
 
 const tagEntity = (str) =>
   R.is(String) && {
@@ -14,16 +15,24 @@ const isTagEntity = R.where({
   tag: R.is(String),
 });
 
-export default function kata(
+const factory = (repository) => (
   id = v4(),
   { details = '', name = 'Mistery kata', code = '', test = '', tags = [] } = {}
-) {
+) => ({
+  id,
+  name,
+  details,
+  code,
+  test,
+  tags: tags.map(R.ifElse(isTagEntity, R.identity, tagEntity)),
+  availableTags: () =>
+    repository
+      ? repository.getAllTags()
+      : Promise.reject(new ReferenceError('Action not available')),
+});
+
+export default function Kata({ repo } = {}) {
   return {
-    id,
-    name,
-    details,
-    code,
-    test,
-    tags: tags.map(R.ifElse(isTagEntity, R.identity, tagEntity)),
+    create: factory(repo),
   };
 }

@@ -20,7 +20,7 @@ describe('VCodeRunner', () => {
 
   it('should render', () => {
     expect.hasAssertions();
-    expect(wrapper.isVueInstance()).toBe(true);
+    expect(wrapper.exists()).toBe(true);
   });
 
   it.skip('should emit a log event when running code', () => {

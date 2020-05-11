@@ -62,6 +62,11 @@ export default {
     code() {
       this.$emit('input', this.code);
     },
+    value() {
+      if (this.value !== this.code) {
+        this.code = this.value;
+      }
+    },
   },
 };
 </script>
