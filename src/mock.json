@@ -1,0 +1,31 @@
+{
+  "kataDto": {
+    "id": "4e16bd65-9afb-4399-afd0-dc6dc268e37c",
+    "details": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "name": "Mocked kata",
+    "code": "const add = (a, b) => a + b;\nconst mul = (a, b) => a * b;",
+    "test": "it('should add', () => expect(add(1,2)).to.be.equal(3));\nit('should mul', () => expect(mul(1,2)).to.be.equal(2));",
+    "tags": ["async/await", "new", "test"]
+  },
+  "kataEntity": {
+    "id": "4e16bd65-9afb-4399-afd0-dc6dc268e37c",
+    "details": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "name": "Mocked kata",
+    "code": "const add = (a, b) => a + b;\nconst mul = (a, b) => a * b;",
+    "test": "it('should add', () => expect(add(1,2)).to.be.equal(3));\nit('should mul', () => expect(mul(1,2)).to.be.equal(2));",
+    "tags": [
+      {
+        "id": "793bffaf-8757-581d-9391-fa2b0b360f35",
+        "tag": "async/await"
+      },
+      {
+        "id": "6b18c529-8dd1-54ac-9af0-c72724349358",
+        "tag": "new"
+      },
+      {
+        "id": "d1ae2315-663f-5440-a42e-5e7bdeb24813",
+        "tag": "test"
+      }
+    ]
+  }
+}

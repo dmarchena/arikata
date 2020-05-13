@@ -97,4 +97,33 @@ describe('api rest endpoints', () => {
       expect(res.statusCode).toStrictEqual(200);
     });
   });
+
+  describe('delete an existing kata', () => {
+    let mockKata;
+    let res;
+    let spyDelete;
+
+    // eslint-disable-next-line jest/no-hooks
+    beforeEach(async () => {
+      mockKata = mockKataEntity();
+      spyDelete = jest.spyOn(application.manageKataService, 'remove');
+      res = await request.delete(`/katas/${mockKata.id}`);
+    });
+
+    // eslint-disable-next-line jest/no-hooks
+    afterEach(() => {
+      spyDelete.mockRestore();
+    });
+
+    it('should parse and receive kata data', () => {
+      expect.hasAssertions();
+      expect(spyDelete).toHaveBeenNthCalledWith(1, mockKata.id);
+    });
+
+    it('should delete', () => {
+      expect.hasAssertions();
+      expect(res.body).not.toStrictEqual(mockKata);
+      expect(res.statusCode).toStrictEqual(204);
+    });
+  });
 });

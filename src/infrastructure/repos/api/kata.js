@@ -24,8 +24,11 @@ const getAllKatasWithTag = (tag) =>
 const getKataWithId = (kataId) =>
   Axios.get(endpoints.specific(kataId)).then(responseData);
 
+const remove = (kataId) =>
+  Axios.delete(endpoints.specific(kataId)).then((res) => res.status === 204);
+
 const save = (kataDto) =>
-  Axios.post(endpoints.base, kataDto).then(responseData);
+  Axios.post(endpoints.create, kataDto).then(responseData);
 
 const update = (kataDto) =>
   Axios.put(endpoints.specific(kataDto.id), {
@@ -41,6 +44,7 @@ const kataRepo = createKataRepo({
   getAllTags,
   getAllKatasWithTag,
   getKataWithId,
+  remove,
   save,
   update,
 });

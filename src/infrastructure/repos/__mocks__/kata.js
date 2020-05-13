@@ -48,11 +48,21 @@ const update = (kataDto) => {
   return Promise.resolve(false);
 };
 
+const remove = (kataDto) => {
+  const targetIndex = katas.findIndex((k) => k.id === kataDto.id);
+  if (targetIndex > -1) {
+    katas.splice(targetIndex, 1);
+    return Promise.resolve(true);
+  }
+  return Promise.resolve(false);
+};
+
 const kataRepo = createKataRepo({
   getAllKatas,
   getAllTags,
   getAllKatasWithTag,
   getKataWithId,
+  remove,
   save,
   update,
 });

@@ -1,41 +1,34 @@
 /* globals expect */
 import { createLocalVue } from '@vue/test-utils';
-import { matcherHint, printReceived } from 'jest-matcher-utils';
-import { v4, v5 } from 'uuid';
+import { matcherHint, printReceived, printExpected } from 'jest-matcher-utils';
 import * as R from 'ramda';
 import VueRouter from 'vue-router';
+import deepEqual from 'deep-equal';
+import mockJson from './src/mock.json';
 
-import configJson from './src/config.json';
-
+const fooDirective = {};
 global.createCustomLocalVue = () => {
   const localVue = createLocalVue();
   localVue.use(VueRouter);
+  localVue.directive('bem-block', fooDirective);
+  localVue.directive('bem', fooDirective);
   return localVue;
 };
 
-global.mockKataData = () => ({
-  name: 'test-name',
-  details: 'test-details',
-  code: 'const code = true',
-  test: '// tests',
-  tags: ['new', 'perf'],
-});
-
-global.mockKataDto = () => ({
-  ...global.mockKataData(),
-  id: v4(),
-});
-
-global.mockKataEntity = () => {
-  const dto = global.mockKataDto();
-  return {
-    ...dto,
-    tags: dto.tags.map((t) => ({
-      id: v5(t, configJson.uuidNamespaces.tag),
-      tag: t,
-    })),
+global.mockKataData = () => {
+  const data = {
+    ...mockJson.kataDto,
   };
+  delete data.id;
+  return data;
 };
+global.mockKataDto = () => mockJson.kataDto;
+global.mockKataEntity = () => ({
+  ...mockJson.kataEntity,
+  availableTags() {
+    return [];
+  },
+});
 
 const buildMessage = (matcherName, message) => (
   received
@@ -44,15 +37,15 @@ const buildMessage = (matcherName, message) => (
 ${message}. Received:
   ${printReceived(received)}`;
 
-/* const buildMessageWithExpected = (matcherName, message) => (
+const buildMessageWithExpected = (matcherName, message) => (
   received,
   expected
-) => () => `${matcherHint(matcherName, 'received', '')}
+) => () => `${matcherHint(matcherName, 'received', 'expected')}
 
 ${message}:
   ${printExpected(expected)}
 Received:
-  ${printReceived(received)}`; */
+  ${printReceived(received)}`;
 
 const makeToBeMatcher = (matcherName, predicate, expectedTypeName) => {
   const passMessage = buildMessage(
@@ -67,6 +60,26 @@ const makeToBeMatcher = (matcherName, predicate, expectedTypeName) => {
     const pass = predicate(received);
     return {
       message: pass ? passMessage(received) : failMessage(received),
+      pass,
+    };
+  };
+};
+
+const makeExpectedMatcher = (matcherName, predicate) => {
+  const passMessage = buildMessageWithExpected(
+    `.not.${matcherName}`,
+    `expected value not to be:`
+  );
+  const failMessage = buildMessageWithExpected(
+    matcherName,
+    `expected value to be:`
+  );
+  return (received, expected) => {
+    const pass = predicate(received, expected);
+    return {
+      message: pass
+        ? passMessage(received, expected)
+        : failMessage(received, expected),
       pass,
     };
   };
@@ -131,10 +144,23 @@ expect.extend({
             })
           )
         ),
+        availableTags: R.is(Function),
       }),
-      R.compose(R.equals(6), R.length, R.keys)
+      R.compose(R.equals(7), R.length, R.keys)
     ),
     'kata entity'
+  ),
+  toEqualKataEntity: makeExpectedMatcher(
+    'toEqualKataEntity',
+    (received, expected) => {
+      // Remove entity methods
+      const r = { ...received };
+      const e = { ...expected };
+      delete r.availableTags;
+      delete e.availableTags;
+      // Compare resultant data
+      return deepEqual(r, e, { strict: true });
+    }
   ),
   toBeKataRepo: makeToBeMatcher(
     'toBeKataRepo',
@@ -144,11 +170,12 @@ expect.extend({
         getAllKatasWithTag: R.is(Function),
         getAllTags: R.is(Function),
         getKataWithId: R.is(Function),
+        remove: R.is(Function),
         save: R.is(Function),
         transformer: R.is(Object),
         update: R.is(Function),
       }),
-      R.compose(R.equals(7), R.length, R.keys)
+      R.compose(R.equals(8), R.length, R.keys)
     ),
     'kata repository'
   ),

@@ -1,4 +1,8 @@
 {
+  "location": {
+    "origin": "https://arikata.dev",
+    "host": "arikata.dev"
+  },
   "uuidNamespaces": {
     "tag": "dffd62cd-3684-4703-914c-731c8729c0c0"
   }

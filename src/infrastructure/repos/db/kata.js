@@ -46,6 +46,13 @@ const getKataWithId = (models) => (kataId) =>
     include: models.Kata.Tags,
   });
 
+const remove = (models) => (kataId) =>
+  models.Kata.destroy({
+    where: {
+      id: kataId,
+    },
+  }).then((rows) => rows > 0);
+
 const save = (models) => async (kataDto) => {
   // Update Tag table
   const tagsEntities = parseTagEntitiesFromStrings(kataDto.tags);
@@ -90,14 +97,14 @@ const update = (models) => async (kataDto) => {
 
   const newTags = parseTagEntitiesFromStrings(kataDto.tags);
   const oldTags = parseTagEntitiesFromDbModels(await kataToUpdate.getTags());
-  const [add, remove] = diffTags(newTags, oldTags);
+  const [tagsToAdd, tagsToRemove] = diffTags(newTags, oldTags);
 
-  if (add.length > 0) {
-    await Promise.all(add.map((t) => models.Tag.upsert(t)));
-    await kataToUpdate.addTags(parseDbModelsFromTagEntities(add));
+  if (tagsToAdd.length > 0) {
+    await Promise.all(tagsToAdd.map((t) => models.Tag.upsert(t)));
+    await kataToUpdate.addTags(parseDbModelsFromTagEntities(tagsToAdd));
   }
-  if (remove.length > 0) {
-    await kataToUpdate.removeTags(parseDbModelsFromTagEntities(remove));
+  if (tagsToRemove.length > 0) {
+    await kataToUpdate.removeTags(parseDbModelsFromTagEntities(tagsToRemove));
   }
 
   const result = {
@@ -113,7 +120,9 @@ const kataRepo = createKataRepo({
   getAllTags: getAllTags(db),
   getAllKatasWithTag: getAllKatasWithTag(db),
   getKataWithId: getKataWithId(db),
+  remove: remove(db),
   save: save(db),
   update: update(db),
 });
+
 export default kataRepo;

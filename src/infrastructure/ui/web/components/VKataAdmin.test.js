@@ -1,13 +1,15 @@
 /**
  * @jest-environment jsdom
  */
-import { shallowMount } from '@vue/test-utils';
+import { shallowMount, mount } from '@vue/test-utils';
 import Vue from 'vue';
 
 import VKataAdmin from './VKataAdmin';
 
 jest.mock('../application');
 import application from '../application';
+
+const localVue = createCustomLocalVue();
 
 describe('VKataAdmin', () => {
   it('should render', () => {
@@ -20,12 +22,13 @@ describe('VKataAdmin', () => {
     it('should submit data', async () => {
       expect.hasAssertions();
       const spy = jest.spyOn(application.manageKataService, 'save');
-      const wrapper = shallowMount(VKataAdmin, {
+      const wrapper = mount(VKataAdmin, {
         data() {
           return mockKataData();
         },
+        localVue,
       });
-      await wrapper.find('form').trigger('submit');
+      await wrapper.find('#save').trigger('click');
       expect(spy).toHaveBeenNthCalledWith(1, mockKataData());
       spy.mockRestore();
     });
@@ -62,16 +65,17 @@ describe('VKataAdmin', () => {
       const spyUpdate = jest.spyOn(application.manageKataService, 'update');
 
       const kata = mockKataDto();
-      const wrapper = shallowMount(VKataAdmin, {
+      const wrapper = mount(VKataAdmin, {
         propsData: {
           id: kata.id,
         },
+        localVue,
       });
       await wrapper.vm.$nextTick();
       await wrapper.setData({
         name: 'New name',
       });
-      await wrapper.find('form').trigger('submit');
+      await wrapper.find('#save').trigger('click');
       expect(spyUpdate).toHaveBeenNthCalledWith(1, {
         ...kata,
         name: 'New name',

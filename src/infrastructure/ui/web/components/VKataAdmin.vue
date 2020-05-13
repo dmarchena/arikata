@@ -3,11 +3,13 @@
     class="form"
     action="/api/katas/"
     method="post"
-    @submit="handleSubmit"
   >
-    <button type="submit">
+    <VButtonAsync
+      id="save"
+      @active="handleSubmit"
+    >
       Save
-    </button>
+    </VButtonAsync>
     <VFieldText
       v-model="name"
       name="name"
@@ -48,6 +50,7 @@
 <script>
 import { publish, events } from '../event-bus';
 import application from '../application';
+import VButtonAsync from './VButtonAsync';
 import VCodeEditor from './VCodeEditor';
 import VCodeRunner from './VCodeRunner';
 import VConsole from './VConsole';
@@ -82,6 +85,7 @@ export default {
   name: 'VKataAdmin',
 
   components: {
+    VButtonAsync,
     VCodeEditor,
     VCodeRunner,
     VConsole,
@@ -138,12 +142,12 @@ export default {
         tags: this.tags,
       };
       if (this.id) {
-        application.manageKataService.update({
+        return application.manageKataService.update({
           ...kataData,
           id: this.id,
         });
       } else {
-        application.manageKataService.save(kataData);
+        return application.manageKataService.save(kataData);
       }
     },
     loadKataData({ name, details, code, test, tags }) {

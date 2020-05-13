@@ -1,15 +1,13 @@
-import { random, lorem, company } from 'faker';
+const fakeKata = (kataMock) => {
+  const kata = {
+    ...kataMock,
+  };
+  delete kata.tags;
+  return kata;
+};
 
-const fakeKata = (uuid) => ({
-  id: uuid || random.uuid(),
-  details: lorem.paragraphs(3),
-  code: `console.log(${random.words(3)})`,
-  test: `// Some fake test are needed`,
-  name: company.catchPhrase(),
-});
-
-const KataMock = (dbMock) =>
-  dbMock.define('kata', fakeKata('0fae2543-774d-4c58-b750-4a6dcc385811'), {
+const KataMock = (dbMock, kataMock) =>
+  dbMock.define('kata', fakeKata(kataMock), {
     instanceMethods: {},
   });
 

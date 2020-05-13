@@ -28,6 +28,14 @@ const createManageKataService = (kataRepo) => ({
     return kataRepo.getKataWithId(kataId).then(kataTransformer.toKataDto);
   },
   /**
+   * Remove a Kata
+   * @param {string} kataId
+   * @returns {Promise.<boolean>} true if it has been removed; false if not found
+   */
+  remove(kataId) {
+    return kataRepo.remove(kataId);
+  },
+  /**
    * Save new Kata
    * @param {KataDto} dto
    * @returns {Promise.<KataDto>} created kata dto

@@ -24,6 +24,7 @@
  * @property {function(string):Promise.<KataAggregate[]>} getAllKatasWithTag Return all the katas that are tagged with the given tag
  * @property {function():Promise.<TagEntity[]>} getAllTags Return all the available tags
  * @property {function(string):Promise.<KataAggregate>} getKataWithId Fetch a kata
+ * @property {function(string):Promise.<Boolean>} remove Removes a Kata
  * @property {function(KataAggregate):Promise.<KataAggregate>} save Save new Kata
  * @property {function(KataAggregate):Promise.<KataAggregate>} update Update a Kata
  */

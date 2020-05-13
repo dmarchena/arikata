@@ -14,6 +14,9 @@
         <router-link :to="{ name: 'editKata', params: { id: kata.id } }">
           edit
         </router-link>
+        <VButtonAsync @active="deleteKata(kata.id)">
+          delete
+        </VButtonAsync>
         <ul>
           <li
             v-for="item in kata.tags"
@@ -31,12 +34,14 @@
 
 <script>
 import app from '../application';
+import VButtonAsync from './VButtonAsync.vue';
 import VPageTitle from './VPageTitle.vue';
 
 export default {
   name: 'VKataList',
 
   components: {
+    VButtonAsync,
     VPageTitle,
   },
 
@@ -70,6 +75,9 @@ export default {
   },
 
   methods: {
+    deleteKata(kataId) {
+      return app.manageKataService.remove(kataId);
+    },
     listKatas() {
       console.log({ tag: this.tag });
       if (this.tag !== null) {

@@ -5,6 +5,7 @@ const mockRepo = () => ({
   getAllKatasWithTag: jest.fn(),
   getAllTags: jest.fn(),
   getKataWithId: jest.fn(),
+  remove: jest.fn(),
   save: jest.fn(),
   update: jest.fn(),
 });
@@ -26,6 +27,7 @@ describe('kata repository', () => {
     ['getAllTags'],
     ['getAllKatasWithTag'],
     ['getKataWithId'],
+    ['remove'],
     ['save'],
     ['update'],
   ])('should throw an error if "%s" function is not provided', (method) => {

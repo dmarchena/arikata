@@ -13,6 +13,7 @@ function createKataRepo({
   getAllTags = isRequired('getAllTags'),
   getAllKatasWithTag = isRequired('getAllKatasWithTag'),
   getKataWithId = isRequired('getKataWithId'),
+  remove = isRequired('remove'),
   save = isRequired('save'),
   update = isRequired('update'),
 }) {
@@ -43,6 +44,14 @@ function createKataRepo({
      */
     getKataWithId(id) {
       return getKataWithId(id).then(this.transformer.toKataModel);
+    },
+    /**
+     * Removes the kata with the given id
+     * @param {string} kataId id of the kata to be deleted
+     * @returns {Promise.<boolean>} true if it has been deleted; false if not found
+     */
+    remove(kataId) {
+      return remove(kataId);
     },
     /**
      * Save new Kata
