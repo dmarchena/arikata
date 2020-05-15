@@ -1,7 +1,7 @@
 <template>
   <codemirror
     v-model="code"
-    class="code-editor"
+    class="v-code-editor"
     :options="codemirrorOptions"
   />
 </template>
@@ -61,6 +61,11 @@ export default {
   watch: {
     code() {
       this.$emit('input', this.code);
+    },
+    value() {
+      if (this.value !== this.code) {
+        this.code = this.value;
+      }
     },
   },
 };

@@ -1,0 +1,50 @@
+:root {
+  --btn-radius: 0.4em;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 6em;
+  padding: 0.25em 0.5em;
+  color: var(--color-text--darkmode);
+  font-weight: 400;
+  text-decoration: none;
+  background-color: var(--color-secondary);
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--btn-radius);
+  cursor: default;
+  appearance: button;
+}
+
+.btn:active {
+  background-color: var(--color-secondary-dark);
+}
+
+.btn--delete {
+  color: var(--color-danger);
+  background-color: var(--color-timberwolf-light);
+}
+
+.btn--delete:active {
+  background-color: var(--color-timberwolf);
+}
+
+.btn-set {
+  display: inline-flex;
+}
+
+.btn-set .btn {
+  border-radius: 0;
+}
+
+.btn-set :first-child {
+  border-top-left-radius: var(--btn-radius);
+  border-bottom-left-radius: var(--btn-radius);
+}
+
+.btn-set :last-child {
+  border-top-right-radius: var(--btn-radius);
+  border-bottom-right-radius: var(--btn-radius);
+}

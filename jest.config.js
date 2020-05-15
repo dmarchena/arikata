@@ -104,7 +104,15 @@ module.exports = {
   // projects: undefined,
 
   // Use this configuration option to add custom reporters to Jest
-  reporters: ['jest-tap-reporter'],
+  // ['jest-silent-reporter', { showPaths: true, useDots: true }]
+  reporters: [
+    [
+      'jest-tap-reporter',
+      {
+        logLevel: 'INFO',
+      },
+    ],
+  ],
 
   // Automatically reset mock state between every test
   // resetMocks: false,
@@ -180,9 +188,7 @@ module.exports = {
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  // transformIgnorePatterns: [
-  //   "/node_modules/"
-  // ],
+  transformIgnorePatterns: [`/node_modules/(?!vue-spinner)`],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,

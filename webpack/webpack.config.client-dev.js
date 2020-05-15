@@ -20,7 +20,11 @@ module.exports = merge(baseConfig, {
       // AND `<style>` blocks in `.vue` files
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader'],
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader', options: { sourceMap: true } },
+          { loader: 'postcss-loader', options: { sourceMap: true } },
+        ],
       },
     ],
   },

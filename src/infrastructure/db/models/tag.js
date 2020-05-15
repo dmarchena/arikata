@@ -34,7 +34,7 @@ export default (sequelize, DataTypes, Model) => {
   );
 
   Tag.associate = function associate(models) {
-    this.belongsToMany(models.Kata, {
+    this.Katas = this.belongsToMany(models.Kata, {
       through: models.KataTags,
       foreignKey: 'tagId',
       otherKey: 'kataId',

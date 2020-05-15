@@ -1,0 +1,11 @@
+body {
+  font-family: var(--font-family-base);
+}
+
+a {
+  color: var(--color-secondary);
+}
+
+pre {
+  font-family: var(--font-family-monospace);
+}

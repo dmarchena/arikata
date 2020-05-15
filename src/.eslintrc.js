@@ -9,6 +9,12 @@ module.exports = {
   overrides: [
     {
       files: ['*.test.js'],
+      globals: {
+        createCustomLocalVue: 'readonly',
+        mockKataData: 'readonly',
+        mockKataDto: 'readonly',
+        mockKataEntity: 'readonly',
+      },
       extends: ['plugin:jest/all'],
       rules: { 'jest/require-to-throw-message': 'warn' },
     },

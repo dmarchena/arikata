@@ -1,4 +1,6 @@
+const fs = require('fs');
 const path = require('path');
+
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -8,6 +10,7 @@ const appDir = path.join(__dirname, '..', 'src/application');
 const infrastructureDir = path.join(__dirname, '..', 'src/infrastructure');
 const clientDir = path.join(__dirname, '..', 'src/infrastructure/ui/web');
 const distDir = path.join(__dirname, '..', 'dist');
+const sprite = fs.readFileSync(path.join(distDir, 'sprite.svg'));
 
 module.exports = {
   context: path.join(__dirname, '..'),
@@ -66,9 +69,10 @@ module.exports = {
       filename: '[name].css',
     }),
     new HtmlWebPackPlugin({
-      template: path.join(clientDir, 'index.html'),
+      template: path.join(clientDir, 'index.ejs'),
       filename: path.join(distDir, 'index.html'),
       inject: true,
+      svgSprite: sprite,
     }),
     // new BundleAnalyzerPlugin(),
   ],

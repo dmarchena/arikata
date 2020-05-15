@@ -1,5 +1,32 @@
 <template>
-  <div id="app">
+  <form
+    class="form"
+    action="/api/katas/"
+    method="post"
+  >
+    <VButtonAsync
+      id="save"
+      @active="handleSubmit"
+    >
+      Save
+    </VButtonAsync>
+    <VFieldText
+      v-model="name"
+      name="name"
+    >
+      Kata name
+    </VFieldText>
+    <VFieldTags
+      v-model="tags"
+      name="tags"
+    />
+    <VFieldTextarea
+      v-model="details"
+      name="details"
+    >
+      Detailed info about Kata
+    </VFieldTextarea>
+
     <VCodeEditor v-model="code" />
     <VCodeEditor v-model="test" />
     <VCodeRunner
@@ -17,16 +44,19 @@
       Clear console
     </button>
     <VConsole />
-  </div>
+  </form>
 </template>
 
 <script>
-import 'codemirror/mode/javascript/javascript.js';
-import { codemirror } from 'vue-codemirror';
 import { publish, events } from '../event-bus';
+import application from '../application';
+import VButtonAsync from './VButtonAsync';
 import VCodeEditor from './VCodeEditor';
 import VCodeRunner from './VCodeRunner';
 import VConsole from './VConsole';
+import VFieldTags from './forms/VFieldTags';
+import VFieldText from './forms/VFieldText';
+import VFieldTextarea from './forms/VFieldTextarea';
 
 const testCode = `const A = 10;
 console.log(A);
@@ -55,24 +85,80 @@ export default {
   name: 'VKataAdmin',
 
   components: {
+    VButtonAsync,
     VCodeEditor,
     VCodeRunner,
     VConsole,
+    VFieldTags,
+    VFieldText,
+    VFieldTextarea,
+  },
+
+  props: {
+    id: {
+      type: String,
+      default: undefined,
+    },
   },
 
   data() {
     return {
+      name: '',
+      details: '',
       code: sampleCode,
       test: sampleTest,
+      tags: [],
     };
   },
 
-  methods: {
-    log(data) {
-      publish(events.CONSOLE_LOG, data);
+  watch: {
+    id() {
+      this.fetchKata();
     },
+  },
+
+  created() {
+    this.fetchKata();
+  },
+
+  methods: {
     clearConsole() {
       publish(events.CONSOLE_CLEAR);
+    },
+    fetchKata() {
+      if (this.id) {
+        application.manageKataService
+          .getKataWithId(this.id)
+          .then(this.loadKataData);
+      }
+    },
+    handleSubmit(evt) {
+      evt.preventDefault();
+      const kataData = {
+        name: this.name,
+        details: this.details,
+        code: this.code,
+        test: this.test,
+        tags: this.tags,
+      };
+      if (this.id) {
+        return application.manageKataService.update({
+          ...kataData,
+          id: this.id,
+        });
+      } else {
+        return application.manageKataService.save(kataData);
+      }
+    },
+    loadKataData({ name, details, code, test, tags }) {
+      this.name = name;
+      this.details = details;
+      this.code = code;
+      this.test = test;
+      this.tags = tags;
+    },
+    log(data) {
+      publish(events.CONSOLE_LOG, data);
     },
   },
 };
