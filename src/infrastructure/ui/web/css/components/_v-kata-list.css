@@ -1,0 +1,56 @@
+.v-kata-list__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.v-kata-list__katas {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.v-kata-list__kata {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1em 1em 0;
+  list-style: none;
+}
+
+.v-kata-list__kata::after {
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin: 1em 0 0;
+  background-image: linear-gradient(
+    90deg,
+    var(--color-cadet-grey),
+    var(--color-cadet-grey) 50%,
+    white
+  );
+  background-repeat: no-repeat;
+  transform: translateX(-1em);
+  content: '';
+}
+
+.v-kata-list__kata-name {
+  flex-grow: 1;
+  font-weight: 500;
+  font-size: 1.2em;
+}
+
+.v-kata-list__tags {
+  display: flex;
+  flex: 0 1 100%;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-top: 0.5em;
+  padding: 0;
+}
+
+.v-kata-list__tag {
+  margin-left: 1em;
+  list-style: none;
+}

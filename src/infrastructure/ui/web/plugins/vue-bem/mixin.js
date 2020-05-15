@@ -19,7 +19,9 @@ export default {
   watch: {
     bemBlocks(newValue, oldValue) {
       this.bemBlocksOld = oldValue;
-      this.$el.classList.add(...newValue);
+      if (this.$el && this.$el.classList) {
+        this.$el.classList.add(...newValue);
+      }
     },
   },
 

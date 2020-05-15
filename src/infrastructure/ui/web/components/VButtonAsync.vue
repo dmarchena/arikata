@@ -1,31 +1,42 @@
 <template>
   <button
     :id="id"
+    v-bem="{
+      error: hasError,
+      success: isSuccess,
+    }"
+    class="btn"
     :class="computedClasses"
     :disabled="loadingState"
-    class="button is-primary"
     v-on="listeners"
   >
     <slot />
-    <MoonLoader :loading="loadingState" />
-    <span
+
+    <CircleSpinner
+      v-show="loadingState"
+      v-bem:spinner
+    />
+    <VIcon
       v-if="isSuccess"
-      role="img"
-      alt="Success icon"
-    >✔</span>
-    <span
-      v-else-if="hasError"
-      role="img"
-      alt="Error icon"
-    >❌</span>
+      id="checkmark"
+      v-bem:icon.success
+    />
+    <VIcon
+      v-if="hasError"
+      id="cross"
+      v-bem:icon.error
+    />
   </button>
 </template>
 <script>
-import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
+import { CircleSpinner } from 'vue-spinners/dist/vue-spinners.common';
+import VIcon from './VIcon';
 
 export default {
+  name: 'VButtonAsync',
   components: {
-    MoonLoader,
+    CircleSpinner,
+    VIcon,
   },
   inheritAttrs: false,
   props: {

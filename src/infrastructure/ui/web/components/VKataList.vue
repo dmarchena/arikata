@@ -1,29 +1,46 @@
 <template>
   <section>
-    <VPageTitle>{{ title }}</VPageTitle>
-    <router-link :to="{ name: 'katas' }">
-      All
-    </router-link>
-    <ul class="katalist__list">
+    <header v-bem:header>
+      <VPageTitle>{{ title }}</VPageTitle>
+      <router-link
+        v-show="tag"
+        class="btn"
+        :to="{ name: 'katas' }"
+      >
+        view all
+      </router-link>
+    </header>
+    <ul v-bem:katas>
       <li
         v-for="kata in katas"
         :key="kata.id"
-        class="katalist__list-item"
+        v-bem:kata
       >
-        {{ kata.name }}
-        <router-link :to="{ name: 'editKata', params: { id: kata.id } }">
-          edit
-        </router-link>
-        <VButtonAsync @active="deleteKata(kata.id)">
-          delete
-        </VButtonAsync>
-        <ul>
+        <strong v-bem:kata-name>{{ kata.name }}</strong>
+        <div class="btn-set">
+          <router-link
+            :to="{ name: 'editKata', params: { id: kata.id } }"
+            class="btn"
+          >
+            edit
+          </router-link>
+          <VButtonAsync
+            class="btn--delete"
+            @active="deleteKata(kata.id)"
+          >
+            delete
+          </VButtonAsync>
+        </div>
+        <ul v-bem:tags>
           <li
             v-for="item in kata.tags"
             :key="`${kata.id}-${item}`"
+            v-bem:tag
           >
             <router-link :to="{ name: 'katas', query: { tag: item } }">
-              {{ item }}
+              <VTag>
+                {{ item }}
+              </VTag>
             </router-link>
           </li>
         </ul>
@@ -35,6 +52,7 @@
 <script>
 import app from '../application';
 import VButtonAsync from './VButtonAsync.vue';
+import VTag from './VTag.vue';
 import VPageTitle from './VPageTitle.vue';
 
 export default {
@@ -42,6 +60,7 @@ export default {
 
   components: {
     VButtonAsync,
+    VTag,
     VPageTitle,
   },
 
@@ -59,7 +78,7 @@ export default {
   computed: {
     title() {
       return this.tag !== null
-        ? `Katas tagged with ${this.tag}`
+        ? `Katas tagged with "${this.tag}"`
         : 'Available katas';
     },
   },

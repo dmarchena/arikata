@@ -1,0 +1,28 @@
+.v-button-async {
+  display: inline-flex;
+  align-items: center;
+}
+
+.v-button-async__icon {
+  margin-left: 0.3em;
+}
+
+.v-button-async__icon--error {
+  color: var(--color-error);
+}
+
+.v-button-async__icon--success {
+  color: var(--color-success);
+}
+
+.v-button-async__spinner {
+  width: 1.2em;
+  height: 1.2em;
+  margin-left: 0.3em;
+}
+
+.v-button-async__spinner .sk-fading-circle {
+  width: inherit;
+  height: inherit;
+  margin: 0;
+}
