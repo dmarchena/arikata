@@ -18,9 +18,17 @@
   appearance: button;
 }
 
+.btn:active {
+  background-color: var(--color-secondary-dark);
+}
+
 .btn--delete {
   color: var(--color-danger);
   background-color: var(--color-timberwolf-light);
+}
+
+.btn--delete:active {
+  background-color: var(--color-timberwolf);
 }
 
 .btn-set {

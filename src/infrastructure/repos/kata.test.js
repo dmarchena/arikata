@@ -1,6 +1,8 @@
 import apiRepo from './api/kata';
 import dbRepo from './db/kata';
 
+jest.mock('../db');
+
 describe.each([
   [{ type: 'api', repo: apiRepo }],
   [{ type: 'db', repo: dbRepo }],
