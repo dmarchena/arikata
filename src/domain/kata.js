@@ -2,7 +2,7 @@ import { v4, v5 } from 'uuid';
 import * as R from 'ramda';
 
 import { isUuid } from '../utils/uuid';
-import config from '../config';
+import config from '../config.json';
 
 const tagEntity = (str) =>
   R.is(String) && {

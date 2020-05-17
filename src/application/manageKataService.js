@@ -2,12 +2,15 @@
 ///<reference path="../jsdoc-types.js" />
 
 import { kataTransformer } from './transformers/kataTransformer';
+import PermissionDeniedError from './exceptions/PermissionDeniedError';
 
 /**
  * Factory function for a kata administration application service
- * @param {KataRepo} kataRepo
+ * @param {Object} dependencies
+ * @param {KataRepo} dependencies.kataRepo
+ * @param {AuthSession} dependencies.authSession
  */
-const createManageKataService = (kataRepo) => ({
+const createManageKataService = ({ authSession, kataRepo }) => ({
   /**
    * Get all available tags
    * @returns {Promise.<string[]>} tag list
@@ -33,6 +36,11 @@ const createManageKataService = (kataRepo) => ({
    * @returns {Promise.<boolean>} true if it has been removed; false if not found
    */
   remove(kataId) {
+    if (!authSession.isAdmin()) {
+      throw new PermissionDeniedError(
+        'You need to be an admin to call this method'
+      );
+    }
     return kataRepo.remove(kataId);
   },
   /**
@@ -41,6 +49,11 @@ const createManageKataService = (kataRepo) => ({
    * @returns {Promise.<KataDto>} created kata dto
    */
   save(dto) {
+    if (!authSession.isAdmin()) {
+      throw new PermissionDeniedError(
+        'You need to be an admin to call this method'
+      );
+    }
     const instance = kataTransformer.toKataModel(dto, { repo: kataRepo });
     return kataRepo.save(instance).then(kataTransformer.toKataDto);
   },
@@ -50,11 +63,16 @@ const createManageKataService = (kataRepo) => ({
    * @returns {Promise.<KataDto>} updated kata dto
    */
   update(dto) {
-    if (dto.id) {
-      const instance = kataTransformer.toKataModel(dto, { repo: kataRepo });
-      return kataRepo.update(instance).then(kataTransformer.toKataDto);
+    if (!authSession.isAdmin()) {
+      throw new PermissionDeniedError(
+        'You need to be an admin to call this method'
+      );
     }
-    throw new Error('A Kata without id cannot be updated');
+    if (!dto.id) {
+      throw new TypeError('A Kata without id cannot be updated');
+    }
+    const instance = kataTransformer.toKataModel(dto, { repo: kataRepo });
+    return kataRepo.update(instance).then(kataTransformer.toKataDto);
   },
 });
 

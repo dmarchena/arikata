@@ -30,6 +30,17 @@ global.mockKataEntity = () => ({
   },
 });
 
+global.mockExpiredToken = () => mockJson.tokens.user;
+
+global.mockUser = (accessToken = '') => ({
+  ...mockJson.users.user,
+  accessToken,
+});
+global.mockUserAdmin = (accessToken = '') => ({
+  ...mockJson.users.admin,
+  accessToken,
+});
+
 const buildMessage = (matcherName, message) => (
   received
 ) => () => `${matcherHint(matcherName, 'received', '')}
@@ -101,8 +112,9 @@ expect.extend({
       R.where({
         browseService: isApplicationService,
         manageKataService: isApplicationService,
+        userService: isApplicationService,
       }),
-      R.compose(R.equals(2), R.length, R.keys)
+      R.compose(R.equals(3), R.length, R.keys)
     ),
     'Application with injected dependencies'
   ),
@@ -178,6 +190,46 @@ expect.extend({
       R.compose(R.equals(8), R.length, R.keys)
     ),
     'kata repository'
+  ),
+  toBeUserDto: makeToBeMatcher(
+    'toBeUserDto',
+    R.where({
+      id: R.is(String),
+      accessToken: R.is(String),
+      email: R.is(String),
+      // password: R.is(String),
+      role: R.is(String),
+    }),
+    'user DTO'
+  ),
+  toBeUserEntity: makeToBeMatcher(
+    'toBeUserEntity',
+    R.both(
+      R.where({
+        id: R.is(String),
+        accessToken: R.is(String),
+        email: R.is(String),
+        password: R.is(String),
+        role: R.is(String),
+        setEmail: R.is(Function),
+      }),
+      R.compose(R.equals(6), R.length, R.keys)
+    ),
+    'user entity'
+  ),
+  toBeUserRepo: makeToBeMatcher(
+    'toBeUserRepo',
+    R.both(
+      R.where({
+        login: R.is(Function),
+        logout: R.is(Function),
+        save: R.is(Function),
+        transformer: R.is(Object),
+        update: R.is(Function),
+      }),
+      R.compose(R.equals(5), R.length, R.keys)
+    ),
+    'user repository'
   ),
   toBeUuid: makeToBeMatcher('toBeUuid', isUuid, 'UUID'),
 });

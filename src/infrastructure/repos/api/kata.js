@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import createKataRepo from '../../../application/factories/repos/kata';
+import { authHeader } from './utils';
 
 const endpoints = {
   base: '/api/katas/',
@@ -25,19 +26,27 @@ const getKataWithId = (kataId) =>
   Axios.get(endpoints.specific(kataId)).then(responseData);
 
 const remove = (kataId) =>
-  Axios.delete(endpoints.specific(kataId)).then((res) => res.status === 204);
+  Axios.delete(endpoints.specific(kataId), { headers: authHeader() }).then(
+    (res) => res.status === 204
+  );
 
 const save = (kataDto) =>
-  Axios.post(endpoints.create, kataDto).then(responseData);
+  Axios.post(endpoints.create, kataDto, { headers: authHeader() }).then(
+    responseData
+  );
 
 const update = (kataDto) =>
-  Axios.put(endpoints.specific(kataDto.id), {
-    name: kataDto.name,
-    details: kataDto.details,
-    code: kataDto.code,
-    test: kataDto.test,
-    tags: kataDto.tags,
-  }).then(responseData);
+  Axios.put(
+    endpoints.specific(kataDto.id),
+    {
+      name: kataDto.name,
+      details: kataDto.details,
+      code: kataDto.code,
+      test: kataDto.test,
+      tags: kataDto.tags,
+    },
+    { headers: authHeader() }
+  ).then(responseData);
 
 const kataRepo = createKataRepo({
   getAllKatas,

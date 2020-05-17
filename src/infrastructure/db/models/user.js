@@ -1,5 +1,3 @@
-import { encryptPassword } from '../../encryption';
-
 export default (sequelize, DataTypes, Model) => {
   class User extends Model {}
   User.init(
@@ -26,12 +24,6 @@ export default (sequelize, DataTypes, Model) => {
     },
     {
       freezeTableName: true,
-      hooks: {
-        beforeCreate: (user) => {
-          // eslint-disable-next-line no-param-reassign
-          user.password = encryptPassword(user.password);
-        },
-      },
       modelName: 'user',
       sequelize,
       timestamps: false,

@@ -2,6 +2,11 @@ import mockAxios from 'jest-mock-axios';
 import apiRepo from './kata';
 
 describe('kataRepo (api)', () => {
+  // Empty auth headers cause it a fake login
+  const authHeaders = {
+    headers: {},
+  };
+
   describe('get all katas', () => {
     it('should call to GET endpoint of the api', () => {
       expect.hasAssertions();
@@ -37,7 +42,11 @@ describe('kataRepo (api)', () => {
       const kata = mockKataEntity();
       const kataDto = mockKataDto();
       apiRepo.save(kata);
-      expect(mockAxios.post).toHaveBeenCalledWith('/api/katas/', kataDto);
+      expect(mockAxios.post).toHaveBeenCalledWith(
+        '/api/katas/',
+        kataDto,
+        authHeaders
+      );
     });
   });
 
@@ -49,7 +58,8 @@ describe('kataRepo (api)', () => {
       apiRepo.update(kata);
       expect(mockAxios.put).toHaveBeenCalledWith(
         `/api/katas/${kata.id}`,
-        kataData
+        kataData,
+        authHeaders
       );
     });
   });
@@ -59,7 +69,10 @@ describe('kataRepo (api)', () => {
       expect.hasAssertions();
       const kata = mockKataEntity();
       apiRepo.remove(kata.id);
-      expect(mockAxios.delete).toHaveBeenCalledWith(`/api/katas/${kata.id}`);
+      expect(mockAxios.delete).toHaveBeenCalledWith(
+        `/api/katas/${kata.id}`,
+        authHeaders
+      );
     });
   });
 });
