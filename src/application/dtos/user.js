@@ -1,17 +1,17 @@
-const userDtoKeys = ['id', 'email', 'password', 'role', 'accessToken'];
+const userDtoKeys = ['id', 'email', 'password', 'roles', 'accessToken'];
 
-const userResponseDto = ({ id, email, role, accessToken = '' }) => ({
+const userResponseDto = ({ id, email, roles, accessToken = '' }) => ({
   id,
   email,
-  role,
+  roles,
   accessToken,
 });
 
-const userRequestDto = ({ id, email, password, role, accessToken = '' }) => ({
+const userRequestDto = ({ id, email, password, roles, accessToken = '' }) => ({
   id,
   email,
   password,
-  role,
+  roles,
   accessToken,
 });
 

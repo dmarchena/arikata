@@ -198,7 +198,7 @@ expect.extend({
       accessToken: R.is(String),
       email: R.is(String),
       // password: R.is(String),
-      role: R.is(String),
+      roles: R.is(Array),
     }),
     'user DTO'
   ),
@@ -210,7 +210,7 @@ expect.extend({
         accessToken: R.is(String),
         email: R.is(String),
         password: R.is(String),
-        role: R.is(String),
+        roles: R.is(Array),
         setEmail: R.is(Function),
       }),
       R.compose(R.equals(6), R.length, R.keys)

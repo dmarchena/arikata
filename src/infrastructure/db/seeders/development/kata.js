@@ -1,5 +1,6 @@
 import { random, lorem, company } from 'faker';
 import { dataPopulator } from '../../../../utils/dataPopulator';
+import mockJson from '../../../../mock.json';
 
 const numKatas = 10;
 
@@ -11,7 +12,10 @@ const fakeKata = () => ({
   name: company.catchPhrase(),
 });
 
-export const records = dataPopulator(fakeKata)(numKatas);
+const mockKata = mockJson.kataEntity;
+delete mockKata.tags;
+
+export const records = [mockKata, ...dataPopulator(fakeKata)(numKatas)];
 
 export default {
   up: (queryInterface) => queryInterface.bulkInsert('kata', records, {}),

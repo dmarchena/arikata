@@ -16,9 +16,9 @@ export default {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      roleId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
+      roles: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+        defaultValue: null,
       },
     });
   },

@@ -1,6 +1,8 @@
 // eslint-disable-next-line
 ///<reference path="../../../jsdoc-types.js" />
 
+import config from '../../../config.json';
+
 /**
  * Factory function for an AuthSession
  * @param {Object} storage adapter to use an storage
@@ -27,7 +29,7 @@ const createAuthSession = (storage) => ({
    */
   isAdmin() {
     const user = storage.getUser();
-    return user?.role === 'admin';
+    return user?.roles?.includes(config.userRoles.admin);
   },
   /**
    * Check if there is authenticated user

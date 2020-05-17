@@ -3,12 +3,12 @@ import config from '../config.json';
 
 const factory = () => (
   id,
-  { email, password = '', role = '', accessToken = '' } = {}
+  { email, password = '', roles = [], accessToken = '' } = {}
 ) => ({
   id: id ?? v5(email ?? '', config.uuidNamespaces.user),
   email: email ?? '',
   password,
-  role,
+  roles,
   accessToken,
   setEmail(value) {
     this.email = value;

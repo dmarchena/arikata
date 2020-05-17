@@ -39,6 +39,7 @@ const createUserService = ({ authSession, userRepo }) => ({
    */
   logout() {
     userRepo.logout(authSession.getAuthentication());
+    authSession.discardAuthentication();
   },
 
   /**
@@ -75,7 +76,7 @@ const createUserService = ({ authSession, userRepo }) => ({
     const user = User(userRepo).create(undefined, {
       email,
       password,
-      role: configJson.userRoles.user,
+      roles: [configJson.userRoles.user],
     });
     return userRepo.save(user).then((responseDto) => {
       if (responseDto !== null) {

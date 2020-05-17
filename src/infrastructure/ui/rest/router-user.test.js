@@ -75,7 +75,7 @@ describe('api auth endpoints', () => {
     const resPromise = request.post('/signup').send({
       email: user.email,
       password: user.password,
-      role: user.role,
+      roles: user.roles,
     });
 
     it('should return a successful status', async () => {
@@ -107,7 +107,7 @@ describe('api auth endpoints', () => {
       const res = await request.post('/signup').send({
         email: 'badmail',
         password: user.password,
-        role: user.role,
+        roles: user.roles,
       });
       expect(res.statusCode).toBe(400);
       expect(res.body).toBeNull();

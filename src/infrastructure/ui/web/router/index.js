@@ -1,8 +1,10 @@
 import VueRouter from 'vue-router';
 import VKataList from '../components/VKataList.vue';
 import VKataAdmin from '../components/VKataAdmin.vue';
+import VSignInForm from '../components/VSignInForm.vue';
 
 const routes = [
+  { path: '/login', name: 'login', component: VSignInForm },
   { path: '/admin/katas/new', component: VKataAdmin },
   {
     path: '/admin/katas/:id',

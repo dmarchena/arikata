@@ -36,7 +36,7 @@ const update = (models) => (userDto) =>
     {
       // email: userDto.email,
       password: encryptPassword(userDto.password),
-      // role: userDto.role,
+      // roles: userDto.roles,
     },
     {
       returning: true,

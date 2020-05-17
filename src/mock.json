@@ -33,13 +33,13 @@
       "id": "322e9a79-cc48-5e6e-85d5-a695c972b682",
       "email": "admin@sample.com",
       "password": "JN|)rtelN'8@Af?",
-      "role": "admin"
+      "roles": ["ROLE_ADMIN", "ROLE_USER"]
     },
     "user": {
       "id": "46a7f881-9d96-50c3-a0ea-4d94d39aaaec",
       "email": "developer@sample.com",
       "password": "zoye7QZStw",
-      "role": "user"
+      "roles": ["ROLE_USER"]
     }
   },
   "tokens": {

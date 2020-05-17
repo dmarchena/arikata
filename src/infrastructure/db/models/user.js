@@ -17,9 +17,9 @@ export default (sequelize, DataTypes, Model) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      roleId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+      roles: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue: null,
       },
     },
     {
