@@ -2,7 +2,12 @@
   <div id="app">
     <header v-bem:header>
       <h1 v-bem:name>
-        Arikata
+        <router-link
+          v-bem:home-link
+          to="/"
+        >
+          Arikata
+        </router-link>
       </h1>
       <VUserInfo />
     </header>

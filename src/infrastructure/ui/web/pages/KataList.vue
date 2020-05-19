@@ -17,7 +17,10 @@
         v-bem:kata
       >
         <strong v-bem:kata-name>{{ kata.name }}</strong>
-        <div class="btn-set">
+        <div
+          v-if="isAdmin"
+          class="btn-set"
+        >
           <router-link
             :to="{ name: 'editKata', params: { id: kata.id } }"
             class="btn"
@@ -51,12 +54,12 @@
 
 <script>
 import app from '../application';
-import VButtonAsync from './VButtonAsync.vue';
-import VTag from './VTag.vue';
-import VPageTitle from './VPageTitle.vue';
+import VButtonAsync from '../components/VButtonAsync.vue';
+import VTag from '../components/VTag.vue';
+import VPageTitle from '../components/VPageTitle.vue';
 
 export default {
-  name: 'VKataList',
+  name: 'KataList',
 
   components: {
     VButtonAsync,
@@ -98,9 +101,7 @@ export default {
       return app.manageKataService.remove(kataId);
     },
     listKatas() {
-      console.log({ tag: this.tag });
       if (this.tag !== null) {
-        console.log({ tag: this.tag });
         this.listAllKatasWithTag(this.tag);
       } else {
         this.listAllKatas();

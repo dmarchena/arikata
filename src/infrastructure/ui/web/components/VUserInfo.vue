@@ -1,13 +1,21 @@
 <template>
   <div>
     <span
-      v-bem:avatar
+      v-bem:avatar="{ signedin: isSignedIn }"
       role="img"
       :alt="email"
+      :title="email"
     >{{ firstLetter }}</span>
+    <router-link
+      v-show="!isSignedIn"
+      :to="{ name: 'signin' }"
+      class="btn"
+    >
+      Sign in
+    </router-link>
     <button
       v-show="isSignedIn"
-      id="logout"
+      class="btn"
       @click="logout"
       @keyup.enter="logout"
       @keyup.space="logout"
@@ -22,20 +30,14 @@ import application from '../application';
 import { getters } from '../store';
 
 export default {
-  name: 'VSignInForm',
+  name: 'VUserInfo',
 
   computed: {
-    user() {
-      return this.$store.getters[getters.auth.getUser];
-    },
     email() {
       return this.user?.email;
     },
     firstLetter() {
-      return this.isSignedIn ? this.email.charAt(0) : 'Mr.X';
-    },
-    isSignedIn() {
-      return !!(this.user ?? false);
+      return this.isSignedIn ? this.email.charAt(0) : 'Mr. X';
     },
   },
 
@@ -43,6 +45,7 @@ export default {
     logout(evt) {
       evt.preventDefault();
       application.userService.logout();
+      this.$router.push({ name: 'signin' });
     },
   },
 };

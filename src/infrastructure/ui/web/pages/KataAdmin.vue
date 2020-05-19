@@ -50,13 +50,13 @@
 <script>
 import { publish, events } from '../event-bus';
 import application from '../application';
-import VButtonAsync from './VButtonAsync';
-import VCodeEditor from './VCodeEditor';
-import VCodeRunner from './VCodeRunner';
-import VConsole from './VConsole';
-import VFieldTags from './forms/VFieldTags';
-import VFieldText from './forms/VFieldText';
-import VFieldTextarea from './forms/VFieldTextarea';
+import VButtonAsync from '../components/VButtonAsync';
+import VCodeEditor from '../components/VCodeEditor';
+import VCodeRunner from '../components/VCodeRunner';
+import VConsole from '../components/VConsole';
+import VFieldTags from '../components/forms/VFieldTags';
+import VFieldText from '../components/forms/VFieldText';
+import VFieldTextarea from '../components/forms/VFieldTextarea';
 
 const testCode = `const A = 10;
 console.log(A);
@@ -82,7 +82,7 @@ const sampleTest = `it('should add', () => expect(add(1,2)).to.be.equal(3));
 it('should mul', () => expect(mul(1,2)).to.be.equal(2));`;
 
 export default {
-  name: 'VKataAdmin',
+  name: 'KataAdmin',
 
   components: {
     VButtonAsync,

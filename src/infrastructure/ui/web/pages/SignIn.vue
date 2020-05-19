@@ -6,13 +6,16 @@
   >
     <VFieldText
       v-model="email"
+      autocomplete="username"
       name="email"
     >
       Email
     </VFieldText>
     <VFieldText
       v-model="password"
+      autocomplete="current-password"
       name="password"
+      :password="true"
     >
       Password
     </VFieldText>
@@ -21,18 +24,23 @@
       :loading="loading"
       @active="handleSubmit"
     >
-      Login
+      Sign in
     </VButtonAsync>
+    <p>
+      <router-link :to="{ name: 'signup' }">
+        create new account
+      </router-link>
+    </p>
   </form>
 </template>
 
 <script>
 import application from '../application';
-import VButtonAsync from './VButtonAsync';
-import VFieldText from './forms/VFieldText';
+import VButtonAsync from '../components/VButtonAsync';
+import VFieldText from '../components/forms/VFieldText';
 
 export default {
-  name: 'VSignInForm',
+  name: 'SignIn',
 
   components: {
     VButtonAsync,
@@ -48,12 +56,23 @@ export default {
   },
 
   methods: {
-    handleSubmit(evt) {
+    async handleSubmit(evt) {
       evt.preventDefault();
       this.loading = true;
-      const res = application.userService.signin(this.email, this.password);
+      let success = false;
+      try {
+        const user = await application.userService.signin(
+          this.email,
+          this.password
+        );
+        success = user !== null;
+      } catch (e) {
+        console.log(e.message);
+      }
+      if (success) {
+        this.$router.push('katas');
+      }
       this.loading = false;
-      console.log(res);
     },
   },
 };

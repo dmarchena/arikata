@@ -11,7 +11,7 @@ const endpoints = {
 };
 
 const responseData = (response) =>
-  response.status === 200 ? response.data : null;
+  response.status >= 300 ? null : response.data;
 
 const login = (user) => Axios.post(endpoints.signin, user).then(responseData);
 

@@ -1,0 +1,21 @@
+.v-user-info {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.9em;
+}
+
+.v-user-info__avatar {
+  color: var(--color-text--darkmode);
+}
+
+.v-user-info__avatar--signedin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
+  color: var(--color-text);
+  text-transform: uppercase;
+  background-color: var(--color-cadet-grey);
+  border-radius: 50%;
+}

@@ -9,9 +9,11 @@ import { store } from './store';
 import vueBemPlugin from './plugins/vue-bem';
 
 import App from './App.vue';
+import auth from './mixins/auth';
 
 Vue.use(VueRouter);
 Vue.use(vueBemPlugin);
+Vue.mixin(auth);
 
 new Vue({
   beforeCreate() {
