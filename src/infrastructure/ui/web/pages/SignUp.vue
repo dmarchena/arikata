@@ -1,11 +1,12 @@
 <template>
   <form
-    class="form"
+    v-bem-block:form
     action="/api/user/signup"
     method="post"
   >
     <VFieldText
       v-model="email"
+      v-bem:field
       autocomplete="username"
       name="email"
     >
@@ -13,6 +14,7 @@
     </VFieldText>
     <VFieldText
       v-model="password"
+      v-bem:field
       autocomplete="new-password"
       name="password"
       :password="true"
@@ -21,19 +23,27 @@
     </VFieldText>
     <VFieldText
       v-model="passwordConfirmation"
+      v-bem:field
       autocomplete="new-password"
       name="passwordConfirmation"
       :password="true"
     >
-      Confirm your password
+      Confirm your password to avoid spelling mistakes
     </VFieldText>
-    <VButtonAsync
-      id="login"
-      :loading="loading"
-      @active="handleSubmit"
+    <div
+      v-show="error"
+      v-bem:error
     >
-      Sign up
-    </VButtonAsync>
+      {{ error }}
+    </div>
+    <div v-bem:actions>
+      <VButtonAsync
+        :loading="loading"
+        @active="handleSubmit"
+      >
+        Sign up
+      </VButtonAsync>
+    </div>
   </form>
 </template>
 
@@ -53,6 +63,7 @@ export default {
   data() {
     return {
       email: '',
+      error: undefined,
       password: '',
       passwordConfirmation: '',
       loading: false,
@@ -65,19 +76,25 @@ export default {
       this.loading = true;
       let success = false;
       try {
-        const user = await application.userService.signup(
+        const user = await application.userService.signUp(
           this.email,
           this.password,
           this.passwordConfirmation
         );
         success = user !== null;
       } catch (e) {
-        console.log(e.message);
+        this.printError(e.message);
       }
       if (success) {
         this.$router.push('katas');
       }
       this.loading = false;
+    },
+    cleanError() {
+      this.error = undefined;
+    },
+    printError(message) {
+      this.error = message;
     },
   },
 };

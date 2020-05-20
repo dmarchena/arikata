@@ -1,9 +1,9 @@
 import createUserRepo from './user';
 
 const mockRepo = () => ({
-  login: jest.fn(),
-  logout: jest.fn(),
-  save: jest.fn(),
+  signIn: jest.fn(),
+  signOut: jest.fn(),
+  signUp: jest.fn(),
   update: jest.fn(),
 });
 
@@ -19,7 +19,7 @@ describe('user repository factory', () => {
     expect(createUserRepo(mockRepo())).toBeUserRepo();
   });
 
-  it.each([['login'], ['logout'], ['save'], ['update']])(
+  it.each([['signIn'], ['signOut'], ['signUp'], ['update']])(
     'should throw an error if "%s" function is not provided',
     (method) => {
       expect.assertions(1);

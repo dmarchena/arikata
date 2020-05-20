@@ -63,8 +63,8 @@
 
 /**
  * @typedef UserRepo
- * @property {function(UserAggregate):Promise.<UserAggregate>} login Login the user. Returns null if it does not exists or the pass is not correct.
- * @property {function(UserAggregate):undefined} logout End user session
- * @property {function(UserAggregate):Promise.<UserAggregate>} save Save new user. Returns false if user already exist.
+ * @property {function(UserAggregate):Promise.<UserAggregate>} signIn Login the user. Returns null if it does not exists or the pass is not correct.
+ * @property {function(UserAggregate):undefined} signOut End user session
+ * @property {function(UserAggregate):Promise.<UserAggregate>} signUp Save new user. Returns false if user already exist.
  * @property {function(UserAggregate):Promise.<UserAggregate>} update Updates user data.
  */

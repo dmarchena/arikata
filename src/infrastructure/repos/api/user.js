@@ -1,36 +1,30 @@
 import { identity } from 'ramda';
-import Axios from 'axios';
 
+import { createHttpClient } from './utils';
 import createUserRepo from '../../../application/factories/repos/user';
-import { authHeader } from './utils';
 
 const endpoints = {
-  signin: '/api/user/signin',
-  signup: '/api/user/signup',
+  signIn: '/api/user/signin',
+  signUp: '/api/user/signup',
   update: (id) => `/api/user/${id}`,
 };
 
-const responseData = (response) =>
-  response.status >= 300 ? null : response.data;
+const request = createHttpClient();
 
-const login = (user) => Axios.post(endpoints.signin, user).then(responseData);
+const signIn = (user) => request.post(endpoints.signIn, user);
 
-const save = (user) => Axios.post(endpoints.signup, user).then(responseData);
+const signUp = (user) => request.post(endpoints.signUp, user);
 
 const update = (user) =>
-  Axios.put(
-    endpoints.update(user.id),
-    {
-      email: user.email,
-      password: user.password,
-    },
-    { headers: authHeader() }
-  ).then(responseData);
+  request.put(endpoints.update(user.id), {
+    email: user.email,
+    password: user.password,
+  });
 
 const userRepo = createUserRepo({
-  login,
-  logout: identity,
-  save,
+  signIn,
+  signOut: identity,
+  signUp,
   update,
 });
 

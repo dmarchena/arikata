@@ -38,7 +38,7 @@ describe('api auth endpoints', () => {
         password: '1234',
       });
       expect(res.statusCode).toBe(401);
-      expect(res.body).toBeNull();
+      expect(res.body.message).toBeString();
     });
   });
 
@@ -75,7 +75,6 @@ describe('api auth endpoints', () => {
     const resPromise = request.post('/signup').send({
       email: user.email,
       password: user.password,
-      roles: user.roles,
     });
 
     it('should return a successful status', async () => {
@@ -107,10 +106,9 @@ describe('api auth endpoints', () => {
       const res = await request.post('/signup').send({
         email: 'badmail',
         password: user.password,
-        roles: user.roles,
       });
-      expect(res.statusCode).toBe(400);
-      expect(res.body).toBeNull();
+      expect(res.statusCode).toBe(statusCodes.badRequest);
+      expect(res.body.message).toBeString();
     });
   });
 

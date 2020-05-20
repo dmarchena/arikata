@@ -1,10 +1,20 @@
 // eslint-disable-next-line
 ///<reference path="../jsdoc-types.js" />
 
+import AuthError from './exceptions/AuthError';
+import NotFoundError from './exceptions/NotFoundError';
 import PermissionDeniedError from './exceptions/PermissionDeniedError';
 import User from '../domain/user';
 import configJson from '../config.json';
 import isValidEmail from './validators/email';
+import isEmpty from './validators/empty';
+
+const checkUserNotFound = (user) => {
+  if (user === null) {
+    return Promise.reject(new NotFoundError('User does not exists'));
+  }
+  return user;
+};
 
 /**
  * Factory function for a user application service
@@ -22,41 +32,51 @@ const createUserService = ({ authSession, userRepo }) => ({
    */
   changePassword(email, password, passwordConfirmation = false) {
     if (!authSession.isAuthenticated()) {
-      throw new PermissionDeniedError(
-        'You need to be signed in to call this method.'
+      return Promise.reject(
+        new PermissionDeniedError(
+          'You need to be signed in to call this method.'
+        )
       );
     }
     if (passwordConfirmation && password !== passwordConfirmation) {
-      throw new Error('Password can not be confirmed.');
+      return Promise.reject(new Error('Password can not be confirmed.'));
     }
     const user = User(userRepo).create(undefined, { email, password });
-    return userRepo.update(user);
+    return userRepo.update(user).then(checkUserNotFound);
+  },
+
+  /**
+   * Login the user.
+   * @param {string} email new user email
+   * @param {string} password password
+   * @returns {Promise.<UserResponseDto>} User DTO with role and JSON Web Token
+   */
+  signIn(email, password) {
+    if (!isValidEmail(email)) {
+      return Promise.reject(
+        new TypeError(`"${email}" is not a valid email address`)
+      );
+    }
+    if (isEmpty(password)) {
+      return Promise.reject(new TypeError('You must introduce a password'));
+    }
+    const user = User(userRepo).create(undefined, { email, password });
+    return userRepo
+      .signIn(user)
+      .then(checkUserNotFound)
+      .then((responseDto) => {
+        authSession.saveAuthentication(responseDto);
+        return responseDto;
+      });
   },
 
   /**
    * End user session
    * @returns {undefined}
    */
-  logout() {
-    userRepo.logout(authSession.getAuthentication());
+  signOut() {
+    userRepo.signOut(authSession.getAuthentication());
     authSession.discardAuthentication();
-  },
-
-  /**
-   * Login the user. Returns true if exists and the pass is correct.
-   * @param {string} email new user email
-   * @param {string} password password
-   * @returns {Promise.<UserResponseDto>} User DTO with role and JSON Web Token
-   */
-  signin(email, password) {
-    const user = User(userRepo).create(undefined, { email, password });
-    return userRepo.login(user).then((responseDto) => {
-      if (responseDto !== null) {
-        authSession.saveAuthentication(responseDto);
-        return responseDto;
-      }
-      return null;
-    });
   },
 
   /**
@@ -66,25 +86,41 @@ const createUserService = ({ authSession, userRepo }) => ({
    * @param {string} [passwordConfirmation] password confirmation to prevent from typos
    * @returns {Promise.<UserResponseDto>} User dto
    */
-  signup(email, password, passwordConfirmation) {
+  signUp(email, password, passwordConfirmation) {
     if (!isValidEmail(email)) {
-      throw new TypeError(`"${email} is not valid email`);
+      return Promise.reject(new TypeError(`"${email}" is not valid email`));
     }
-    if (passwordConfirmation && password !== passwordConfirmation) {
-      throw new Error('Password can not be confirmed.');
+    if (isEmpty(password)) {
+      return Promise.reject(new TypeError('You must introduce a password'));
+    }
+    if (arguments.length > 2 && password !== passwordConfirmation) {
+      return Promise.reject(new Error('Passwords do not match.'));
     }
     const user = User(userRepo).create(undefined, {
       email,
       password,
       roles: [configJson.userRoles.user],
     });
-    return userRepo.save(user).then((responseDto) => {
-      if (responseDto !== null) {
-        authSession.saveAuthentication(responseDto);
-        return responseDto;
-      }
-      return null;
-    });
+    return userRepo
+      .signUp(user)
+      .then((responseDto) => {
+        if (responseDto !== null) {
+          authSession.saveAuthentication(responseDto);
+          return responseDto;
+        }
+        return Promise.reject(
+          new AuthError(
+            'It has been impossible to register this email. It seems that the user already exists.'
+          )
+        );
+      })
+      .catch(() => {
+        return Promise.reject(
+          new AuthError(
+            'It has been impossible to register this email. It seems that the user already exists.'
+          )
+        );
+      });
   },
 });
 

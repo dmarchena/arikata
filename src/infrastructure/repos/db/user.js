@@ -4,14 +4,14 @@ import { comparePassword, encryptPassword } from '../../encryption';
 import webtoken from '../../webtoken';
 import { userTransformer } from '../../../application/transformers/userTransformer';
 
-const login = (models) => (userDto) =>
+const signIn = (models) => (userDto) =>
   models.User.findOne({
     where: {
       email: userDto.email,
     },
   }).then((dbUser) => {
     if (!dbUser) {
-      return null;
+      throw new Error(`User "${userDto.email}" does not exists`);
     }
     const isValidPassword = comparePassword(userDto.password, dbUser.password);
     if (isValidPassword) {
@@ -20,12 +20,12 @@ const login = (models) => (userDto) =>
       resUser.accessToken = token;
       return resUser;
     }
-    return null;
+    throw new Error('Wrong password');
   });
 
-const logout = Promise.resolve; // Do nothing and return same user
+const signOut = Promise.resolve; // Do nothing and return same user
 
-const save = (models) => (userDto) =>
+const signUp = (models) => (userDto) =>
   models.User.create({
     ...userDto,
     password: encryptPassword(userDto.password),
@@ -45,9 +45,9 @@ const update = (models) => (userDto) =>
   );
 
 const userRepo = createUserRepo({
-  login: login(db),
-  logout,
-  save: save(db),
+  signIn: signIn(db),
+  signOut,
+  signUp: signUp(db),
   update: update(db),
 });
 

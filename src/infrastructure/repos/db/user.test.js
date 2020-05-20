@@ -8,8 +8,7 @@ describe('userRepo (db)', () => {
       expect.assertions(1);
       const input = mockUser();
       input.password = 'wRonGpAss';
-      const result = await dbRepo.login(input);
-      expect(result).toBeNull();
+      await expect(dbRepo.signIn(input)).rejects.toBeInstanceOf(Error);
     });
   });
 
@@ -17,7 +16,7 @@ describe('userRepo (db)', () => {
     it('should return the user', async () => {
       expect.assertions(2);
       const input = mockUser();
-      const result = await dbRepo.login(input);
+      const result = await dbRepo.signIn(input);
       expect(result).toBeUserDto();
       expect(result.email).toBe(input.email);
     });
@@ -27,7 +26,7 @@ describe('userRepo (db)', () => {
     it('should return the brand new user data', async () => {
       expect.assertions(2);
       const input = mockUser();
-      const result = await dbRepo.save(input);
+      const result = await dbRepo.signUp(input);
       expect(result).toBeUserDto();
       expect(result.email).toBe(input.email);
     });

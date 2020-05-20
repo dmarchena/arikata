@@ -1,11 +1,12 @@
 <template>
   <form
-    class="form"
+    v-bem-block:form
     action="/api/user/signin"
     method="post"
   >
     <VFieldText
       v-model="email"
+      v-bem:field
       autocomplete="username"
       name="email"
     >
@@ -13,24 +14,33 @@
     </VFieldText>
     <VFieldText
       v-model="password"
+      v-bem:field
       autocomplete="current-password"
       name="password"
       :password="true"
     >
       Password
     </VFieldText>
-    <VButtonAsync
-      id="login"
-      :loading="loading"
-      @active="handleSubmit"
+    <div
+      v-show="error"
+      v-bem:error
     >
-      Sign in
-    </VButtonAsync>
-    <p>
-      <router-link :to="{ name: 'signup' }">
+      {{ error }}
+    </div>
+    <div v-bem:actions>
+      <VButtonAsync
+        :loading="loading"
+        @active="handleSubmit"
+      >
+        Sign in
+      </VButtonAsync>
+      <router-link
+        v-bem:sign-up-link
+        :to="{ name: 'signup' }"
+      >
         create new account
       </router-link>
-    </p>
+    </div>
   </form>
 </template>
 
@@ -50,6 +60,7 @@ export default {
   data() {
     return {
       email: '',
+      error: undefined,
       password: '',
       loading: false,
     };
@@ -61,18 +72,24 @@ export default {
       this.loading = true;
       let success = false;
       try {
-        const user = await application.userService.signin(
+        const user = await application.userService.signIn(
           this.email,
           this.password
         );
         success = user !== null;
       } catch (e) {
-        console.log(e.message);
+        this.printError(e.message);
       }
       if (success) {
         this.$router.push('katas');
       }
       this.loading = false;
+    },
+    cleanError() {
+      this.error = undefined;
+    },
+    printError(message) {
+      this.error = message;
     },
   },
 };

@@ -4,15 +4,11 @@ import userRepo from './user';
 
 describe('userRepo (api)', () => {
   const user = mockUser();
-  // Empty auth headers cause it a fake login
-  const authHeaders = {
-    headers: {},
-  };
 
-  describe('when login', () => {
+  describe('when signing in', () => {
     it('should POST to "signin" endpoint of the api', () => {
       expect.hasAssertions();
-      userRepo.login(user);
+      userRepo.signIn(user);
       expect(mockAxios.post).toHaveBeenCalledWith('/api/user/signin', user);
     });
   });
@@ -20,7 +16,7 @@ describe('userRepo (api)', () => {
   describe('when registering a new user', () => {
     it('should POST to "signup" endpoint of the api', () => {
       expect.hasAssertions();
-      userRepo.save(user);
+      userRepo.signUp(user);
       expect(mockAxios.post).toHaveBeenCalledWith('/api/user/signup', user);
     });
   });
@@ -35,8 +31,7 @@ describe('userRepo (api)', () => {
       };
       expect(mockAxios.put).toHaveBeenCalledWith(
         `/api/user/${user.id}`,
-        userData,
-        authHeaders
+        userData
       );
     });
   });

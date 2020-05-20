@@ -221,9 +221,9 @@ expect.extend({
     'toBeUserRepo',
     R.both(
       R.where({
-        login: R.is(Function),
-        logout: R.is(Function),
-        save: R.is(Function),
+        signIn: R.is(Function),
+        signOut: R.is(Function),
+        signUp: R.is(Function),
         transformer: R.is(Object),
         update: R.is(Function),
       }),

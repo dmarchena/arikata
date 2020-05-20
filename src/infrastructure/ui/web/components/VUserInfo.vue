@@ -44,7 +44,7 @@ export default {
   methods: {
     logout(evt) {
       evt.preventDefault();
-      application.userService.logout();
+      application.userService.signOut();
       this.$router.push({ name: 'signin' });
     },
   },

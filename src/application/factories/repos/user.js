@@ -9,9 +9,9 @@ import { createUserTransformer } from '../../transformers/userTransformer';
  * @returns {UserRepo}
  */
 function createUserRepo({
-  login = isRequired('login'),
-  logout = isRequired('logout'),
-  save = isRequired('save'),
+  signIn = isRequired('signIn'),
+  signOut = isRequired('signOut'),
+  signUp = isRequired('signUp'),
   update = isRequired('update'),
 }) {
   return {
@@ -22,8 +22,8 @@ function createUserRepo({
      * @param {UserAggregate} user
      * @returns {Promise.<UserAggregate>}
      */
-    login(user) {
-      return login(this.transformer.toUserDto(user, false)).then((data) =>
+    signIn(user) {
+      return signIn(this.transformer.toUserDto(user, false)).then((data) =>
         data === null ? null : this.transformer.toUserDto(data, true)
       );
     },
@@ -33,8 +33,8 @@ function createUserRepo({
      * @param {UserAggregate} user
      * @returns {undefined>}
      */
-    logout(user) {
-      logout(this.transformer.toUserDto(user, false));
+    signOut(user) {
+      signOut(this.transformer.toUserDto(user, false));
     },
 
     /**
@@ -42,8 +42,8 @@ function createUserRepo({
      * @param {UserAggregate} user
      * @returns {Promise.<UserAggregate>}
      */
-    save(user) {
-      return save(this.transformer.toUserDto(user, false)).then((data) =>
+    signUp(user) {
+      return signUp(this.transformer.toUserDto(user, false)).then((data) =>
         data === null ? null : this.transformer.toUserDto(data, true)
       );
     },
