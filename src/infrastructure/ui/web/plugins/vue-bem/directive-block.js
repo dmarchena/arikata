@@ -1,6 +1,13 @@
+import arrify from 'arrify';
+
 const addBlockNames = (bindings, vnode) => {
-  const { value } = bindings;
-  vnode.context.bemBlocks = vnode.context.bemBlocks.concat(value);
+  const { arg, value } = bindings;
+  if (arg) {
+    vnode.context.bemBlocks = vnode.context.bemBlocks.concat(arrify(arg));
+  }
+  if (value) {
+    vnode.context.bemBlocks = vnode.context.bemBlocks.concat(arrify(value));
+  }
 };
 
 const directive = {

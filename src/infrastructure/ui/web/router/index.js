@@ -1,20 +1,24 @@
 import VueRouter from 'vue-router';
-import VKataList from '../components/VKataList.vue';
-import VKataAdmin from '../components/VKataAdmin.vue';
+import KataList from '../pages/KataList.vue';
+import KataAdmin from '../pages/KataAdmin.vue';
+import SignIn from '../pages/SignIn.vue';
+import SignUp from '../pages/SignUp.vue';
 
 const routes = [
-  { path: '/admin/katas/new', component: VKataAdmin },
+  { path: '/signin', name: 'signin', component: SignIn },
+  { path: '/signup', name: 'signup', component: SignUp },
+  { path: '/admin/katas/new', component: KataAdmin },
   {
     path: '/admin/katas/:id',
     name: 'editKata',
-    component: VKataAdmin,
+    component: KataAdmin,
     props: true,
   },
-  { path: '/admin/katas/', component: VKataList },
+  { path: '/admin/katas/', component: KataList },
   {
     path: '/katas/',
     name: 'katas',
-    component: VKataList,
+    component: KataList,
     props: (route) => ({ tag: route.query.tag }),
   },
   { path: '/', redirect: '/katas/' },

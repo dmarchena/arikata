@@ -1,4 +1,4 @@
-const bcryptjs = require('bcryptjs');
+import bcryptjs from 'bcryptjs';
 
 const encryptPassword = (password) => {
   const salt = bcryptjs.genSaltSync();
@@ -9,7 +9,4 @@ const comparePassword = (password, encodedPassword) => {
   return bcryptjs.compareSync(password, encodedPassword);
 };
 
-module.exports = {
-  comparePassword,
-  encryptPassword,
-};
+export { comparePassword, encryptPassword };

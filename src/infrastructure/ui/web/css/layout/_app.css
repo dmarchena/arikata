@@ -1,0 +1,33 @@
+.app {
+  display: grid;
+  grid-template:
+    'header' auto
+    'main' 1fr / auto;
+  min-height: 100vh;
+}
+
+.app__header {
+  display: flex;
+  grid-area: header;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4em 1.2em;
+  color: var(--color-primary);
+  background-color: var(--color-secondary);
+}
+
+.app__home-link {
+  color: currentColor;
+  text-decoration: none;
+}
+
+.app__name {
+  margin: 0;
+  font-size: 1.2em;
+  text-transform: uppercase;
+}
+
+.app__main {
+  grid-area: main;
+  margin: 1em 5%;
+}

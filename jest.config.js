@@ -23,6 +23,7 @@ module.exports = {
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   collectCoverageFrom: [
     'src/**/*.{js,vue}',
+    '!src/jsdoc-types.js', // JSDoc type definitions
     '!src/infrastructure/db/**/*', // Sequelize code
     '!**/server/**/*', // Express code
   ],
@@ -141,7 +142,11 @@ module.exports = {
   // setupFiles: [],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  setupFilesAfterEnv: ['jest-extended', './jest.setup.js'],
+  setupFilesAfterEnv: [
+    'jest-extended',
+    'jest-localstorage-mock',
+    './jest.setup.js',
+  ],
 
   // A list of paths to snapshot serializer modules Jest should use for snapshot testing
   // snapshotSerializers: [],

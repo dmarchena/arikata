@@ -1,4 +1,5 @@
 module.exports = {
+  parser: 'babel-eslint',
   env: {
     browser: true,
     node: true,
@@ -14,6 +15,9 @@ module.exports = {
         mockKataData: 'readonly',
         mockKataDto: 'readonly',
         mockKataEntity: 'readonly',
+        mockExpiredToken: 'readonly',
+        mockUser: 'readonly',
+        mockUserAdmin: 'readonly',
       },
       extends: ['plugin:jest/all'],
       rules: { 'jest/require-to-throw-message': 'warn' },

@@ -1,6 +1,7 @@
 import application from './application';
 
-jest.mock('../../repos/api/kata');
+jest.mock('../../repos/db/kata');
+jest.mock('../../repos/db/user');
 
 describe('web application', () => {
   it('should be an app instance', () => {

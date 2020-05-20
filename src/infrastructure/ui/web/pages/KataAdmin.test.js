@@ -4,16 +4,16 @@
 import { shallowMount, mount } from '@vue/test-utils';
 import Vue from 'vue';
 
-import VKataAdmin from './VKataAdmin';
+import KataAdmin from './KataAdmin';
 
 jest.mock('../application');
 import application from '../application';
 
 const localVue = createCustomLocalVue();
 
-describe('VKataAdmin', () => {
+describe('KataAdmin', () => {
   it('should render', () => {
-    const wrapper = shallowMount(VKataAdmin);
+    const wrapper = shallowMount(KataAdmin);
     expect.hasAssertions();
     expect(wrapper.exists()).toBe(true);
   });
@@ -22,7 +22,7 @@ describe('VKataAdmin', () => {
     it('should submit data', async () => {
       expect.hasAssertions();
       const spy = jest.spyOn(application.manageKataService, 'save');
-      const wrapper = mount(VKataAdmin, {
+      const wrapper = mount(KataAdmin, {
         data() {
           return mockKataData();
         },
@@ -49,7 +49,7 @@ describe('VKataAdmin', () => {
 
     it('should load kata data', async () => {
       expect.hasAssertions();
-      const wrapper = shallowMount(VKataAdmin, {
+      const wrapper = shallowMount(KataAdmin, {
         propsData: {
           id: 'foo-uuid-001',
         },
@@ -65,7 +65,7 @@ describe('VKataAdmin', () => {
       const spyUpdate = jest.spyOn(application.manageKataService, 'update');
 
       const kata = mockKataDto();
-      const wrapper = mount(VKataAdmin, {
+      const wrapper = mount(KataAdmin, {
         propsData: {
           id: kata.id,
         },

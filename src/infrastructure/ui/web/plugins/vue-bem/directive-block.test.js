@@ -13,11 +13,52 @@ localVue.directive('bem', directive);
 describe('v-bem-block directive', () => {
   let wrapper;
 
-  beforeEach(() => {
-    wrapper = shallowMount(
+  describe('when passing an array', () => {
+    beforeEach(() => {
+      wrapper = shallowMount(
+        {
+          name: 'VTestList',
+          template: `<ul v-bem-block="['custom-block']" v-bem.visible>
+            <li v-bem:item></li>
+          </ul>`,
+          mixins: [mixin],
+        },
+        {
+          localVue,
+        }
+      );
+    });
+
+    it('should add extra block names to root element', () => {
+      expect.hasAssertions();
+      expect(wrapper.find('ul').classes()).toContain('custom-block');
+    });
+
+    it('should add modifiers for all block names', () => {
+      expect.hasAssertions();
+      const classes = wrapper.find('ul').classes();
+      expect(classes).toIncludeSameMembers([
+        'v-test-list',
+        'v-test-list--visible',
+        'custom-block',
+        'custom-block--visible',
+      ]);
+    });
+
+    it('should add extra classes to element', () => {
+      expect.hasAssertions();
+      expect(wrapper.find('li').classes()).toIncludeSameMembers([
+        'v-test-list__item',
+        'custom-block__item',
+      ]);
+    });
+  });
+
+  describe('When passing an string argument', () => {
+    const wrapper = shallowMount(
       {
         name: 'VTestList',
-        template: `<ul v-bem-block="['custom-block']" v-bem.visible>
+        template: `<ul v-bem-block:custom-block v-bem.visible>
           <li v-bem:item></li>
         </ul>`,
         mixins: [mixin],
@@ -26,29 +67,10 @@ describe('v-bem-block directive', () => {
         localVue,
       }
     );
-  });
 
-  it('should add extra block names to root element', () => {
-    expect.hasAssertions();
-    expect(wrapper.find('ul').classes()).toContain('custom-block');
-  });
-
-  it('should add modifiers for all block names', () => {
-    expect.hasAssertions();
-    const classes = wrapper.find('ul').classes();
-    expect(classes).toIncludeSameMembers([
-      'v-test-list',
-      'v-test-list--visible',
-      'custom-block',
-      'custom-block--visible',
-    ]);
-  });
-
-  it('should add extra classes to element', () => {
-    expect.hasAssertions();
-    expect(wrapper.find('li').classes()).toIncludeSameMembers([
-      'v-test-list__item',
-      'custom-block__item',
-    ]);
+    it('should add a single extra block names to root element', () => {
+      expect.hasAssertions();
+      expect(wrapper.find('ul').classes()).toContain('custom-block');
+    });
   });
 });

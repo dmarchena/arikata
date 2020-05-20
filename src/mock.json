@@ -27,5 +27,23 @@
         "tag": "test"
       }
     ]
+  },
+  "users": {
+    "admin": {
+      "id": "322e9a79-cc48-5e6e-85d5-a695c972b682",
+      "email": "admin@sample.com",
+      "password": "JN|)rtelN'8@Af?",
+      "roles": ["ROLE_ADMIN", "ROLE_USER"]
+    },
+    "user": {
+      "id": "46a7f881-9d96-50c3-a0ea-4d94d39aaaec",
+      "email": "developer@sample.com",
+      "password": "zoye7QZStw",
+      "roles": ["ROLE_USER"]
+    }
+  },
+  "tokens": {
+    "admin": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHNhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1ODk2NTk4OTcsImV4cCI6MTU4OTY5NjM5N30.kgRidBKvdHy_eZcPKdK98DHyFTvKdcQHcR2cZrHxqNM",
+    "user": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRldmVsb3BlckBzYW1wbGUuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE1ODk2NTk5NjksImV4cCI6MTU4OTY5NjQ2OX0.QX5LpUUZYQg71jN23Z8zB-y0hCQw7bhTHQYUqCzh3g0"
   }
 }

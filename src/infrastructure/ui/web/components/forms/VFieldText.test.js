@@ -75,4 +75,15 @@ describe('VFieldText', () => {
     await Vue.nextTick();
     expect(parent.vm.text).toBe('tested');
   });
+
+  describe('when using it for a password', () => {
+    it('should hide the input content', async () => {
+      expect.assertions(2);
+      await wrapper.setProps({
+        password: true,
+      });
+      expect(wrapper.find('[type="password"').exists()).toBe(true);
+      expect(wrapper.find('[type="text"').exists()).toBe(false);
+    });
+  });
 });

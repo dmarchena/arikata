@@ -1,28 +1,42 @@
-import supertest from 'supertest';
 import express from 'express';
-import router from './router';
+import supertest from 'supertest';
+
 import application from './application';
+import { applyBaseMiddlewares } from './middlewares';
+import router from './router-katas';
+import webtoken from '../../webtoken';
 
 jest.mock('./application');
 
-const server = express();
+const server = applyBaseMiddlewares(express());
 server.use(router);
-const request = supertest(server);
+
+const requestBase = supertest(server);
+const request = (method) => (url, auth = false) => {
+  const req = requestBase[method](url).set('Accept', 'application/json');
+  if (auth) {
+    const token = webtoken.signWithPayload(mockUserAdmin());
+    req.set('x-access-token', token);
+  }
+  return req;
+};
+const requestGet = request('get');
+const requestPost = request('post');
+const requestPut = request('put');
+const requestDelete = request('delete');
 
 describe('api rest endpoints', () => {
-  it.each([['/katas/'], ['/katas/?tag=sample-tag']])(
+  it.each([['/'], ['/?tag=sample-tag']])(
     'should provide endpoint: %s',
     (url) => {
-      return request
-        .get(url)
-        .set('Accept', 'application/json')
+      return requestGet(url)
         .expect(200)
         .expect('Content-Type', /json/)
         .then((response) => expect(response.body).toBeArray());
     }
   );
 
-  describe('save new kata', () => {
+  describe('when saving new kata', () => {
     let mockData;
     let res;
     let spy;
@@ -31,10 +45,7 @@ describe('api rest endpoints', () => {
     beforeEach(async () => {
       mockData = mockKataData();
       spy = jest.spyOn(application.manageKataService, 'save');
-      res = await request
-        .post('/katas/')
-        .send(mockData)
-        .set('Accept', 'application/json');
+      res = await requestPost('/', true).send(mockData);
     });
 
     // eslint-disable-next-line jest/no-hooks
@@ -42,18 +53,23 @@ describe('api rest endpoints', () => {
       spy.mockRestore();
     });
 
+    it('should return a successful status', () => {
+      expect.assertions(1);
+      expect(res.statusCode).toStrictEqual(201);
+    });
+
     it('should parse and receive kata data', () => {
       expect.hasAssertions();
       expect(spy).toHaveBeenNthCalledWith(1, mockData);
     });
 
-    it('should save', () => {
+    it('should return data of saved kata', () => {
       expect.hasAssertions();
       expect(res.body).toBeKataDto();
-      expect(res.statusCode).toStrictEqual(201);
     });
   });
-  describe('update an existing kata', () => {
+
+  describe('when updating an existing kata', () => {
     let mockData;
     let mockKata;
     let res;
@@ -68,10 +84,7 @@ describe('api rest endpoints', () => {
         id: undefined,
       };
       spyUpdate = jest.spyOn(application.manageKataService, 'update');
-      res = await request
-        .put(`/katas/${mockKata.id}`)
-        .send(mockData)
-        .set('Accept', 'application/json');
+      res = await requestPut(`/${mockKata.id}`, true).send(mockData);
     });
 
     // eslint-disable-next-line jest/no-hooks
@@ -107,7 +120,7 @@ describe('api rest endpoints', () => {
     beforeEach(async () => {
       mockKata = mockKataEntity();
       spyDelete = jest.spyOn(application.manageKataService, 'remove');
-      res = await request.delete(`/katas/${mockKata.id}`);
+      res = await requestDelete(`/${mockKata.id}`, true);
     });
 
     // eslint-disable-next-line jest/no-hooks

@@ -17,7 +17,14 @@ module.exports = {
   mode: process.env.NODE_ENV,
 
   module: {
-    rules: [],
+    rules: [
+      // this will apply to both plain `.js` files
+      // AND `<script>` blocks in `.vue` files
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+      },
+    ],
   },
 
   output: {

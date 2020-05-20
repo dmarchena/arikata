@@ -8,6 +8,8 @@
     <input
       :id="uid"
       v-bem:control
+      :type="password ? 'password' : 'text'"
+      :autocomplete="autocomplete"
       :disabled="disabled"
       :required="required"
       :name="name"
@@ -34,10 +36,15 @@ export default {
   },
 
   props: {
+    autocomplete: stringProp(),
     id: stringProp(),
     name: stringProp(),
     value: stringProp(),
     disabled: {
+      type: Boolean,
+      default: false,
+    },
+    password: {
       type: Boolean,
       default: false,
     },

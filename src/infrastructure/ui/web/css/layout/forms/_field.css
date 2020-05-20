@@ -3,3 +3,8 @@
   flex-direction: column;
   margin: 0;
 }
+
+.field__label,
+.field__control {
+  flex-grow: 1;
+}
