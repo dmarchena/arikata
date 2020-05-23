@@ -5,6 +5,7 @@ import kataTags from './kata_tags';
 import kata from './kata';
 import user from './user';
 import tag from './tag';
+import training from './training';
 
 const db = {};
 
@@ -24,6 +25,7 @@ db.KataTags = kataTags(sequelize, DataTypes, Model);
 db.Kata = kata(sequelize, DataTypes, Model);
 db.Tag = tag(sequelize, DataTypes, Model);
 db.User = user(sequelize, DataTypes, Model);
+db.Training = training(sequelize, DataTypes, Model);
 
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {

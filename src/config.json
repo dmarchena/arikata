@@ -3,12 +3,6 @@
     "origin": "https://arikata.dev",
     "host": "arikata.dev"
   },
-  "webtoken": {
-    "secret": "X97U74EGhRf8yFdSa3Mde1Z7F9rAHjAn",
-    "options": {
-      "expiresIn": "3h"
-    }
-  },
   "uuidNamespaces": {
     "tag": "dffd62cd-3684-4703-914c-731c8729c0c0",
     "user": "59aa7490-c340-43cd-a461-df98385d4c4f"

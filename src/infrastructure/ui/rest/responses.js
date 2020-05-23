@@ -25,4 +25,16 @@ const unauthorized = (res, msg = false) =>
     message: msg ? `Unauthorized: ${msg}` : 'Unauthorized!',
   });
 
-export { badRequest, forbidden, methodNotAllowed, notFound, unauthorized };
+const unknownError = (res, err) =>
+  res.status(statusCodes.internalServerError).send({
+    message: `Internal Server Error: ${err.message}`,
+  });
+
+export {
+  badRequest,
+  forbidden,
+  methodNotAllowed,
+  notFound,
+  unauthorized,
+  unknownError,
+};

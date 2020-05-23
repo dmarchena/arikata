@@ -1,5 +1,5 @@
 import jsonwebtoken from 'jsonwebtoken';
-import configJson from '../../config.json';
+import configServerJson from '../../config-server.json';
 
 /**
  * Synchronously sign the given payload into a JSON Web Token string payload
@@ -7,8 +7,8 @@ import configJson from '../../config.json';
  * @returns {string} JsonWebToken
  */
 const signWithPayload = (payload) =>
-  jsonwebtoken.sign(payload, configJson.webtoken.secret, {
-    expiresIn: configJson.webtoken.options.expiresIn,
+  jsonwebtoken.sign(payload, configServerJson.webtoken.secret, {
+    expiresIn: configServerJson.webtoken.options.expiresIn,
   });
 
 /**
@@ -17,8 +17,8 @@ const signWithPayload = (payload) =>
  * @returns {Object} Decoded payload
  */
 const verifyToken = (token) =>
-  jsonwebtoken.verify(token, configJson.webtoken.secret, {
-    maxAge: configJson.webtoken.options.expiresIn,
+  jsonwebtoken.verify(token, configServerJson.webtoken.secret, {
+    maxAge: configServerJson.webtoken.options.expiresIn,
   });
 
 const webtoken = {

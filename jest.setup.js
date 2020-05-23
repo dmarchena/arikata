@@ -28,6 +28,21 @@ global.mockKataEntity = () => ({
   availableTags() {
     return [];
   },
+  startTraining: global.mockTrainingEntity,
+});
+
+global.mockTrainingDto = () => ({
+  ...mockJson.training,
+});
+global.mockTrainingDtoForView = () => {
+  const data = {
+    ...mockJson.training,
+    kata: global.mockKataDto(),
+  };
+  delete data.kataId;
+};
+global.mockTrainingEntity = () => ({
+  ...mockJson.training,
 });
 
 global.mockExpiredToken = () => mockJson.tokens.user;
@@ -111,10 +126,11 @@ expect.extend({
     R.both(
       R.where({
         browseService: isApplicationService,
+        doKataService: isApplicationService,
         manageKataService: isApplicationService,
         userService: isApplicationService,
       }),
-      R.compose(R.equals(3), R.length, R.keys)
+      R.compose(R.equals(4), R.length, R.keys)
     ),
     'Application with injected dependencies'
   ),
@@ -157,8 +173,9 @@ expect.extend({
           )
         ),
         availableTags: R.is(Function),
+        startTraining: R.is(Function),
       }),
-      R.compose(R.equals(7), R.length, R.keys)
+      R.compose(R.equals(8), R.length, R.keys)
     ),
     'kata entity'
   ),
@@ -170,6 +187,8 @@ expect.extend({
       const e = { ...expected };
       delete r.availableTags;
       delete e.availableTags;
+      delete r.startTraining;
+      delete e.startTraining;
       // Compare resultant data
       return deepEqual(r, e, { strict: true });
     }
@@ -191,6 +210,46 @@ expect.extend({
     ),
     'kata repository'
   ),
+  toBeTrainingDto: makeToBeMatcher(
+    'toBeTrainingDto',
+    R.both(
+      R.where({
+        id: R.is(String),
+        code: R.is(String),
+        success: R.is(Boolean),
+        userId: R.is(String),
+      }),
+      R.either(R.has('kataId'), R.has('kata'))
+    ),
+    'training dto'
+  ),
+  toBeTrainingEntity: makeToBeMatcher(
+    'toBeTrainingEntity',
+    R.both(
+      R.where({
+        id: R.is(String),
+        code: R.is(String),
+        kataId: R.is(String),
+        success: R.is(Boolean),
+        userId: R.is(String),
+      }),
+      R.compose(R.equals(5), R.length, R.keys)
+    ),
+    'training entity'
+  ),
+  toBeTrainingRepo: makeToBeMatcher(
+    'toBeTrainingRepo',
+    R.both(
+      R.where({
+        getTrainingWithId: R.is(Function),
+        save: R.is(Function),
+        transformer: R.is(Object),
+        update: R.is(Function),
+      }),
+      R.compose(R.equals(4), R.length, R.keys)
+    ),
+    'training repository'
+  ),
   toBeUserDto: makeToBeMatcher(
     'toBeUserDto',
     R.where({
@@ -211,9 +270,8 @@ expect.extend({
         email: R.is(String),
         password: R.is(String),
         roles: R.is(Array),
-        setEmail: R.is(Function),
       }),
-      R.compose(R.equals(6), R.length, R.keys)
+      R.compose(R.equals(5), R.length, R.keys)
     ),
     'user entity'
   ),

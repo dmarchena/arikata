@@ -5,7 +5,7 @@ import app from './application';
 import statusCodes from './status';
 
 import config from '../../../config.json';
-import { verifyToken } from './middlewares';
+import { verifyToken, isAdmin } from './middlewares';
 
 const katasRouter = express.Router();
 
@@ -21,7 +21,7 @@ katasRouter.get('/', (req, res) => {
   }
 });
 
-katasRouter.delete('/:id', [verifyToken], (req, res) => {
+katasRouter.delete('/:id', [verifyToken, isAdmin], (req, res) => {
   app.manageKataService
     .remove(req.params.id)
     .then((data) => res.status(statusCodes.deleted).json(data));
@@ -33,7 +33,7 @@ katasRouter.get('/:id', (req, res) => {
     .then((data) => res.status(statusCodes.ok).json(data));
 });
 
-katasRouter.put('/:id', [verifyToken], (req, res) => {
+katasRouter.put('/:id', [verifyToken, isAdmin], (req, res) => {
   app.manageKataService
     .update({
       ...req.body,
@@ -42,7 +42,7 @@ katasRouter.put('/:id', [verifyToken], (req, res) => {
     .then((data) => res.status(statusCodes.ok).json(data));
 });
 
-katasRouter.post('/', [verifyToken], (req, res) => {
+katasRouter.post('/', [verifyToken, isAdmin], (req, res) => {
   app.manageKataService
     .save(req.body)
     .then((data) =>

@@ -1,21 +1,13 @@
-import faker from 'faker';
-
 import createApp from '../../../../application';
 import kataRepo from '../../../repos/__mocks__/kata';
+import trainingRepo from '../../../repos/__mocks__/training';
 import userRepo from '../../../repos/__mocks__/user';
-import serverMemoryAuthSession from '../../../authSession/serverMemory';
-
-import mockJson from '../../../../mock.json';
-
-const authSession = serverMemoryAuthSession;
-authSession.saveAuthentication({
-  ...mockJson.users.admin,
-  accessToken: faker.random.alphaNumeric(100),
-});
+import serverFakeAuthSession from '../../../authSession/server';
 
 const app = createApp({
-  authSession,
+  authSession: serverFakeAuthSession,
   kataRepo,
+  trainingRepo,
   userRepo,
 });
 

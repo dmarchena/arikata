@@ -1,0 +1,8 @@
+{
+  "webtoken": {
+    "secret": "X97U74EGhRf8yFdSa3Mde1Z7F9rAHjAn",
+    "options": {
+      "expiresIn": "3h"
+    }
+  }
+}

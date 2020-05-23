@@ -1,7 +1,8 @@
 import bodyParser from 'body-parser';
 import jsonwebtoken from 'jsonwebtoken';
 import configJson from '../../../config.json';
-import { unauthorized } from './responses';
+import configServerJson from '../../../config-server.json';
+import { unauthorized, forbidden } from './responses';
 
 const authHeaders = (req, res, next) => {
   res.header(
@@ -20,26 +21,37 @@ const applyBaseMiddlewares = (router) => {
   return router;
 };
 
-// eslint-disable-next-line consistent-return
 const verifyToken = (req, res, next) => {
   const token = req.headers['x-access-token'];
 
   if (!token) {
-    return unauthorized(res);
+    unauthorized(res);
+  } else {
+    jsonwebtoken.verify(
+      token,
+      configServerJson.webtoken.secret,
+      (err, decoded) => {
+        if (err) {
+          unauthorized(res, 'Invalid token!');
+        } else {
+          req.user = {
+            id: decoded.id,
+            email: decoded.email,
+            roles: decoded.roles,
+          };
+          next();
+        }
+      }
+    );
   }
-
-  // eslint-disable-next-line consistent-return
-  jsonwebtoken.verify(token, configJson.webtoken.secret, (err, decoded) => {
-    if (err) {
-      return unauthorized(res, 'Invalid token!');
-    }
-    req.user = {
-      id: decoded.id,
-      email: decoded.email,
-      roles: decoded.roles,
-    };
-    next();
-  });
 };
 
-export { applyBaseMiddlewares, verifyToken };
+const isAdmin = (req, res, next) => {
+  if (!req.user?.roles?.includes(configJson.userRoles.admin)) {
+    forbidden(res, 'You must be signed in as admin.');
+  } else {
+    next();
+  }
+};
+
+export { applyBaseMiddlewares, verifyToken, isAdmin };

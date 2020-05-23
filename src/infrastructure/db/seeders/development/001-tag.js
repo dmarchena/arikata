@@ -1,7 +1,7 @@
 import { commerce } from 'faker';
 import { compose, view, lensProp } from 'ramda';
 import { tagId } from '../../models/tag';
-import { records as katas } from './kata';
+import { records as katas } from './001-kata';
 import { randomNaturalWithZero } from '../../../../utils/math';
 import { uniqDataPopulator } from '../../../../utils/dataPopulator';
 
