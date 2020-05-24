@@ -2,6 +2,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import { matcherHint, printReceived, printExpected } from 'jest-matcher-utils';
 import * as R from 'ramda';
+import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import deepEqual from 'deep-equal';
 import mockJson from './src/mock.json';
@@ -10,6 +11,7 @@ const fooDirective = {};
 global.createCustomLocalVue = () => {
   const localVue = createLocalVue();
   localVue.use(VueRouter);
+  localVue.use(Vuex);
   localVue.directive('bem-block', fooDirective);
   localVue.directive('bem', fooDirective);
   return localVue;

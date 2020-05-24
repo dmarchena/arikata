@@ -1,4 +1,5 @@
 import { createAuthSession } from '.';
+import { composedSetter, composedGetter } from '../utils';
 
 const createComposedAuthSession = (...authSessions) =>
   createAuthSession({
@@ -6,51 +7,37 @@ const createComposedAuthSession = (...authSessions) =>
      * Logout. Destroy current session.
      * @returns {undefined}
      */
-    discardAuthentication() {
-      authSessions.forEach((i) => i.discardAuthentication());
-    },
+    discardAuthentication: composedSetter(
+      authSessions,
+      'discardAuthentication'
+    ),
     /**
      * Get authentication data of signed user
      * @returns {Object} user data plus accessToken. If user is not signed, returns null.
      */
-    getAuthentication() {
-      let result = null;
-      authSessions.some((i) => {
-        result = i.getAuthentication();
-        return result !== null;
-      });
-      return result;
-    },
+    getAuthentication: composedGetter(authSessions, 'getAuthentication', null),
     /**
      * Check if authenticated user is an admin
      * @returns {boolean} true if signed user is an admin; otherwise, false.
      */
-    isAdmin() {
-      return authSessions.some((i) => i.isAdmin());
-    },
+    isAdmin: composedGetter(authSessions, 'isAdmin'),
     /**
      * Check if authenticated user is the given one
      * @param {UserRequestDto|string} user User dto or user Id
      * @returns {boolean} true if it is signed user; otherwise, false.
      */
-    isUser(user) {
-      return authSessions.some((i) => i.isUser(user));
-    },
+    isUser: composedGetter(authSessions, 'isUser'),
     /**
      * Check if there is authenticated user
      * @returns {boolean} true if user is signed in; otherwise, false.
      */
-    isAuthenticated() {
-      return authSessions.some((i) => i.isAuthenticated());
-    },
+    isAuthenticated: composedGetter(authSessions, 'isAuthenticated'),
     /**
      * Save authentication data of user
      * @param {Object} user user data plus accessToken
      * @returns {undefined}
      */
-    saveAuthentication(user) {
-      authSessions.forEach((i) => i.saveAuthentication(user));
-    },
+    saveAuthentication: composedSetter(authSessions, 'saveAuthentication'),
   });
 
 export default createComposedAuthSession;

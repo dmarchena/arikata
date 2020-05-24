@@ -57,6 +57,8 @@ import app from '../application';
 import VButtonAsync from '../components/VButtonAsync.vue';
 import VTag from '../components/VTag.vue';
 import VPageTitle from '../components/VPageTitle.vue';
+import { actions, mutations, getters } from '../store';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'KataList',
@@ -74,11 +76,10 @@ export default {
     },
   },
 
-  data: () => ({
-    katas: [],
-  }),
-
   computed: {
+    ...mapGetters({
+      katas: getters.kataList.getKatas,
+    }),
     title() {
       return this.tag !== null
         ? `Katas tagged with "${this.tag}"`
@@ -98,7 +99,10 @@ export default {
 
   methods: {
     deleteKata(kataId) {
-      return app.manageKataService.remove(kataId);
+      return app.manageKataService.remove(kataId).then((res) => {
+        this.listKatas(); // refresh the list
+        return res;
+      });
     },
     listKatas() {
       if (this.tag !== null) {
@@ -108,10 +112,15 @@ export default {
       }
     },
     async listAllKatasWithTag(tag) {
-      this.katas = await app.browseService.getAllKatasWithTag(tag);
+      this.$store.dispatch(actions.global.listAllKatasWithTag, {
+        app,
+        tag: this.tag,
+      });
     },
     async listAllKatas() {
-      this.katas = await app.browseService.getAllKatas();
+      this.$store.dispatch(actions.global.listAllKatas, {
+        app,
+      });
     },
   },
 };

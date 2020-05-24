@@ -1,4 +1,5 @@
 import createKataRepo from './kata';
+import createComposedKataRepo from './composed';
 
 const mockRepo = () => ({
   getAllKatas: jest.fn(),
@@ -20,6 +21,16 @@ describe('kata repository', () => {
   it('should assure that returns an object that implements the interface', () => {
     expect.assertions(1);
     expect(createKataRepo(mockRepo())).toBeKataRepo();
+  });
+
+  describe('when is composed repo', () => {
+    it('should implements the interface with no transformer', () => {
+      expect.assertions(1);
+      const composedRepo = createComposedKataRepo(createKataRepo(mockRepo()));
+      // add fake transformer to validate by means of matcher without that error
+      composedRepo.transformer = {};
+      expect(composedRepo).toBeKataRepo();
+    });
   });
 
   it.each([

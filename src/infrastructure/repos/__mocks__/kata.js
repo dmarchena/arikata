@@ -2,7 +2,7 @@
 import faker from 'faker';
 import { is, prop, chain } from 'ramda';
 import Kata from '../../../domain/kata';
-import createKataRepo from '../../../application/factories/repos/kata';
+import createKataRepo from '../../../application/factories/repos/kata/kata';
 import { dataPopulator, uniqDataPopulator } from '../../../utils/dataPopulator';
 import { randomNaturalWithZero } from '../../../utils/math';
 
