@@ -9,6 +9,11 @@ const factory = () => (
   kataId,
   userId,
   success,
+  // eslint-disable-next-line no-shadow
+  addNewAttempt(code, success) {
+    this.code = code;
+    this.success = success;
+  },
 });
 
 const Training = {

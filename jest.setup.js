@@ -43,6 +43,10 @@ global.mockTrainingDtoForView = () => {
 };
 global.mockTrainingEntity = () => ({
   ...mockJson.training,
+  addNewAttempt(code, success) {
+    this.code = code;
+    this.success = success;
+  },
 });
 
 global.mockExpiredToken = () => mockJson.tokens.user;
@@ -212,15 +216,16 @@ expect.extend({
   ),
   toBeTrainingDto: makeToBeMatcher(
     'toBeTrainingDto',
-    R.both(
+    R.allPass([
       R.where({
         id: R.is(String),
         code: R.is(String),
         success: R.is(Boolean),
         userId: R.is(String),
       }),
-      R.either(R.has('kataId'), R.has('kata'))
-    ),
+      R.either(R.has('kataId'), R.has('kata')),
+      R.compose(R.equals(5), R.length, R.keys),
+    ]),
     'training dto'
   ),
   toBeTrainingEntity: makeToBeMatcher(
@@ -232,21 +237,35 @@ expect.extend({
         kataId: R.is(String),
         success: R.is(Boolean),
         userId: R.is(String),
+        addNewAttempt: R.is(Function),
       }),
-      R.compose(R.equals(5), R.length, R.keys)
+      R.compose(R.equals(6), R.length, R.keys)
     ),
     'training entity'
+  ),
+  toEqualTrainingEntity: makeExpectedMatcher(
+    'toEqualTrainingEntity',
+    (received, expected) => {
+      // Remove entity methods
+      const r = { ...received };
+      const e = { ...expected };
+      delete r.addNewAttempt;
+      delete e.addNewAttempt;
+      // Compare resultant data
+      return deepEqual(r, e, { strict: true });
+    }
   ),
   toBeTrainingRepo: makeToBeMatcher(
     'toBeTrainingRepo',
     R.both(
       R.where({
+        getAllTrainingsOfUser: R.is(Function),
         getTrainingWithId: R.is(Function),
         save: R.is(Function),
         transformer: R.is(Object),
         update: R.is(Function),
       }),
-      R.compose(R.equals(4), R.length, R.keys)
+      R.compose(R.equals(5), R.length, R.keys)
     ),
     'training repository'
   ),

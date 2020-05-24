@@ -9,13 +9,23 @@ import { trainingTransformer } from '../../transformers/trainingTransformer';
  * @returns {TrainingRepo}
  */
 function createTrainingRepo({
+  getAllTrainingsOfUser = isRequired('getAllTrainingsOfUser'),
   getTrainingWithId = isRequired('getTrainingWithId'),
   save = isRequired('save'),
   update = isRequired('update'),
 }) {
   return {
     transformer: trainingTransformer,
-
+    /**
+     * Get all the trainings done by user
+     * @param {string} userId The id of the user
+     * @returns {Promise.<TrainingAggregate[]>}
+     */
+    getAllTrainingsOfUser(userId) {
+      return getAllTrainingsOfUser(userId).then((res) =>
+        res.map(this.transformer.toTrainingModel)
+      );
+    },
     /**
      * Fetch a training
      * @param {string} id The id of the targeted training

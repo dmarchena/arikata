@@ -2,6 +2,13 @@ import createTrainingRepo from '../../../application/factories/repos/training';
 import db from '../../db';
 import NotFoundError from '../../../application/exceptions/NotFoundError';
 
+const getAllTrainingsOfUser = (models) => (userId) =>
+  models.Training.findAll({
+    where: {
+      userId,
+    },
+  });
+
 const getTrainingWithId = (models) => (id) =>
   models.Training.findOne({
     where: {
@@ -28,6 +35,7 @@ const update = (models) => (trainingDto) =>
   );
 
 const userRepo = createTrainingRepo({
+  getAllTrainingsOfUser: getAllTrainingsOfUser(db),
   getTrainingWithId: getTrainingWithId(db),
   save: save(db),
   update: update(db),

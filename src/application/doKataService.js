@@ -7,6 +7,28 @@ import Training from '../domain/training';
 import { trainingTransformer } from './transformers/trainingTransformer';
 
 /**
+ * Helper function to get a Training aggregate only if signed in user is
+ * its author.
+ * @param {string} trainingId
+ * @param {TrainingRepo} trainingRepo
+ * @param {AuthSession} authSession
+ * @param {Promise.<TrainingAggregate>}
+ */
+async function getTrainingAggregate(trainingId, trainingRepo, authSession) {
+  if (!authSession.isAuthenticated()) {
+    return new PermissionDeniedError(
+      'You must be signed in to get a training.'
+    );
+  }
+  const training = await trainingRepo.getTrainingWithId(trainingId);
+  if (!authSession.isUser(training.userId)) {
+    return new PermissionDeniedError(
+      'You must cannot access to another user trainings.'
+    );
+  }
+  return training;
+}
+/**
  * Factory function for a user application service
  * @param {Object} dependencies
  * @param {AuthSession} dependencies.authSession
@@ -20,17 +42,11 @@ const createDoKataService = ({ authSession, kataRepo, trainingRepo }) => ({
    * @returns {Promise.<TrainingDto>}
    */
   async getTrainingWithId(trainingId) {
-    if (!authSession.isAuthenticated()) {
-      return new PermissionDeniedError(
-        'You must be signed in to get a training.'
-      );
-    }
-    const training = await trainingRepo.getTrainingWithId(trainingId);
-    if (!authSession.isUser(training.userId)) {
-      return new PermissionDeniedError(
-        'You must cannot access to another user trainings.'
-      );
-    }
+    const training = await getTrainingAggregate(
+      trainingId,
+      trainingRepo,
+      authSession
+    );
     const kata = await kataRepo.getKataWithId(training.kataId);
     return trainingTransformer.toTrainingDto(training, kata);
   },
@@ -72,6 +88,16 @@ const createDoKataService = ({ authSession, kataRepo, trainingRepo }) => ({
     });
 
     return trainingRepo.save(instance).then(trainingTransformer.toTrainingDto);
+  },
+
+  async updateTraining(trainingId, code, success) {
+    const training = await getTrainingAggregate(
+      trainingId,
+      trainingRepo,
+      authSession
+    );
+    training.addNewAttempt(code, success);
+    return trainingRepo.update(training);
   },
 });
 

@@ -27,8 +27,9 @@ describe('training transformer', () => {
   describe('when transforming to domain object', () => {
     it('should return an entity', () => {
       expect.assertions(1);
-      const dto = trainingTransformer.toTrainingDto(training);
-      expect(trainingTransformer.toTrainingModel(dto)).toBeTrainingEntity();
+      expect(
+        trainingTransformer.toTrainingModel(mockTrainingDto())
+      ).toBeTrainingEntity();
     });
   });
 });

@@ -9,6 +9,8 @@ const trainings = [
   Training.create(undefined, mockJson.training),
 ];
 
+const getAllTrainingsOfUser = () => Promise.resolve(trainings);
+
 const getTrainingWithId = (id) => {
   const targetIndex = trainings.findIndex((item) => item.id === id);
   if (targetIndex > -1) {
@@ -33,6 +35,7 @@ const update = (dto) => {
 };
 
 const trainingRepo = createTrainingRepo({
+  getAllTrainingsOfUser,
   getTrainingWithId,
   save,
   update,

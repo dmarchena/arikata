@@ -53,6 +53,7 @@
  * @property {string} kataId The id of the kata
  * @property {boolean} success True if code passes the tests of the kata
  * @property {string} userId The id of the user who is doing the kata
+ * @property {function(string, boolean):undefined} addNewAttempt Add the new code and success status
  */
 
 /**
@@ -67,6 +68,7 @@
 
 /**
  * @typedef TrainingRepo
+ * @property {function(string):Promise.<TrainingAggregate[]>} getAllTrainingsOfUser Get all the trainings done by user
  * @property {function(string):Promise.<TrainingAggregate>} getTrainingWithId Fetch a training
  * @property {function(TrainingAggregate):Promise.<TrainingAggregate>} save Save new training
  * @property {function(TrainingAggregate):Promise.<TrainingAggregate>} update Update a training

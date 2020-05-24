@@ -37,6 +37,16 @@ describe('api rest endpoints', () => {
     }
   );
 
+  describe('when getting a single kata', () => {
+    const promise = requestGet(`/${mockKataEntity().id}`);
+
+    it('should return a successful status', async () => {
+      expect.hasAssertions();
+      const res = await promise;
+      expect(res.statusCode).toBe(statusCodes.ok);
+    });
+  });
+
   describe('when saving new kata', () => {
     let mockData;
     let res;

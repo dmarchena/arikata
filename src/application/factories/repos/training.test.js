@@ -1,6 +1,7 @@
 import createTrainingRepo from './training';
 
 const mockRepo = () => ({
+  getAllTrainingsOfUser: jest.fn(),
   getTrainingWithId: jest.fn(),
   save: jest.fn(),
   update: jest.fn(),
@@ -18,13 +19,15 @@ describe('user repository factory', () => {
     expect(createTrainingRepo(mockRepo())).toBeTrainingRepo();
   });
 
-  it.each([['getTrainingWithId'], ['save'], ['update']])(
-    'should throw an error if "%s" function is not provided',
-    (method) => {
-      expect.assertions(1);
-      expect(() => {
-        createTrainingRepo(mockRepoWithout(method));
-      }).toThrow(`function "${method}" is required for Application Service`);
-    }
-  );
+  it.each([
+    ['getAllTrainingsOfUser'],
+    ['getTrainingWithId'],
+    ['save'],
+    ['update'],
+  ])('should throw an error if "%s" function is not provided', (method) => {
+    expect.assertions(1);
+    expect(() => {
+      createTrainingRepo(mockRepoWithout(method));
+    }).toThrow(`function "${method}" is required for Application Service`);
+  });
 });
