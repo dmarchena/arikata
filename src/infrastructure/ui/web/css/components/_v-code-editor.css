@@ -1,3 +1,10 @@
+.v-code-editor {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .CodeMirror {
+  flex-grow: 1;
   font-family: var(--font-family-monospace);
 }

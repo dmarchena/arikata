@@ -18,6 +18,17 @@
       >
         <strong v-bem:kata-name>{{ kata.name }}</strong>
         <div
+          v-if="!isAdmin"
+          class="btn-set"
+        >
+          <router-link
+            :to="{ name: 'training', query: { kataId: kata.id } }"
+            class="btn"
+          >
+            try it
+          </router-link>
+        </div>
+        <div
           v-if="isAdmin"
           class="btn-set"
         >

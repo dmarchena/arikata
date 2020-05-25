@@ -14,15 +14,21 @@ import { trainingTransformer } from './transformers/trainingTransformer';
  * @param {AuthSession} authSession
  * @param {Promise.<TrainingAggregate>}
  */
-async function getTrainingAggregate(trainingId, trainingRepo, authSession) {
+async function getTrainingAggregate(
+  trainingId,
+  trainingRepo,
+  authSession,
+  forceCheckIfUserIdIs = false
+) {
   if (!authSession.isAuthenticated()) {
-    return new PermissionDeniedError(
-      'You must be signed in to get a training.'
-    );
+    throw new PermissionDeniedError('You must be signed in to get a training.');
   }
   const training = await trainingRepo.getTrainingWithId(trainingId);
-  if (!authSession.isUser(training.userId)) {
-    return new PermissionDeniedError(
+  if (
+    !authSession.isUser(training.userId) ||
+    (forceCheckIfUserIdIs && forceCheckIfUserIdIs !== training.userId)
+  ) {
+    throw new PermissionDeniedError(
       'You must cannot access to another user trainings.'
     );
   }
@@ -64,14 +70,14 @@ const createDoKataService = ({ authSession, kataRepo, trainingRepo }) => ({
   },
 
   /**
-   * Start doing the kata with the given id.
-   * @param {string} kataId kataId
+   * Save a new training
+   * @param {TrainingDto} training dto to create
    * @returns {Promise.<TrainingDto>}
    */
   saveTraining({ id, code, kataId, success = false, userId }) {
     if (!authSession.isAuthenticated() || isEmptyString(userId)) {
-      return new PermissionDeniedError(
-        'You must be signed in to save your result.'
+      return Promise.reject(
+        new PermissionDeniedError('You must be signed in to save your result.')
       );
     }
 
@@ -90,14 +96,30 @@ const createDoKataService = ({ authSession, kataRepo, trainingRepo }) => ({
     return trainingRepo.save(instance).then(trainingTransformer.toTrainingDto);
   },
 
-  async updateTraining(trainingId, code, success) {
+  /**
+   * Update the code and result of an existing training
+   * @param {string} trainingId the id of the training
+   * @param {string} code the new code
+   * @param {string} success the new result
+   * @param {string} forceCheckIfUserIdIs the userId for an additional ownership checking
+   * @returns {Promise.<TrainingDto>}
+   */
+  async updateTraining(
+    trainingId,
+    code,
+    success,
+    forceCheckIfUserIdIs = false
+  ) {
     const training = await getTrainingAggregate(
       trainingId,
       trainingRepo,
-      authSession
+      authSession,
+      forceCheckIfUserIdIs
     );
     training.addNewAttempt(code, success);
-    return trainingRepo.update(training);
+    return trainingRepo
+      .update(training)
+      .then(trainingTransformer.toTrainingDto);
   },
 });
 

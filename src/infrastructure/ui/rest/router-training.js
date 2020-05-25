@@ -17,7 +17,7 @@ const trainingRouter = express.Router();
 const verifyTrainingUser = (req) => (data) => {
   if (data.userId !== req.user.id) {
     throw new PermissionDeniedError(
-      'You cannot get a training of another user.'
+      `You cannot access to a training of another user.`
     );
   }
   return data;
@@ -63,7 +63,7 @@ trainingRouter.patch('/:id', [verifyToken], (req, res) => {
   const trainingId = req.params.id;
   const { code, success } = req.body;
   return app.doKataService
-    .updateTraining(trainingId, code, success)
+    .updateTraining(trainingId, code, success, req.user.id)
     .then(verifyTrainingUser(req))
     .then((data) => res.status(statusCodes.ok).json(data))
     .catch(catchTrainingError(res));

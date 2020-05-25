@@ -1,0 +1,6 @@
+.v-console {
+  margin: 0;
+  padding-block: var(--inset-block-m);
+  padding-inline: var(--inset-inline-m);
+  background-color: var(--color-timberwolf);
+}

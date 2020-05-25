@@ -1,0 +1,63 @@
+.training {
+  --gap: 1vw;
+
+  display: grid;
+  flex-grow: 1;
+  grid-template:
+    'editor kata' auto
+    'editor details' 1fr
+    'editor console' 2fr / 2fr 1fr;
+}
+
+.training__kata {
+  grid-area: kata;
+  padding-block: var(--inset-block-m);
+  padding-inline: var(--inset-inline-m);
+}
+
+.training__details {
+  grid-area: details;
+  padding-block: var(--inset-block-m);
+  padding-inline: var(--inset-inline-m);
+  overflow-y: auto;
+}
+
+.training__console-container {
+  display: flex;
+  flex-direction: column;
+  grid-area: console;
+  overflow-y: auto;
+}
+
+.training__console {
+  flex-grow: 1;
+}
+
+.training__console-clear {
+  align-self: flex-end;
+  margin-block: var(--inset-block-m);
+  margin-inline: var(--inset-inline-m);
+}
+
+.training__editor {
+  display: flex;
+  flex-direction: column-reverse;
+  grid-area: editor;
+  overflow: auto;
+}
+
+.training__editor-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-block: var(--inset-block-m);
+  padding-inline: var(--inset-inline-m);
+}
+
+.training__editor-actions--error {
+  background-color: var(--color-error);
+}
+
+.training__editor-msg {
+  flex-grow: 1;
+}

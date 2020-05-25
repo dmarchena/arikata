@@ -37,9 +37,9 @@
       RUN
     </VCodeRunner>
     <button
-      @click="clearConsole"
-      @keydown.enter="clearConsole"
-      @keydown.space="clearConsole"
+      @click.prevent="clearConsole"
+      @keydown.enter.prevent="clearConsole"
+      @keydown.space.prevent="clearConsole"
     >
       Clear console
     </button>

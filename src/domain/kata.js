@@ -35,6 +35,7 @@ const factory = (repository) => (
   startTraining(userId) {
     return Training.create(undefined, {
       kataId: this.id,
+      code, // initial code of the kata
       userId,
     });
   },

@@ -24,15 +24,17 @@ const getTrainingWithId = (models) => (id) =>
 const save = (models) => (trainingDto) => models.Training.create(trainingDto);
 
 const update = (models) => (trainingDto) =>
-  models.User.update(
+  models.Training.update(
     {
-      trainingDto,
+      code: trainingDto.code,
+      success: trainingDto.success,
     },
     {
       returning: true,
       where: { id: trainingDto.id },
     }
-  );
+    // eslint-disable-next-line no-unused-vars
+  ).then(([rowsUpdated, [updatedTraining]]) => updatedTraining);
 
 const userRepo = createTrainingRepo({
   getAllTrainingsOfUser: getAllTrainingsOfUser(db),

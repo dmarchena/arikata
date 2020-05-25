@@ -1,3 +1,7 @@
+.kata-list {
+  padding: var(--inset-block-main) var(--inset-inline-main);
+}
+
 .kata-list__header {
   display: flex;
   align-items: center;

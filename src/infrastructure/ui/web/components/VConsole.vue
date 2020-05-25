@@ -6,7 +6,7 @@
 import { events, subscribe } from '../event-bus';
 
 export default {
-  name: 'VKataAdmin',
+  name: 'VConsole',
 
   data() {
     return {

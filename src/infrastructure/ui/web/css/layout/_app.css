@@ -1,5 +1,6 @@
 .app {
   display: grid;
+  flex-grow: 1;
   grid-template:
     'header' auto
     'main' 1fr / auto;
@@ -7,6 +8,9 @@
 }
 
 .app__header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   grid-area: header;
   align-items: center;
@@ -28,6 +32,9 @@
 }
 
 .app__main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   grid-area: main;
-  margin: 1em 5%;
+  margin: 0;
 }

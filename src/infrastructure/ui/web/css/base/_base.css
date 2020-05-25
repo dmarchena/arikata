@@ -1,4 +1,7 @@
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: var(--font-family-base);
 }
 
@@ -8,4 +11,5 @@ a {
 
 pre {
   font-family: var(--font-family-monospace);
+  white-space: pre-wrap;
 }
