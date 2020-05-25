@@ -78,6 +78,7 @@ export default {
         );
         success = user !== null;
       } catch (e) {
+        console.error(e);
         this.printError(e.message);
       }
       if (success) {

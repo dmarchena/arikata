@@ -2,7 +2,18 @@
 ///<reference path="../jsdoc-types.js" />
 
 import { kataTransformer } from './transformers/kataTransformer';
-import PermissionDeniedError from './exceptions/PermissionDeniedError';
+import ForbiddenError from './exceptions/ForbiddenError';
+import UnauthorizedError from './exceptions/UnauthorizedError';
+
+const checkAccess = (authSession) => {
+  if (!authSession.isAuthenticated()) {
+    return Promise.reject(new UnauthorizedError('You need to be signed in.'));
+  }
+  if (!authSession.isAdmin()) {
+    return Promise.reject(new ForbiddenError('You need to be an admin.'));
+  }
+  return false;
+};
 
 /**
  * Factory function for a kata administration application service
@@ -36,11 +47,8 @@ const createManageKataService = ({ authSession, kataRepo }) => ({
    * @returns {Promise.<boolean>} true if it has been removed; false if not found
    */
   remove(kataId) {
-    if (!authSession.isAdmin()) {
-      throw new PermissionDeniedError(
-        'You need to be an admin to call this method'
-      );
-    }
+    const rejected = checkAccess(authSession);
+    if (rejected) return rejected;
     return kataRepo.remove(kataId);
   },
   /**
@@ -49,11 +57,8 @@ const createManageKataService = ({ authSession, kataRepo }) => ({
    * @returns {Promise.<KataDto>} created kata dto
    */
   save(dto) {
-    if (!authSession.isAdmin()) {
-      throw new PermissionDeniedError(
-        'You need to be an admin to call this method'
-      );
-    }
+    const rejected = checkAccess(authSession);
+    if (rejected) return rejected;
     const instance = kataTransformer.toKataModel(dto, { repo: kataRepo });
     return kataRepo.save(instance).then(kataTransformer.toKataDto);
   },
@@ -63,13 +68,12 @@ const createManageKataService = ({ authSession, kataRepo }) => ({
    * @returns {Promise.<KataDto>} updated kata dto
    */
   update(dto) {
-    if (!authSession.isAdmin()) {
-      throw new PermissionDeniedError(
-        'You need to be an admin to call this method'
-      );
-    }
+    const rejected = checkAccess(authSession);
+    if (rejected) return rejected;
     if (!dto.id) {
-      throw new TypeError('A Kata without id cannot be updated');
+      return Promise.reject(
+        new TypeError('A Kata without id cannot be updated')
+      );
     }
     const instance = kataTransformer.toKataModel(dto, { repo: kataRepo });
     return kataRepo.update(instance).then(kataTransformer.toKataDto);

@@ -4,7 +4,7 @@
 }
 
 .v-button-async__icon {
-  margin-left: 0.3em;
+  margin-left: var(--spacing-inline-s);
 }
 
 .v-button-async__icon--error {
@@ -18,7 +18,7 @@
 .v-button-async__spinner {
   width: 1.2em;
   height: 1.2em;
-  margin-left: 0.3em;
+  margin-left: var(--spacing-inline-s);
 }
 
 .v-button-async__spinner .sk-fading-circle {

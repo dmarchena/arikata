@@ -3,6 +3,8 @@ import db from '../../db';
 import { comparePassword, encryptPassword } from '../../encryption';
 import webtoken from '../../webtoken';
 import { userTransformer } from '../../../application/transformers/userTransformer';
+import NotFoundError from '../../../application/exceptions/NotFoundError';
+import UnauthorizedError from '../../../application/exceptions/UnauthorizedError';
 
 const signIn = (models) => (userDto) =>
   models.User.findOne({
@@ -11,7 +13,7 @@ const signIn = (models) => (userDto) =>
     },
   }).then((dbUser) => {
     if (!dbUser) {
-      throw new Error(`User "${userDto.email}" does not exists`);
+      throw new NotFoundError(`User "${userDto.email}" does not exists`);
     }
     const isValidPassword = comparePassword(userDto.password, dbUser.password);
     if (isValidPassword) {
@@ -20,7 +22,7 @@ const signIn = (models) => (userDto) =>
       resUser.accessToken = token;
       return resUser;
     }
-    throw new Error('Wrong password');
+    throw new UnauthorizedError('Wrong password');
   });
 
 const signOut = Promise.resolve; // Do nothing and return same user

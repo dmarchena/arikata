@@ -11,30 +11,44 @@
       {{ kata.name }}
     </div>
     <div v-bem:editor>
-      <div
-        v-bem:editor-actions="{ error: error }"
-        class="btn-set"
-      >
+      <div v-bem:editor-actions="{ error: error }">
         <div
           v-show="error"
           v-bem:editor-msg
         >
           {{ error }}
         </div>
-        <VCodeRunner
-          :code="code"
-          :test="test"
-          @log="log"
-          @end="codeExecuted"
-        >
-          RUN
-        </VCodeRunner>
-        <VButtonAsync
-          id="save"
-          @active="handleSubmit"
-        >
-          Save
-        </VButtonAsync>
+        <div class="btn-set">
+          <VCodeRunner
+            class="btn"
+            :class="{ 'btn--primary': !tested || !success }"
+            :code="code"
+            :test="test"
+            @log="log"
+            @end="codeExecuted"
+          >
+            Test
+            <VIcon
+              v-if="tested && success"
+              id="checkmark"
+              class="icon icon--success"
+            />
+            <VIcon
+              v-if="tested && !success"
+              id="cross"
+              class="icon icon--error"
+            />
+          </VCodeRunner>
+          <VButtonAsync
+            id="save"
+            class="btn"
+            :class="{ 'btn--primary': tested && success }"
+            :disabled="!tested"
+            @active="handleSubmit"
+          >
+            {{ success ? 'Save' : 'Save for later' }}
+          </VButtonAsync>
+        </div>
       </div>
       <VCodeEditor v-model="code" />
     </div>
@@ -42,6 +56,7 @@
       <VConsole v-bem:console />
       <button
         v-bem:console-clear
+        class="btn"
         @click.prevent="clearConsole"
         @keydown.enter.prevent="clearConsole"
         @keydown.space.prevent="clearConsole"
@@ -59,6 +74,7 @@ import VButtonAsync from '../components/VButtonAsync';
 import VCodeEditor from '../components/VCodeEditor';
 import VCodeRunner from '../components/VCodeRunner';
 import VConsole from '../components/VConsole';
+import VIcon from '../components/VIcon';
 
 export default {
   name: 'Training',
@@ -68,6 +84,7 @@ export default {
     VCodeEditor,
     VCodeRunner,
     VConsole,
+    VIcon,
   },
 
   props: {
@@ -89,6 +106,7 @@ export default {
       trainingId: '',
       error: undefined,
       isUpdate: false,
+      tested: false,
     };
   },
 
@@ -118,6 +136,7 @@ export default {
       publish(events.CONSOLE_CLEAR);
     },
     codeExecuted({ success }) {
+      this.tested = true;
       this.success = success;
     },
     handleSubmit(e) {

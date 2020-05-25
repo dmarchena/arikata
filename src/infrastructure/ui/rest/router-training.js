@@ -3,41 +3,25 @@ import express from 'express';
 import app from './application';
 import statusCodes from './status';
 import { verifyToken } from './middlewares';
-import {
-  forbidden,
-  notFound,
-  unknownError,
-  methodNotAllowed,
-} from './responses';
-import PermissionDeniedError from '../../../application/exceptions/PermissionDeniedError';
-import NotFoundError from '../../../application/exceptions/NotFoundError';
+import { forbidden, methodNotAllowed, catchErrorAndRespond } from './responses';
+import ForbiddenError from '../../../application/exceptions/ForbiddenError';
 
 const trainingRouter = express.Router();
 
 const verifyTrainingUser = (req) => (data) => {
   if (data.userId !== req.user.id) {
-    throw new PermissionDeniedError(
+    throw new ForbiddenError(
       `You cannot access to a training of another user.`
     );
   }
   return data;
 };
 
-const catchTrainingError = (res) => (err) => {
-  if (err instanceof PermissionDeniedError) {
-    return forbidden(res, err.message);
-  }
-  if (err instanceof NotFoundError) {
-    return notFound(res, err.message);
-  }
-  return unknownError(res, err);
-};
-
 trainingRouter.get('/', [verifyToken], (req, res) => {
   return app.browseService
     .getAllKatasDoneByUser(req.user.id)
     .then((data) => res.status(statusCodes.ok).json(data))
-    .catch((err) => unknownError(res, err));
+    .catch(catchErrorAndRespond(res));
 });
 
 trainingRouter.post('/', [verifyToken], (req, res) => {
@@ -47,7 +31,7 @@ trainingRouter.post('/', [verifyToken], (req, res) => {
   return app.doKataService
     .saveTraining(req.body)
     .then((data) => res.status(statusCodes.created).json(data))
-    .catch((err) => unknownError(res, err));
+    .catch(catchErrorAndRespond(res));
 });
 
 trainingRouter.get('/:id', [verifyToken], (req, res) => {
@@ -56,7 +40,7 @@ trainingRouter.get('/:id', [verifyToken], (req, res) => {
     .getTrainingWithId(trainingId)
     .then(verifyTrainingUser(req))
     .then((data) => res.status(statusCodes.ok).json(data))
-    .catch(catchTrainingError(res));
+    .catch(catchErrorAndRespond(res));
 });
 
 trainingRouter.patch('/:id', [verifyToken], (req, res) => {
@@ -66,7 +50,7 @@ trainingRouter.patch('/:id', [verifyToken], (req, res) => {
     .updateTraining(trainingId, code, success, req.user.id)
     .then(verifyTrainingUser(req))
     .then((data) => res.status(statusCodes.ok).json(data))
-    .catch(catchTrainingError(res));
+    .catch(catchErrorAndRespond(res));
 });
 
 trainingRouter.put('/:id', (_, res) => methodNotAllowed(res));

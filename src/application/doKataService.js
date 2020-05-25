@@ -2,7 +2,8 @@
 ///<reference path="../jsdoc-types.js" />
 
 import { isEmptyString } from './validators/empty';
-import PermissionDeniedError from './exceptions/PermissionDeniedError';
+import ForbiddenError from './exceptions/ForbiddenError';
+import UnauthorizedError from './exceptions/UnauthorizedError';
 import Training from '../domain/training';
 import { trainingTransformer } from './transformers/trainingTransformer';
 
@@ -21,14 +22,14 @@ async function getTrainingAggregate(
   forceCheckIfUserIdIs = false
 ) {
   if (!authSession.isAuthenticated()) {
-    throw new PermissionDeniedError('You must be signed in to get a training.');
+    throw new UnauthorizedError('You must be signed in to get a training.');
   }
   const training = await trainingRepo.getTrainingWithId(trainingId);
   if (
     !authSession.isUser(training.userId) ||
     (forceCheckIfUserIdIs && forceCheckIfUserIdIs !== training.userId)
   ) {
-    throw new PermissionDeniedError(
+    throw new ForbiddenError(
       'You must cannot access to another user trainings.'
     );
   }
@@ -77,7 +78,7 @@ const createDoKataService = ({ authSession, kataRepo, trainingRepo }) => ({
   saveTraining({ id, code, kataId, success = false, userId }) {
     if (!authSession.isAuthenticated() || isEmptyString(userId)) {
       return Promise.reject(
-        new PermissionDeniedError('You must be signed in to save your result.')
+        new UnauthorizedError('You must be signed in to save your result.')
       );
     }
 

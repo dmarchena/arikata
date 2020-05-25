@@ -1,9 +1,10 @@
 // eslint-disable-next-line
 ///<reference path="../jsdoc-types.js" />
 
-import AuthError from './exceptions/AuthError';
+import BadRequestError from './exceptions/BadRequestError';
+import ConflictError from './exceptions/ConflictError';
 import NotFoundError from './exceptions/NotFoundError';
-import PermissionDeniedError from './exceptions/PermissionDeniedError';
+import UnauthorizedError from './exceptions/UnauthorizedError';
 import User from '../domain/user';
 import configJson from '../config.json';
 import isValidEmail from './validators/email';
@@ -34,9 +35,7 @@ const createUserService = ({ authSession, userRepo }) => ({
   changePassword(email, password, passwordConfirmation = false) {
     if (!authSession.isAuthenticated()) {
       return Promise.reject(
-        new PermissionDeniedError(
-          'You need to be signed in to call this method.'
-        )
+        new UnauthorizedError('You need to be signed in to call this method.')
       );
     }
     if (passwordConfirmation && password !== passwordConfirmation) {
@@ -58,11 +57,13 @@ const createUserService = ({ authSession, userRepo }) => ({
   signIn(email, password) {
     if (!isValidEmail(email)) {
       return Promise.reject(
-        new TypeError(`"${email}" is not a valid email address`)
+        new BadRequestError(`"${email}" is not a valid email address`)
       );
     }
     if (isEmptyString(password)) {
-      return Promise.reject(new TypeError('You must introduce a password'));
+      return Promise.reject(
+        new BadRequestError('You must introduce a password')
+      );
     }
     const user = User(userRepo).create(undefined, { email, password });
     return userRepo
@@ -93,13 +94,17 @@ const createUserService = ({ authSession, userRepo }) => ({
    */
   signUp(email, password, passwordConfirmation) {
     if (!isValidEmail(email)) {
-      return Promise.reject(new TypeError(`"${email}" is not valid email`));
+      return Promise.reject(
+        new BadRequestError(`"${email}" is not valid email`)
+      );
     }
     if (isEmptyString(password)) {
-      return Promise.reject(new TypeError('You must introduce a password'));
+      return Promise.reject(
+        new BadRequestError('You must introduce a password')
+      );
     }
     if (arguments.length > 2 && password !== passwordConfirmation) {
-      return Promise.reject(new Error('Passwords do not match.'));
+      return Promise.reject(new BadRequestError('Passwords do not match.'));
     }
     const user = User(userRepo).create(undefined, {
       email,
@@ -115,14 +120,14 @@ const createUserService = ({ authSession, userRepo }) => ({
           return dto;
         }
         return Promise.reject(
-          new AuthError(
+          new ConflictError(
             'It has been impossible to register this email. It seems that the user already exists.'
           )
         );
       })
       .catch(() => {
         return Promise.reject(
-          new AuthError(
+          new ConflictError(
             'It has been impossible to register this email. It seems that the user already exists.'
           )
         );
