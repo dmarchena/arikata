@@ -1,5 +1,16 @@
 <template>
-  <pre>{{ lines }}</pre>
+  <div>
+    <pre v-bem:output>{{ lines }}</pre>
+    <button
+      v-bem:clear
+      class="btn"
+      @click.prevent="clear"
+      @keydown.enter.prevent="clear"
+      @keydown.space.prevent="clear"
+    >
+      Clear console
+    </button>
+  </div>
 </template>
 
 <script>

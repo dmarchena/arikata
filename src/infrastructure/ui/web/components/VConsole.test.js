@@ -7,9 +7,11 @@ import Vue from 'vue';
 
 describe('VConsole', () => {
   let wrapper;
+  let output;
 
   beforeAll(() => {
-    wrapper = shallowMount(VConsole);
+    wrapper = shallowMount(VConsole, { localVue: createCustomLocalVue() });
+    output = wrapper.find('pre');
   });
 
   it('should render', () => {
@@ -19,22 +21,22 @@ describe('VConsole', () => {
 
   it('should log', async () => {
     expect.hasAssertions();
-    expect(wrapper.text()).toBe('');
+    expect(output.text()).toBe('');
 
     wrapper.vm.log('line 1');
     await Vue.nextTick();
-    expect(wrapper.text()).toContain('line 1');
+    expect(output.text()).toContain('line 1');
 
     wrapper.vm.log('line 2');
     await Vue.nextTick();
-    expect(wrapper.text()).toContain('line 1');
-    expect(wrapper.text()).toContain('line 2');
+    expect(output.text()).toContain('line 1');
+    expect(output.text()).toContain('line 2');
   });
 
   it('should clear', async () => {
     expect(wrapper.text()).not.toBeEmpty();
     wrapper.vm.clear();
     await Vue.nextTick();
-    expect(wrapper.text()).toBeEmpty();
+    expect(output.text()).toBeEmpty();
   });
 });

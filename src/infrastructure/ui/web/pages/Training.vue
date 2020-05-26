@@ -8,9 +8,19 @@
       {{ kata.name }}
     </h2>
     <div v-bem:details>
-      {{ kata.name }}
+      {{ kata.details }}
     </div>
-    <div v-bem:editor>
+    <div
+      v-bem:editor-container
+      @keydown.ctrl.enter.capture.prevent.stop="run"
+    >
+      <VCodeEditor
+        v-model="code"
+        v-bem:editor
+      />
+      <p v-bem:editor-tip>
+        You can test your code pressing <kbd>Ctrl</kbd> + <kbd>Enter</kbd>
+      </p>
       <div v-bem:editor-actions="{ error: error }">
         <div
           v-show="error"
@@ -20,6 +30,7 @@
         </div>
         <div class="btn-set">
           <VCodeRunner
+            ref="codeRunner"
             class="btn"
             :class="{ 'btn--primary': !tested || !success }"
             :code="code"
@@ -50,20 +61,8 @@
           </VButtonAsync>
         </div>
       </div>
-      <VCodeEditor v-model="code" />
     </div>
-    <div v-bem:console-container>
-      <VConsole v-bem:console />
-      <button
-        v-bem:console-clear
-        class="btn"
-        @click.prevent="clearConsole"
-        @keydown.enter.prevent="clearConsole"
-        @keydown.space.prevent="clearConsole"
-      >
-        Clear console
-      </button>
-    </div>
+    <VConsole v-bem:console />
   </form>
 </template>
 
@@ -177,6 +176,9 @@ export default {
       setTimeout(() => {
         this.error = undefined;
       }, 5000);
+    },
+    run() {
+      this.$refs.codeRunner.run();
     },
   },
 };

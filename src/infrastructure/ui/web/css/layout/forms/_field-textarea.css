@@ -1,3 +1,4 @@
 .field-textarea__control {
   height: 7em;
+  flex-grow: 1;
 }

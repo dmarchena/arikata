@@ -4,7 +4,10 @@
   margin: 0;
 }
 
-.field__label,
+.field__label {
+  flex-grow: 0;
+}
+
 .field__control {
   flex-grow: 1;
 }

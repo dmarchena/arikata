@@ -11,8 +11,6 @@ import { codemirror } from 'vue-codemirror';
 import 'codemirror/mode/javascript/javascript.js';
 import 'codemirror/addon/edit/closebrackets.js';
 import 'codemirror/addon/edit/matchbrackets.js';
-import 'codemirror/addon/hint/show-hint.js';
-import 'codemirror/addon/hint/javascript-hint.js';
 import 'codemirror/addon/selection/active-line.js';
 
 export default {
@@ -38,11 +36,7 @@ export default {
     return {
       code: this.value,
       codemirrorOptions: {
-        extraKeys: { Ctrl: 'autocomplete' },
         foldGutter: true,
-        hintOptions: {
-          completeSingle: false,
-        },
         indentUnit: 2,
         line: true,
         lineNumbers: true,

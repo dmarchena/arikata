@@ -43,6 +43,15 @@
   transform: translateY(1px);
 }
 
+.btn:focus {
+  outline: none;
+  outline: none;
+  color: var(--color-primary);
+  box-shadow: inset 0 0 5px 2px currentColor;
+  border-color: currentColor;
+  border-style: dashed;
+}
+
 /**
  * Button primary
 \* ------------------------------------------------------------------------- */
@@ -50,6 +59,10 @@
   color: var(--btn-primary-color);
   font-weight: 500;
   background-color: var(--btn-primary-color-bg);
+}
+
+.btn--primary:focus {
+  color: var(--color-secondary);
 }
 
 /**
@@ -60,8 +73,8 @@
   background-color: var(--color-timberwolf-light);
 }
 
-.btn--delete:active {
-  background-color: var(--color-timberwolf);
+.btn--delete:focus {
+  color: var(--color-danger);
 }
 
 /**

@@ -1,0 +1,55 @@
+.kata-admin {
+  display: grid;
+  flex-grow: 1;
+  grid-template:
+    'editor form' minmax(0, 2fr)
+    'console form' minmax(0, 1fr) / 1fr 1fr;
+  max-height: var(--scrollless-page-height);
+}
+
+.kata-admin__form {
+  grid-area: form;
+  display: flex;
+  flex-direction: column;
+  padding-block: var(--inset-block-m);
+  padding-inline: var(--inset-inline-m);
+}
+
+.kata-admin__form .field {
+  margin-bottom: var(--spacing-stack-m);
+}
+
+.kata-admin__details {
+  flex-grow: 1;
+}
+
+.kata-admin__editor-container {
+  grid-area: editor;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto minmax(0, 1fr) auto;
+}
+
+.kata-admin__editor-label {
+  padding-block: var(--inset-block-xs);
+  padding-inline: var(--inset-inline-xs);
+  background-color: var(--color-light-stale-grey);
+  color: var(--color-text--darkmode);
+  text-align: center;
+}
+
+.kata-admin__editor,
+.kata-admin__test {
+  overflow: auto;
+}
+
+.kata-admin__editor-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-block: var(--inset-block-m);
+  padding-inline: var(--inset-inline-m);
+}
+
+.kata-admin__console {
+  grid-area: console;
+}
