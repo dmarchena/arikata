@@ -8,6 +8,14 @@
   justify-content: space-between;
 }
 
+.kata-list__header .btn {
+  margin-left: var(--spacing-inline-s);
+}
+
+.kata-list__heading {
+  flex-grow: 1;
+}
+
 .kata-list__katas {
   display: flex;
   flex-direction: column;
@@ -45,7 +53,8 @@
   font-size: 1.2em;
 }
 
-.kata-list__tags {
+.kata-list__tags,
+.kata-list__trainings {
   display: flex;
   flex: 0 1 100%;
   flex-wrap: wrap;
@@ -55,6 +64,15 @@
 }
 
 .kata-list__tag {
-  margin-left: 1em;
+  margin-left: var(--spacing-inline-m);
   list-style: none;
+}
+
+.kata-list__training {
+  margin-left: var(--spacing-inline-l);
+  list-style: none;
+}
+
+.kata-list__training .icon {
+  margin-right: var(--spacing-inline-s);
 }

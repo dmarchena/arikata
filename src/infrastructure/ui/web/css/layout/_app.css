@@ -8,17 +8,17 @@
 }
 
 .app__header {
-  grid-area: header;
   position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
+  grid-area: header;
   align-items: center;
   justify-content: space-between;
-  top: 0;
   height: var(--header-height);
-  padding-inline: var(--inset-inline-m);
-  background-color: var(--color-secondary);
   color: var(--color-primary);
-  z-index: 10;
+  background-color: var(--color-secondary);
+  padding-inline: var(--inset-inline-m);
 }
 
 .app__home-link {

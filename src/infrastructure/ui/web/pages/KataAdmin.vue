@@ -23,14 +23,26 @@
       >
         Detailed info about Kata
       </VFieldTextarea>
-      <VButtonAsync
-        id="save"
-        v-bem:btn-save
-        class="btn btn--primary"
-        @active="handleSubmit"
-      >
-        Save
-      </VButtonAsync>
+      <div v-bem:form-actions>
+        <button
+          v-bem:back
+          class="btn btn--ghost"
+          href="#"
+          @click.prevent="$router.go(-1)"
+          @keydown.enter.prevent="$router.go(-1)"
+          @keydown.space.prevent="$router.go(-1)"
+        >
+          Cancel
+        </button>
+        <VButtonAsync
+          id="save"
+          v-bem:btn-save
+          class="btn btn--primary"
+          @active="handleSubmit"
+        >
+          Save
+        </VButtonAsync>
+      </div>
       <p :class="['error-message', { 'error-message--hidden': !error }]">
         {{ errorMsg }}
       </p>
@@ -187,10 +199,22 @@ export default {
             ...kataData,
             id: this.id,
           })
+          .then((data) => {
+            setTimeout(() => {
+              this.$router.go(-1);
+            }, 1000);
+            return data;
+          })
           .catch(this.printError);
       } else {
         return application.manageKataService
           .save(kataData)
+          .then((data) => {
+            setTimeout(() => {
+              this.$router.go(-1);
+            }, 1000);
+            return data;
+          })
           .catch(this.printError);
       }
     },

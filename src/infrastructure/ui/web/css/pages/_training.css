@@ -2,10 +2,18 @@
   display: grid;
   flex-grow: 1;
   grid-template:
+    'editor back' auto
     'editor kata' auto
-    'editor details' minmax(0, 1fr)
-    'editor console' minmax(0, 2fr) / 2fr 1fr;
+    'editor details' minmax(0, 2fr)
+    'editor console' minmax(0, 3fr) / 2fr 1fr;
   max-height: var(--scrollless-page-height);
+}
+
+.training__back {
+  grid-area: back;
+  padding-block: var(--inset-block-m);
+  padding-inline: var(--inset-inline-m);
+  text-align: right;
 }
 
 .training__kata {
@@ -34,11 +42,19 @@
 .training__editor-tip {
   height: 0;
   margin: 0;
-  padding-inline: var(--inset-inline-m);
-  background-color: var(--color-light-stale-grey);
   line-height: 2;
+  background-color: var(--color-light-stale-grey);
   opacity: 0;
   transition: none;
+  padding-inline: var(--inset-inline-m);
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .training__editor:focus-within + .training__editor-tip {
+    height: auto;
+    opacity: 1;
+    transition: none;
+  }
 }
 
 .training__editor:focus-within + .training__editor-tip {

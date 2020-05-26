@@ -14,8 +14,9 @@
 }
 
 .v-console__clear {
+  z-index: 2;
+  align-self: flex-end;
+  margin-left: auto;
   margin-block: var(--inset-block-m);
   margin-inline: var(--inset-inline-m);
-  margin-left: auto;
-  z-index: 2;
 }

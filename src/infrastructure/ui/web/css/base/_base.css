@@ -24,12 +24,12 @@ a {
 
 kbd {
   display: inline-block;
+  font-family: var(--font-family-monospace);
+  line-height: 1;
+  background-color: var(--color-cadet-grey);
+  border-radius: 0.3em;
   padding-block: var(--inset-block-xs);
   padding-inline: var(--inset-inline-xs);
-  line-height: 1;
-  border-radius: .3em;
-  background-color: var(--color-cadet-grey);
-  font-family: var(--font-family-monospace);
 }
 
 pre {

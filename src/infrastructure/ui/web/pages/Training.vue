@@ -4,6 +4,12 @@
     action="/api/training/"
     method="post"
   >
+    <a
+      v-bem:back
+      href="#"
+      @click="$router.go(-1)"
+      @keydown.enter="$router.go(-1)"
+    >&lt; Back</a>
     <h2 v-bem:kata>
       {{ kata.name }}
     </h2>

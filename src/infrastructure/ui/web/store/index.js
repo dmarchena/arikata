@@ -25,6 +25,12 @@ const storeOptions = {
         commit(kataList.mutations.setKatas, { katas, tag });
       });
     },
+    listAllKatasDoneByUser({ commit, getters }, { app }) {
+      const user = getters[auth.getters.getUser];
+      app.browseService.getAllKatasDoneByUser(user?.id).then((katas) => {
+        commit(kataList.mutations.setKatas, { katas });
+      });
+    },
     loadLocalStorage({ commit }) {
       commit(auth.mutations.setUser, JSON.parse(localStorage.getItem('user')));
     },
@@ -51,6 +57,7 @@ const mutations = {
 const actions = {
   global: {
     listAllKatas: 'listAllKatas',
+    listAllKatasDoneByUser: 'listAllKatasDoneByUser',
     listAllKatasWithTag: 'listAllKatasWithTag',
     loadLocalStorage: 'loadLocalStorage',
   },

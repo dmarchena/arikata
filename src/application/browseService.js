@@ -3,16 +3,18 @@
 
 import { kataTransformer } from './transformers/kataTransformer';
 import { trainingTransformer } from './transformers/trainingTransformer';
+import UnauthorizedError from './exceptions/UnauthorizedError';
 
 const responseToDtoArray = (res = []) => res.map(kataTransformer.toKataDto);
 
 /**
  * Factory function for a browse application service
  * @param {Object} dependencies
+ * @param {AuthSession} dependencies.authSession
  * @param {KataRepo} dependencies.kataRepo
  * @param {TrainingRepo} dependencies.trainingRepo
  */
-const createBrowseService = ({ kataRepo, trainingRepo }) => ({
+const createBrowseService = ({ authSession, kataRepo, trainingRepo }) => ({
   /**
    * Return all the katas
    * @returns {Promise.<KataDto[]>} the list of katas
@@ -24,12 +26,29 @@ const createBrowseService = ({ kataRepo, trainingRepo }) => ({
   /**
    * Return all the katas done by the given user
    * @param {string} userId - the id of the user
-   * @returns {Promise.<TrainingDto[]>} the list of user trainings
+   * @returns {Promise.<KataDto[]>} the list of katas with user trainings
    */
-  getAllKatasDoneByUser(userId) {
-    return trainingRepo
-      .getAllTrainingsOfUser(userId)
-      .then((res) => res.map(trainingTransformer.toTrainingDto));
+  async getAllKatasDoneByUser(userId) {
+    if (!authSession.isAuthenticated()) {
+      return Promise.reject(new UnauthorizedError('You need to be signed in.'));
+    }
+    try {
+      const katas = await this.getAllKatas();
+      const trainings = await this.getAllTrainingsDoneByUser(userId);
+
+      return katas.reduce((list, kata) => {
+        const doneTrainings = trainings.filter((t) => t.kataId === kata.id);
+        if (doneTrainings.length > 0) {
+          list.push({
+            ...kata,
+            trainings: doneTrainings,
+          });
+        }
+        return list;
+      }, []);
+    } catch (err) {
+      return Promise.reject(err);
+    }
   },
 
   /**
@@ -39,6 +58,22 @@ const createBrowseService = ({ kataRepo, trainingRepo }) => ({
    */
   getAllKatasWithTag(tag) {
     return kataRepo.getAllKatasWithTag(tag).then(responseToDtoArray);
+  },
+
+  /**
+   * Return all the trainings done by the given user
+   * @param {string} userId - the id of the user
+   * @returns {Promise.<TrainingDto[]>} the list of trainings
+   */
+  async getAllTrainingsDoneByUser(userId) {
+    if (!authSession.isAuthenticated()) {
+      return Promise.reject(new UnauthorizedError('You need to be signed in.'));
+    }
+    return trainingRepo
+      .getAllTrainingsOfUser(userId)
+      .then((res) =>
+        res.map((item) => trainingTransformer.toTrainingDto(item))
+      );
   },
 
   /**

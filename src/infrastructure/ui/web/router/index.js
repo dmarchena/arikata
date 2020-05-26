@@ -12,7 +12,13 @@ const routes = [
     path: '/katas/',
     name: 'katas',
     component: KataList,
-    props: (route) => ({ tag: route.query.tag }),
+    props: (route) => ({ tag: route.query.tag, filterByUser: false }),
+  },
+  {
+    path: '/trainings/',
+    name: 'trainings',
+    component: KataList,
+    props: { filterByUser: true },
   },
   {
     path: '/training/:id?',

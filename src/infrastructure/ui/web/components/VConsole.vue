@@ -3,7 +3,7 @@
     <pre v-bem:output>{{ lines }}</pre>
     <button
       v-bem:clear
-      class="btn"
+      class="btn btn--ghost"
       @click.prevent="clear"
       @keydown.enter.prevent="clear"
       @keydown.space.prevent="clear"

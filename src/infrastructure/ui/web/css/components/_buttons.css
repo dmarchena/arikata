@@ -1,5 +1,5 @@
 :root {
-  --btn-radius: 0.4em;
+  --btn-radius: 0.3em;
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
@@ -44,12 +44,20 @@
 }
 
 .btn:focus {
-  outline: none;
-  outline: none;
   color: var(--color-primary);
-  box-shadow: inset 0 0 5px 2px currentColor;
   border-color: currentColor;
   border-style: dashed;
+  outline: none;
+  box-shadow: inset 0 0 5px 2px currentColor;
+}
+
+.btn--ghost {
+  color: var(--btn-secondary-color-bg);
+  background-color: transparent;
+}
+
+.btn--ghost:focus {
+  color: var(--color-light-stale-grey);
 }
 
 /**
@@ -82,14 +90,6 @@
 \* ------------------------------------------------------------------------- */
 .btn .icon {
   margin-left: var(--spacing-inline-s);
-}
-
-.btn .icon--error {
-  color: var(--color-error);
-}
-
-.btn .icon--success {
-  color: var(--color-success);
 }
 
 /* ------------------------------------------------------------------------- *\

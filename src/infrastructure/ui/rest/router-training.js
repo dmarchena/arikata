@@ -19,7 +19,7 @@ const verifyTrainingUser = (req) => (data) => {
 
 trainingRouter.get('/', [verifyToken], (req, res) => {
   return app.browseService
-    .getAllKatasDoneByUser(req.user.id)
+    .getAllTrainingsDoneByUser(req.user.id)
     .then((data) => res.status(statusCodes.ok).json(data))
     .catch(catchErrorAndRespond(res));
 });
