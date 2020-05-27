@@ -2,7 +2,7 @@
 ///<reference path="../../jsdoc-types.js" />
 
 import { compose } from 'ramda';
-import createAuthSession from '../../application/factories/authSession';
+import { createAuthSessionForStorage } from '../../application/factories/authSession';
 
 const vuexAdapter = (store, getters, mutations) => ({
   getUser() {
@@ -25,6 +25,6 @@ const vuexAdapter = (store, getters, mutations) => ({
  * @param {string} mutations.removeUser - Name of removeUser mutation
  * @returns {Object}
  */
-const createVuexAuthSession = compose(createAuthSession, vuexAdapter);
+const createVuexAuthSession = compose(createAuthSessionForStorage, vuexAdapter);
 
 export default createVuexAuthSession;

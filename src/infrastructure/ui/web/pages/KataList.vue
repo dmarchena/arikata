@@ -1,13 +1,22 @@
 <template>
   <section>
     <header v-bem:header>
-      <VPageTitle>{{ title }}</VPageTitle>
+      <VPageTitle v-bem:heading>
+        {{ title }}
+      </VPageTitle>
       <router-link
-        v-show="tag"
-        class="btn"
+        v-show="tag || filterByUser"
+        class="btn btn--ghost"
         :to="{ name: 'katas' }"
       >
-        view all
+        view all katas
+      </router-link>
+      <router-link
+        v-show="isSignedIn && !isAdmin && !filterByUser"
+        :to="{ name: 'trainings' }"
+        class="btn btn--ghost"
+      >
+        view my trainings
       </router-link>
     </header>
     <ul v-bem:katas>
@@ -18,7 +27,18 @@
       >
         <strong v-bem:kata-name>{{ kata.name }}</strong>
         <div
-          v-if="isAdmin"
+          v-if="!isAdmin && !kata.trainings"
+          class="btn-set"
+        >
+          <router-link
+            :to="{ name: 'training', query: { kataId: kata.id } }"
+            class="btn"
+          >
+            try it
+          </router-link>
+        </div>
+        <div
+          v-if="isAdmin && !kata.trainings"
           class="btn-set"
         >
           <router-link
@@ -34,7 +54,10 @@
             delete
           </VButtonAsync>
         </div>
-        <ul v-bem:tags>
+        <ul
+          v-if="!kata.trainings"
+          v-bem:tags
+        >
           <li
             v-for="item in kata.tags"
             :key="`${kata.id}-${item}`"
@@ -47,6 +70,20 @@
             </router-link>
           </li>
         </ul>
+        <ul
+          v-if="kata.trainings"
+          v-bem:trainings
+        >
+          <li
+            v-for="(item, index) in kata.trainings"
+            :key="`${kata.id}-${item.id}`"
+            v-bem:training
+          >
+            <router-link :to="{ name: 'training', params: { id: item.id } }">
+              <VIconSuccess :success="item.success" />Training #{{ index + 1 }}
+            </router-link>
+          </li>
+        </ul>
       </li>
     </ul>
   </section>
@@ -55,14 +92,18 @@
 <script>
 import app from '../application';
 import VButtonAsync from '../components/VButtonAsync.vue';
+import VIconSuccess from '../components/VIconSuccess.vue';
 import VTag from '../components/VTag.vue';
 import VPageTitle from '../components/VPageTitle.vue';
+import { actions, mutations, getters } from '../store';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'KataList',
 
   components: {
     VButtonAsync,
+    VIconSuccess,
     VTag,
     VPageTitle,
   },
@@ -72,22 +113,31 @@ export default {
       type: String,
       default: null,
     },
+    filterByUser: {
+      type: Boolean,
+      default: false,
+    },
   },
 
-  data: () => ({
-    katas: [],
-  }),
-
   computed: {
+    ...mapGetters({
+      katas: getters.kataList.getKatas,
+    }),
     title() {
-      return this.tag !== null
-        ? `Katas tagged with "${this.tag}"`
-        : 'Available katas';
+      let text;
+      if (this.filterByUser === true) {
+        text = 'My trainings';
+      } else if (this.tag !== null) {
+        text = `Katas tagged with "${this.tag}"`;
+      } else {
+        text = 'Available katas';
+      }
+      return text;
     },
   },
 
   watch: {
-    tag() {
+    $route(to, from) {
       this.listKatas();
     },
   },
@@ -98,20 +148,35 @@ export default {
 
   methods: {
     deleteKata(kataId) {
-      return app.manageKataService.remove(kataId);
+      return app.manageKataService.remove(kataId).then((res) => {
+        this.listKatas(); // refresh the list
+        return res;
+      });
     },
     listKatas() {
-      if (this.tag !== null) {
+      if (this.filterByUser === true) {
+        this.listAllKatasDoneByUser();
+      } else if (this.tag !== null) {
         this.listAllKatasWithTag(this.tag);
       } else {
         this.listAllKatas();
       }
     },
-    async listAllKatasWithTag(tag) {
-      this.katas = await app.browseService.getAllKatasWithTag(tag);
-    },
     async listAllKatas() {
-      this.katas = await app.browseService.getAllKatas();
+      this.$store.dispatch(actions.global.listAllKatas, {
+        app,
+      });
+    },
+    async listAllKatasDoneByUser() {
+      this.$store.dispatch(actions.global.listAllKatasDoneByUser, {
+        app,
+      });
+    },
+    async listAllKatasWithTag(tag) {
+      this.$store.dispatch(actions.global.listAllKatasWithTag, {
+        app,
+        tag: this.tag,
+      });
     },
   },
 };

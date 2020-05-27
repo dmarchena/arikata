@@ -2,6 +2,8 @@ import createUserRepo from '../../../application/factories/repos/user';
 import User from '../../../domain/user';
 
 import mockJson from '../../../mock.json';
+import NotFoundError from '../../../application/exceptions/NotFoundError';
+import UnauthorizedError from '../../../application/exceptions/UnauthorizedError';
 
 const users = [
   User().create(mockJson.users.user.id, mockJson.users.user),
@@ -10,7 +12,13 @@ const users = [
 
 const signIn = (user) => {
   const res = users.find((u) => u.email === user.email);
-  return Promise.resolve(res && res.password === user.password ? res : null);
+  if (!res) {
+    return Promise.reject(new NotFoundError());
+  }
+  if (res.password !== user.password) {
+    return Promise.reject(new UnauthorizedError());
+  }
+  return Promise.resolve(res);
 };
 
 const signUp = (user) => {

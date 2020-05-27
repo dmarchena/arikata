@@ -6,13 +6,16 @@
       :alt="email"
       :title="email"
     >{{ firstLetter }}</span>
-    <router-link
+    <button
       v-show="!isSignedIn"
       :to="{ name: 'signin' }"
       class="btn"
+      @click.prevent="toggleForm"
+      @keydown.enter.prevent="toggleForm"
+      @keydown.space.prevent="toggleForm"
     >
       Sign in
-    </router-link>
+    </button>
     <button
       v-show="isSignedIn"
       class="btn"
@@ -22,15 +25,29 @@
     >
       Sign out
     </button>
+    <VUserForm
+      v-show="formShown"
+      v-bem:form
+      @success="closeForm"
+    />
   </div>
 </template>
 
 <script>
 import application from '../application';
 import { getters } from '../store';
+import VUserForm from './VUserForm';
 
 export default {
   name: 'VUserInfo',
+
+  components: {
+    VUserForm,
+  },
+
+  data: () => ({
+    formShown: false,
+  }),
 
   computed: {
     email() {
@@ -42,10 +59,16 @@ export default {
   },
 
   methods: {
+    closeForm() {
+      this.formShown = false;
+    },
     logout(evt) {
       evt.preventDefault();
       application.userService.signOut();
-      this.$router.push({ name: 'signin' });
+      this.$router.push({ name: 'signin', query: { from: 'signout' } });
+    },
+    toggleForm() {
+      this.formShown = !this.formShown;
     },
   },
 };

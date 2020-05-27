@@ -10,10 +10,6 @@ const factory = () => (
   password,
   roles,
   accessToken,
-  setEmail(value) {
-    this.email = value;
-    this.id = v5(value ?? '', config.uuidNamespaces.user);
-  },
 });
 
 export default function User({ repo } = {}) {

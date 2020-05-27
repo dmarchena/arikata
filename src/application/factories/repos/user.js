@@ -23,8 +23,8 @@ function createUserRepo({
      * @returns {Promise.<UserAggregate>}
      */
     signIn(user) {
-      return signIn(this.transformer.toUserDto(user, false)).then((data) =>
-        data === null ? null : this.transformer.toUserDto(data, true)
+      return signIn(this.transformer.toUserDto(user, false)).then(
+        this.transformer.toUserModel
       );
     },
 
@@ -43,8 +43,8 @@ function createUserRepo({
      * @returns {Promise.<UserAggregate>}
      */
     signUp(user) {
-      return signUp(this.transformer.toUserDto(user, false)).then((data) =>
-        data === null ? null : this.transformer.toUserDto(data, true)
+      return signUp(this.transformer.toUserDto(user, false)).then(
+        this.transformer.toUserModel
       );
     },
 
@@ -54,8 +54,8 @@ function createUserRepo({
      * @returns {Promise.<UserAggregate>}
      */
     update(user) {
-      return update(this.transformer.toUserDto(user, false)).then((data) =>
-        data === null ? null : this.transformer.toUserDto(data, true)
+      return update(this.transformer.toUserDto(user, false)).then(
+        this.transformer.toUserModel
       );
     },
   };

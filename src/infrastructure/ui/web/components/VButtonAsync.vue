@@ -19,12 +19,12 @@
     <VIcon
       v-if="isSuccess"
       id="checkmark"
-      v-bem:icon.success
+      class="icon icon--success"
     />
     <VIcon
       v-if="hasError"
       id="cross"
-      v-bem:icon.error
+      class="icon icon--error"
     />
   </button>
 </template>

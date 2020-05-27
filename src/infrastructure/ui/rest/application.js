@@ -1,11 +1,13 @@
 import createApp from '../../../application';
 import kataRepo from '../../repos/db/kata';
+import trainingRepo from '../../repos/db/training';
 import userRepo from '../../repos/db/user';
-import serverMemoryAuthSession from '../../authSession/serverMemory';
+import serverFakeAuthSession from '../../authSession/server';
 
 const app = createApp({
-  authSession: serverMemoryAuthSession,
+  authSession: serverFakeAuthSession,
   kataRepo,
+  trainingRepo,
   userRepo,
 });
 

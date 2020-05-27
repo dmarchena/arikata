@@ -5,7 +5,7 @@ import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 
 import router from './router';
-import { store } from './store';
+import { store, actions } from './store';
 import vueBemPlugin from './plugins/vue-bem';
 
 import App from './App.vue';
@@ -17,7 +17,7 @@ Vue.mixin(auth);
 
 new Vue({
   beforeCreate() {
-    this.$store.dispatch('loadLocalStorage');
+    this.$store.dispatch(actions.global.loadLocalStorage);
   },
   render: (h) => h(App),
   router,

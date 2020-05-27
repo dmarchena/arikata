@@ -1,11 +1,8 @@
-import createKataRepo from './kata';
+import createTrainingRepo from './training';
 
 const mockRepo = () => ({
-  getAllKatas: jest.fn(),
-  getAllKatasWithTag: jest.fn(),
-  getAllTags: jest.fn(),
-  getKataWithId: jest.fn(),
-  remove: jest.fn(),
+  getAllTrainingsOfUser: jest.fn(),
+  getTrainingWithId: jest.fn(),
   save: jest.fn(),
   update: jest.fn(),
 });
@@ -16,24 +13,21 @@ const mockRepoWithout = (method) => {
   return mock;
 };
 
-describe('kata repository', () => {
+describe('user repository factory', () => {
   it('should assure that returns an object that implements the interface', () => {
     expect.assertions(1);
-    expect(createKataRepo(mockRepo())).toBeKataRepo();
+    expect(createTrainingRepo(mockRepo())).toBeTrainingRepo();
   });
 
   it.each([
-    ['getAllKatas'],
-    ['getAllTags'],
-    ['getAllKatasWithTag'],
-    ['getKataWithId'],
-    ['remove'],
+    ['getAllTrainingsOfUser'],
+    ['getTrainingWithId'],
     ['save'],
     ['update'],
   ])('should throw an error if "%s" function is not provided', (method) => {
     expect.assertions(1);
     expect(() => {
-      createKataRepo(mockRepoWithout(method));
+      createTrainingRepo(mockRepoWithout(method));
     }).toThrow(`function "${method}" is required for Application Service`);
   });
 });

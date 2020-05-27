@@ -7,6 +7,8 @@ const statusCodes = {
   forbidden: 403, // If a user is not Authorized to perform an action although authentication information is correct.
   notFound: 404, // If the requested resource is not available on the server.
   methodNotAllowed: 405, // If the user is trying to violate an API contract, for example, trying to update a resource by using a POST method.
+  conflict: 409, // The request could not be completed due to a conflict with the current state of the resource. This code is only allowed in situations where it is expected that the user might be able to resolve the conflict and resubmit the request.
+  internalServerError: 500,
 };
 
 export default statusCodes;

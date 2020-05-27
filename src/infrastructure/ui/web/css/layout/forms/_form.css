@@ -1,6 +1,6 @@
 .form__field {
   flex-grow: 1;
-  margin-bottom: var(--spacing-base);
+  margin-bottom: var(--spacing-stack-m);
 }
 
 .form__field:last-of-type {
@@ -12,6 +12,6 @@
   flex-grow: 1;
   align-items: center;
   justify-content: flex-end;
-  margin-top: calc(2 * var(--spacing-base));
-  padding: 0 var(--spacing-base);
+  margin-top: var(--spacing-stack-l);
+  padding-inline: var(--inset-inline-l);
 }

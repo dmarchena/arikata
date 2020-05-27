@@ -1,8 +1,9 @@
 <template>
   <button
-    @click="run"
-    @keydown.enter="run"
-    @keydown.space="run"
+    class="btn"
+    @click.prevent="run"
+    @keydown.enter.prevent="run"
+    @keydown.space.prevent="run"
   >
     <slot>Run</slot>
     <iframe
@@ -174,16 +175,21 @@ export default {
   },
   data() {
     return {
+      success: false,
       sandbox: {
         console: (e) => {
           // console[e.data.type](e.data.data);
           const { type, data } = e.data;
-          if (type === 'log' || type === 'error') {
+          if (type === 'log') {
             this.$emit('log', data);
+          } else if (type === 'error') {
+            this.$emit('log', data);
+            this.success = false;
           }
         },
         codeExecuted: (e) => {
           if (e.data.type === 'end') {
+            this.$emit('end', { success: this.success });
             this.$_sandboxStop();
           }
         },
@@ -233,6 +239,7 @@ export default {
   methods: {
     run() {
       this.$_sandboxStop();
+      this.success = true;
       this.$nextTick().then(() => this.$_sandboxRun());
     },
 
@@ -242,6 +249,7 @@ export default {
       this.sandbox.running = true;
       setTimeout(() => {
         if (this.sandbox.running) {
+          this.$emit('end', { success: false });
           this.$emit(
             'log',
             'Unknown error: Code execution has not ended. It is likely to be a SyntaxError.'
@@ -255,6 +263,7 @@ export default {
       window.removeEventListener('message', this.sandbox.codeExecuted);
       window.removeEventListener('message', this.sandbox.console);
       this.sandbox.running = false;
+      this.success = false;
     },
   },
 };

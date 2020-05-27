@@ -1,4 +1,5 @@
 .v-user-info {
+  position: relative;
   display: inline-flex;
   align-items: center;
   font-size: 0.9em;
@@ -18,4 +19,13 @@
   text-transform: uppercase;
   background-color: var(--color-cadet-grey);
   border-radius: 50%;
+}
+
+.v-user-info__form {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: var(--color-text);
+  background-color: var(--color-timberwolf-light);
+  transform: translateY(100%);
 }

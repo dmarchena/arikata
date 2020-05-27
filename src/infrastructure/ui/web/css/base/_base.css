@@ -1,11 +1,38 @@
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: var(--font-family-base);
+}
+
+:active {
+  outline: none;
+}
+
+:focus {
+  outline: 2px dotted var(--color-primary);
+  outline-offset: 1px;
+}
+
+main :focus {
+  outline-color: var(--color-secondary);
 }
 
 a {
   color: var(--color-secondary);
 }
 
+kbd {
+  display: inline-block;
+  font-family: var(--font-family-monospace);
+  line-height: 1;
+  background-color: var(--color-cadet-grey);
+  border-radius: 0.3em;
+  padding-block: var(--inset-block-xs);
+  padding-inline: var(--inset-inline-xs);
+}
+
 pre {
   font-family: var(--font-family-monospace);
+  white-space: pre-wrap;
 }

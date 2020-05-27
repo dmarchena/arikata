@@ -1,12 +1,23 @@
 <template>
-  <pre>{{ lines }}</pre>
+  <div>
+    <pre v-bem:output>{{ lines }}</pre>
+    <button
+      v-bem:clear
+      class="btn btn--ghost"
+      @click.prevent="clear"
+      @keydown.enter.prevent="clear"
+      @keydown.space.prevent="clear"
+    >
+      Clear console
+    </button>
+  </div>
 </template>
 
 <script>
 import { events, subscribe } from '../event-bus';
 
 export default {
-  name: 'VKataAdmin',
+  name: 'VConsole',
 
   data() {
     return {

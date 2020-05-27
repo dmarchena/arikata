@@ -1,0 +1,75 @@
+@media screen and (prefers-reduced-motion: reduce) {
+  .error-message {
+    max-height: 100%;
+    margin: 0;
+    color: var(--color-error);
+    opacity: 1;
+    transition: none;
+    margin-block: 0;
+    padding-block: var(--inset-block-m);
+    padding-inline: var(--inset-inline-m);
+  }
+}
+
+.error-message {
+  max-height: 100%;
+  margin: 0;
+  color: var(--color-error);
+  opacity: 1;
+  transition: opacity 1s;
+  margin-block: 0;
+  padding-block: var(--inset-block-m);
+  padding-inline: var(--inset-inline-m);
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .error-message--hidden,
+  .error-message:empty {
+    max-height: 0;
+    opacity: 0;
+    transition: none;
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .error-message--hidden,
+  .error-message:empty {
+    max-height: 0;
+    opacity: 0;
+    transition: none;
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .error-message--hidden,
+  .error-message:empty {
+    max-height: 0;
+    opacity: 0;
+    transition: none;
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .error-message--hidden,
+  .error-message:empty {
+    max-height: 0;
+    opacity: 0;
+    transition: none;
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+.error-message--hidden,
+.error-message:empty {
+  max-height: 0;
+  opacity: 0;
+  transition: none;
+}
+}
+
+.error-message--hidden,
+.error-message:empty {
+  max-height: 0;
+  opacity: 0;
+  transition: opacity 1s, max-height 0.5s ease 1s;
+}

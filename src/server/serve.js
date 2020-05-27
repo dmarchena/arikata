@@ -3,6 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import expressStaticGzip from 'express-static-gzip';
 import path from 'path';
+import helmet from 'helmet';
 import restApiRouter from '../infrastructure/ui/rest';
 
 /**
@@ -69,6 +70,7 @@ export default function serve() {
   const PORT = process.env.PORT || 3000;
   const app = express();
 
+  app.use(helmet());
   app.use(cors());
   // Configuring body parser middleware
   app.use(bodyParser.urlencoded({ extended: false }));

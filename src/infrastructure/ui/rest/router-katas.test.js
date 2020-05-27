@@ -5,6 +5,7 @@ import application from './application';
 import { applyBaseMiddlewares } from './middlewares';
 import router from './router-katas';
 import webtoken from '../../webtoken';
+import statusCodes from './status';
 
 jest.mock('./application');
 
@@ -35,6 +36,16 @@ describe('api rest endpoints', () => {
         .then((response) => expect(response.body).toBeArray());
     }
   );
+
+  describe('when getting a single kata', () => {
+    const promise = requestGet(`/${mockKataEntity().id}`);
+
+    it('should return a successful status', async () => {
+      expect.hasAssertions();
+      const res = await promise;
+      expect(res.statusCode).toBe(statusCodes.ok);
+    });
+  });
 
   describe('when saving new kata', () => {
     let mockData;
@@ -111,7 +122,7 @@ describe('api rest endpoints', () => {
     });
   });
 
-  describe('delete an existing kata', () => {
+  describe('when deleting an existing kata', () => {
     let mockKata;
     let res;
     let spyDelete;
@@ -136,7 +147,7 @@ describe('api rest endpoints', () => {
     it('should delete', () => {
       expect.hasAssertions();
       expect(res.body).not.toStrictEqual(mockKata);
-      expect(res.statusCode).toStrictEqual(204);
+      expect(res.statusCode).toStrictEqual(statusCodes.deleted);
     });
   });
 });

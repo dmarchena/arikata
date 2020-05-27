@@ -1,0 +1,22 @@
+.v-console {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-timberwolf);
+}
+
+.v-console__output {
+  flex-grow: 1;
+  margin: 0;
+  padding-block: var(--inset-block-m);
+  padding-inline: var(--inset-inline-m);
+  overflow: auto;
+  background-color: var(--color-timberwolf);
+}
+
+.v-console__clear {
+  z-index: 2;
+  align-self: flex-end;
+  margin-left: auto;
+  margin-block: var(--inset-block-m);
+  margin-inline: var(--inset-inline-m);
+}

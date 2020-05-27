@@ -1,0 +1,80 @@
+.training {
+  display: grid;
+  flex-grow: 1;
+  grid-template:
+    'editor back' auto
+    'editor kata' auto
+    'editor details' minmax(0, 2fr)
+    'editor console' minmax(0, 3fr) / 2fr 1fr;
+  max-height: var(--scrollless-page-height);
+}
+
+.training__back {
+  grid-area: back;
+  padding-block: var(--inset-block-m);
+  padding-inline: var(--inset-inline-m);
+  text-align: right;
+}
+
+.training__kata {
+  grid-area: kata;
+  padding-block: var(--inset-block-m);
+  padding-inline: var(--inset-inline-m);
+}
+
+.training__details {
+  grid-area: details;
+  padding-block: var(--inset-block-m);
+  padding-inline: var(--inset-inline-m);
+  overflow: auto;
+}
+
+.training__console {
+  grid-area: console;
+}
+
+.training__editor-container {
+  display: flex;
+  flex-direction: column;
+  grid-area: editor;
+}
+
+.training__editor-tip {
+  height: 0;
+  margin: 0;
+  line-height: 2;
+  background-color: var(--color-light-stale-grey);
+  opacity: 0;
+  transition: none;
+  padding-inline: var(--inset-inline-m);
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .training__editor:focus-within + .training__editor-tip {
+    height: auto;
+    opacity: 1;
+    transition: none;
+  }
+}
+
+.training__editor:focus-within + .training__editor-tip {
+  height: auto;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.training__editor-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-block: var(--inset-block-m);
+  padding-inline: var(--inset-inline-m);
+}
+
+.training__editor-actions--error {
+  background-color: var(--color-error);
+}
+
+.training__editor-msg {
+  flex-grow: 1;
+}

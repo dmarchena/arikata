@@ -5,6 +5,11 @@ import userRepo from './user';
 describe('userRepo (api)', () => {
   const user = mockUser();
 
+  // eslint-disable-next-line jest/no-hooks
+  afterEach(() => {
+    mockAxios.reset();
+  });
+
   describe('when signing in', () => {
     it('should POST to "signin" endpoint of the api', () => {
       expect.hasAssertions();

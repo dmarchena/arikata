@@ -28,6 +28,13 @@
       }
     ]
   },
+  "training": {
+    "id": "ec32b998-ccef-4b20-84c0-7761c5f2997c",
+    "code": "const add = (...args) => args.reduce((res, n) => res + n, 0);\nconst mul =  (...args) => args.reduce((res, n) => res * n, 1);",
+    "kataId": "4e16bd65-9afb-4399-afd0-dc6dc268e37c",
+    "success": true,
+    "userId": "46a7f881-9d96-50c3-a0ea-4d94d39aaaec"
+  },
   "users": {
     "admin": {
       "id": "322e9a79-cc48-5e6e-85d5-a695c972b682",

@@ -2,6 +2,8 @@ import { v4, v5 } from 'uuid';
 import * as R from 'ramda';
 
 import { isUuid } from '../utils/uuid';
+import Training from './training';
+
 import config from '../config.json';
 
 const tagEntity = (str) =>
@@ -25,10 +27,18 @@ const factory = (repository) => (
   code,
   test,
   tags: tags.map(R.ifElse(isTagEntity, R.identity, tagEntity)),
-  availableTags: () =>
-    repository
+  availableTags() {
+    return repository
       ? repository.getAllTags()
-      : Promise.reject(new ReferenceError('Action not available')),
+      : Promise.reject(new ReferenceError('Action not available'));
+  },
+  startTraining(userId) {
+    return Training.create(undefined, {
+      kataId: this.id,
+      code, // initial code of the kata
+      userId,
+    });
+  },
 });
 
 export default function Kata({ repo } = {}) {

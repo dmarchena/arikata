@@ -4,6 +4,7 @@ import SequelizeMock from 'sequelize-mock';
 import KataMock from './kata';
 import KataTagsMock from './kata_tags';
 import TagMock from './tag';
+import TrainingMock from './training';
 import UserMock from './user';
 
 import mockJson from '../../../mock.json';
@@ -25,7 +26,12 @@ db.Tag.belongsToMany(db.Kata, {
   foreignKey: 'tagId',
   otherKey: 'kataId',
 });
+
 db.User = UserMock(sequelize, mockJson.users);
+
+db.Training = TrainingMock(sequelize, mockJson.training);
+db.Training.belongsTo(db.User);
+db.Training.belongsTo(db.Kata);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

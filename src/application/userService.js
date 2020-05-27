@@ -1,13 +1,15 @@
 // eslint-disable-next-line
 ///<reference path="../jsdoc-types.js" />
 
-import AuthError from './exceptions/AuthError';
+import BadRequestError from './exceptions/BadRequestError';
+import ConflictError from './exceptions/ConflictError';
 import NotFoundError from './exceptions/NotFoundError';
-import PermissionDeniedError from './exceptions/PermissionDeniedError';
+import UnauthorizedError from './exceptions/UnauthorizedError';
 import User from '../domain/user';
 import configJson from '../config.json';
 import isValidEmail from './validators/email';
-import isEmpty from './validators/empty';
+import { isEmptyString } from './validators/empty';
+import { userTransformer } from './transformers/userTransformer';
 
 const checkUserNotFound = (user) => {
   if (user === null) {
@@ -33,16 +35,17 @@ const createUserService = ({ authSession, userRepo }) => ({
   changePassword(email, password, passwordConfirmation = false) {
     if (!authSession.isAuthenticated()) {
       return Promise.reject(
-        new PermissionDeniedError(
-          'You need to be signed in to call this method.'
-        )
+        new UnauthorizedError('You need to be signed in to call this method.')
       );
     }
     if (passwordConfirmation && password !== passwordConfirmation) {
       return Promise.reject(new Error('Password can not be confirmed.'));
     }
     const user = User(userRepo).create(undefined, { email, password });
-    return userRepo.update(user).then(checkUserNotFound);
+    return userRepo
+      .update(user)
+      .then(checkUserNotFound)
+      .then((result) => userTransformer.toUserDto(result, true));
   },
 
   /**
@@ -54,19 +57,22 @@ const createUserService = ({ authSession, userRepo }) => ({
   signIn(email, password) {
     if (!isValidEmail(email)) {
       return Promise.reject(
-        new TypeError(`"${email}" is not a valid email address`)
+        new BadRequestError(`"${email}" is not a valid email address`)
       );
     }
-    if (isEmpty(password)) {
-      return Promise.reject(new TypeError('You must introduce a password'));
+    if (isEmptyString(password)) {
+      return Promise.reject(
+        new BadRequestError('You must introduce a password')
+      );
     }
     const user = User(userRepo).create(undefined, { email, password });
     return userRepo
       .signIn(user)
       .then(checkUserNotFound)
-      .then((responseDto) => {
-        authSession.saveAuthentication(responseDto);
-        return responseDto;
+      .then((result) => {
+        const dto = userTransformer.toUserDto(result, true);
+        authSession.saveAuthentication(dto);
+        return dto;
       });
   },
 
@@ -88,13 +94,17 @@ const createUserService = ({ authSession, userRepo }) => ({
    */
   signUp(email, password, passwordConfirmation) {
     if (!isValidEmail(email)) {
-      return Promise.reject(new TypeError(`"${email}" is not valid email`));
+      return Promise.reject(
+        new BadRequestError(`"${email}" is not valid email`)
+      );
     }
-    if (isEmpty(password)) {
-      return Promise.reject(new TypeError('You must introduce a password'));
+    if (isEmptyString(password)) {
+      return Promise.reject(
+        new BadRequestError('You must introduce a password')
+      );
     }
     if (arguments.length > 2 && password !== passwordConfirmation) {
-      return Promise.reject(new Error('Passwords do not match.'));
+      return Promise.reject(new BadRequestError('Passwords do not match.'));
     }
     const user = User(userRepo).create(undefined, {
       email,
@@ -103,20 +113,21 @@ const createUserService = ({ authSession, userRepo }) => ({
     });
     return userRepo
       .signUp(user)
-      .then((responseDto) => {
-        if (responseDto !== null) {
-          authSession.saveAuthentication(responseDto);
-          return responseDto;
+      .then((result) => {
+        if (result !== null) {
+          const dto = userTransformer.toUserDto(result, true);
+          authSession.saveAuthentication(dto);
+          return dto;
         }
         return Promise.reject(
-          new AuthError(
+          new ConflictError(
             'It has been impossible to register this email. It seems that the user already exists.'
           )
         );
       })
       .catch(() => {
         return Promise.reject(
-          new AuthError(
+          new ConflictError(
             'It has been impossible to register this email. It seems that the user already exists.'
           )
         );

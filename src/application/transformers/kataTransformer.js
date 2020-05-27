@@ -51,7 +51,7 @@ const toKataModel = (dto, dependencies) => {
  * @return {Object} Kata transformer
  */
 const createKataTransformer = (dependencies) => ({
-  toKataDto: (kata) => toKataDto(kata, dependencies),
+  toKataDto: (kata) => toKataDto(kata),
   toKataModel: (dto) => toKataModel(dto, dependencies),
 });
 

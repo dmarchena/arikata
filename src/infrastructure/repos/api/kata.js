@@ -1,5 +1,5 @@
 import { createHttpClient } from './utils';
-import createKataRepo from '../../../application/factories/repos/kata';
+import createKataRepo from '../../../application/factories/repos/kata/kata';
 
 const endpoints = {
   base: '/api/katas/',

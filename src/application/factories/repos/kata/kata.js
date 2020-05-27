@@ -1,8 +1,8 @@
 // eslint-disable-next-line
-///<reference path="../../../jsdoc-types.js" />
+///<reference path="../../../../jsdoc-types.js" />
 
-import { createKataTransformer } from '../../transformers/kataTransformer';
-import { isRequired } from '../utils';
+import { createKataTransformer } from '../../../transformers/kataTransformer';
+import { isRequired } from '../../utils';
 
 /**
  * Factory function for a kata repository

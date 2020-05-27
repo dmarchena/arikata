@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 ///<reference path="../../jsdoc-types.js" />
 
-import createAuthSession from '../../application/factories/authSession';
+import { createAuthSessionForStorage } from '../../application/factories/authSession';
 
 const localStorageAdapter = {
   getUser() {
@@ -15,6 +15,6 @@ const localStorageAdapter = {
   },
 };
 
-const browserAuthSession = createAuthSession(localStorageAdapter);
+const browserAuthSession = createAuthSessionForStorage(localStorageAdapter);
 
 export default browserAuthSession;

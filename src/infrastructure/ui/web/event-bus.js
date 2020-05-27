@@ -12,6 +12,9 @@ const subscribe = (event, handler) => {
 const events = {
   CONSOLE_CLEAR: 'console.clear',
   CONSOLE_LOG: 'console.log',
+  SIGNED_UP: 'user.signedUp',
+  SIGNED_IN: 'user.signedIn',
+  SIGNING_IN_REQUIRED: 'user.signInRequired',
 };
 
 export { EventBus, publish, subscribe, events };

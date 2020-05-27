@@ -1,5 +1,5 @@
 import { compose, includes, partition, symmetricDifference, __ } from 'ramda';
-import createKataRepo from '../../../application/factories/repos/kata';
+import createKataRepo from '../../../application/factories/repos/kata/kata';
 import db from '../../db';
 import { tagId } from '../../db/models/tag';
 import { kataTransformer } from '../../../application/transformers/kataTransformer';

@@ -1,5 +1,24 @@
 :root {
-  --btn-radius: 0.4em;
+  --btn-radius: 0.3em;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 6em;
+    padding: var(--inset-block-m) var(--inset-inline-m);
+    color: var(--btn-secondary-color);
+    font-weight: 400;
+    text-decoration: none;
+    background-color: var(--btn-secondary-color-bg);
+    border: 1px solid var(--btn-secondary-color-bg);
+    border-radius: var(--btn-radius);
+    cursor: default;
+    transition: none;
+    appearance: button;
+  }
 }
 
 .btn {
@@ -7,44 +26,94 @@
   align-items: center;
   justify-content: center;
   min-width: 6em;
-  padding: 0.25em 0.5em;
-  color: var(--color-text--darkmode);
+  padding: var(--inset-block-m) var(--inset-inline-m);
+  color: var(--btn-secondary-color);
   font-weight: 400;
   text-decoration: none;
-  background-color: var(--color-secondary);
-  border: 1px solid var(--color-secondary);
+  background-color: var(--btn-secondary-color-bg);
+  border: 1px solid var(--btn-secondary-color-bg);
   border-radius: var(--btn-radius);
   cursor: default;
+  transition: transform 0.1s ease;
   appearance: button;
 }
 
 .btn:active {
-  background-color: var(--color-secondary-dark);
+  box-shadow: inset 3px 2px 8px -4px #000;
+  transform: translateY(1px);
 }
 
+.btn:focus {
+  color: var(--color-primary);
+  border-color: currentColor;
+  border-style: dashed;
+  outline: none;
+  box-shadow: inset 0 0 5px 2px currentColor;
+}
+
+.btn--ghost {
+  color: var(--btn-secondary-color-bg);
+  background-color: transparent;
+}
+
+.btn--ghost:focus {
+  color: var(--color-light-stale-grey);
+}
+
+/**
+ * Button primary
+\* ------------------------------------------------------------------------- */
+.btn--primary {
+  color: var(--btn-primary-color);
+  font-weight: 500;
+  background-color: var(--btn-primary-color-bg);
+}
+
+.btn--primary:focus {
+  color: var(--color-secondary);
+}
+
+.btn--primary .icon--success {
+  color: currentColor;
+}
+
+/**
+ * Button delete
+\* ------------------------------------------------------------------------- */
 .btn--delete {
   color: var(--color-danger);
   background-color: var(--color-timberwolf-light);
 }
 
-.btn--delete:active {
-  background-color: var(--color-timberwolf);
+.btn--delete:focus {
+  color: var(--color-danger);
 }
+
+/**
+ * Button with icons
+\* ------------------------------------------------------------------------- */
+.btn .icon {
+  margin-left: var(--spacing-inline-s);
+}
+
+/* ------------------------------------------------------------------------- *\
+ * Button group
+\* ------------------------------------------------------------------------- */
 
 .btn-set {
   display: inline-flex;
 }
 
-.btn-set .btn {
+.btn-set > .btn {
   border-radius: 0;
 }
 
-.btn-set :first-child {
+.btn-set > :first-child {
   border-top-left-radius: var(--btn-radius);
   border-bottom-left-radius: var(--btn-radius);
 }
 
-.btn-set :last-child {
+.btn-set > :last-child {
   border-top-right-radius: var(--btn-radius);
   border-bottom-right-radius: var(--btn-radius);
 }

@@ -1,5 +1,14 @@
+.icon,
 .v-icon {
   display: inline-flex;
   width: 1em;
   height: 1em;
+}
+
+.icon--error {
+  color: var(--color-error);
+}
+
+.icon--success {
+  color: var(--color-success);
 }

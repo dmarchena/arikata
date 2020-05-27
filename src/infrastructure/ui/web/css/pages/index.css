@@ -1,2 +1,4 @@
+@import './_kata-admin.css';
 @import './_kata-list.css';
-@import './_sign-in-up.css';
+@import './_signing-page.css';
+@import './_training.css';

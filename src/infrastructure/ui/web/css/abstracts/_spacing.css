@@ -1,3 +1,25 @@
 :root {
   --spacing-base: 1rem;
+  --spacing-xxs: calc(var(--spacing-base) / 4);
+  --spacing-xs: calc(var(--spacing-base) / 3);
+  --spacing-s: calc(var(--spacing-base) / 2);
+  --spacing-m: var(--spacing-base);
+  --spacing-l: calc(var(--spacing-base) * 2);
+  --spacing-stack-s: var(--spacing-s);
+  --spacing-stack-m: var(--spacing-m);
+  --spacing-stack-l: var(--spacing-l);
+  --spacing-inline-s: var(--spacing-xs);
+  --spacing-inline-s: var(--spacing-s);
+  --spacing-inline-m: var(--spacing-m);
+  --spacing-inline-l: var(--spacing-l);
+  --inset-block-xs: var(--spacing-xxs);
+  --inset-block-s: var(--spacing-xs);
+  --inset-block-m: var(--spacing-s);
+  --inset-block-l: var(--spacing-m);
+  --inset-inline-xs: var(--spacing-xs);
+  --inset-inline-s: var(--spacing-s);
+  --inset-inline-m: var(--spacing-m);
+  --inset-inline-l: var(--spacing-l);
+  --inset-block-main: 1em;
+  --inset-inline-main: 5%;
 }

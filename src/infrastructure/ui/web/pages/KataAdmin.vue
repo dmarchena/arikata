@@ -4,46 +4,87 @@
     action="/api/katas/"
     method="post"
   >
-    <VButtonAsync
-      id="save"
-      @active="handleSubmit"
-    >
-      Save
-    </VButtonAsync>
-    <VFieldText
-      v-model="name"
-      name="name"
-    >
-      Kata name
-    </VFieldText>
-    <VFieldTags
-      v-model="tags"
-      name="tags"
-    />
-    <VFieldTextarea
-      v-model="details"
-      name="details"
-    >
-      Detailed info about Kata
-    </VFieldTextarea>
-
-    <VCodeEditor v-model="code" />
-    <VCodeEditor v-model="test" />
-    <VCodeRunner
-      :code="code"
-      :test="test"
-      @log="log"
-    >
-      RUN
-    </VCodeRunner>
-    <button
-      @click="clearConsole"
-      @keydown.enter="clearConsole"
-      @keydown.space="clearConsole"
-    >
-      Clear console
-    </button>
-    <VConsole />
+    <div v-bem:form>
+      <VFieldText
+        v-model="name"
+        name="name"
+      >
+        Kata name
+      </VFieldText>
+      <VFieldTags
+        v-model="tags"
+        v-bem:tags
+        name="tags"
+      />
+      <VFieldTextarea
+        v-model="details"
+        v-bem:details
+        name="details"
+      >
+        Detailed info about Kata
+      </VFieldTextarea>
+      <div v-bem:form-actions>
+        <button
+          v-bem:back
+          class="btn btn--ghost"
+          href="#"
+          @click.prevent="$router.go(-1)"
+          @keydown.enter.prevent="$router.go(-1)"
+          @keydown.space.prevent="$router.go(-1)"
+        >
+          Cancel
+        </button>
+        <VButtonAsync
+          id="save"
+          v-bem:btn-save
+          class="btn btn--primary"
+          @active="handleSubmit"
+        >
+          Save
+        </VButtonAsync>
+      </div>
+      <p :class="['error-message', { 'error-message--hidden': !error }]">
+        {{ errorMsg }}
+      </p>
+    </div>
+    <div v-bem:editor-container>
+      <div v-bem:editor-label>
+        Initial code
+      </div>
+      <VCodeEditor
+        v-model="code"
+        v-bem:editor
+      />
+      <div v-bem:editor-label>
+        Tests
+      </div>
+      <VCodeEditor
+        v-model="test"
+        v-bem:test
+      />
+      <div v-bem:editor-actions>
+        <VCodeRunner
+          v-bem:run
+          :code="code"
+          :test="test"
+          @log="log"
+          @end="codeExecuted"
+        >
+          Test
+          <VIcon
+            v-if="tested && success"
+            id="checkmark"
+            class="icon icon--success"
+          />
+          <VIcon
+            v-if="tested && !success"
+            id="cross"
+            class="icon icon--error"
+          />
+        </VCodeRunner>
+      </div>
+    </div>
+    <VConsole v-bem:console />
   </form>
 </template>
 
@@ -57,6 +98,7 @@ import VConsole from '../components/VConsole';
 import VFieldTags from '../components/forms/VFieldTags';
 import VFieldText from '../components/forms/VFieldText';
 import VFieldTextarea from '../components/forms/VFieldTextarea';
+import VIcon from '../components/VIcon';
 
 const testCode = `const A = 10;
 console.log(A);
@@ -92,6 +134,7 @@ export default {
     VFieldTags,
     VFieldText,
     VFieldTextarea,
+    VIcon,
   },
 
   props: {
@@ -105,6 +148,10 @@ export default {
     return {
       name: '',
       details: '',
+      error: false,
+      errorMsg: undefined,
+      success: false,
+      tested: false,
       code: sampleCode,
       test: sampleTest,
       tags: [],
@@ -125,11 +172,16 @@ export default {
     clearConsole() {
       publish(events.CONSOLE_CLEAR);
     },
+    codeExecuted({ success }) {
+      this.tested = true;
+      this.success = success;
+    },
     fetchKata() {
       if (this.id) {
         application.manageKataService
           .getKataWithId(this.id)
-          .then(this.loadKataData);
+          .then(this.loadKataData)
+          .catch(this.printError);
       }
     },
     handleSubmit(evt) {
@@ -142,12 +194,28 @@ export default {
         tags: this.tags,
       };
       if (this.id) {
-        return application.manageKataService.update({
-          ...kataData,
-          id: this.id,
-        });
+        return application.manageKataService
+          .update({
+            ...kataData,
+            id: this.id,
+          })
+          .then((data) => {
+            setTimeout(() => {
+              this.$router.go(-1);
+            }, 1000);
+            return data;
+          })
+          .catch(this.printError);
       } else {
-        return application.manageKataService.save(kataData);
+        return application.manageKataService
+          .save(kataData)
+          .then((data) => {
+            setTimeout(() => {
+              this.$router.go(-1);
+            }, 1000);
+            return data;
+          })
+          .catch(this.printError);
       }
     },
     loadKataData({ name, details, code, test, tags }) {
@@ -159,6 +227,17 @@ export default {
     },
     log(data) {
       publish(events.CONSOLE_LOG, data);
+    },
+    printError(error) {
+      this.error = true;
+      this.errorMsg = error.message;
+      setTimeout(() => {
+        this.error = false;
+      }, 3000);
+      setTimeout(() => {
+        this.errorMsg = undefined;
+      }, 6000);
+      return Promise.reject(error);
     },
   },
 };

@@ -1,10 +1,10 @@
-import kata from './kata';
+import Kata from './kata';
 
 describe('model Kata', () => {
   describe('factory', () => {
     it('should return an empty Kata model object if it is called without params', () => {
       expect.hasAssertions();
-      expect(kata().create()).toContainKeys([
+      expect(Kata().create()).toContainKeys([
         'id',
         'details',
         'name',
@@ -13,10 +13,18 @@ describe('model Kata', () => {
         'tags',
       ]);
     });
+
     it('should return a kata with new id if it is neccessary', () => {
       expect.hasAssertions();
-      const instance = kata().create();
+      const instance = Kata().create();
       expect(instance.id).toBeUuid();
+    });
+  });
+
+  describe('when starting a kata', () => {
+    it('should return a new training object', () => {
+      expect.hasAssertions();
+      expect(Kata().create().startTraining(mockUser().id)).toBeTrainingEntity();
     });
   });
 });

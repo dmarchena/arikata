@@ -1,18 +1,20 @@
 :root {
   --color-minion-yellow: hsl(53, 93%, 64%);
   --color-blue-shapire: hsl(201, 38%, 29%);
-  --color-blue-shapire-dark: hsl(201, 38%, 23%);
   --color-light-stale-grey: hsl(203, 17%, 51%);
   --color-cadet-grey: hsl(203, 18%, 68%);
   --color-timberwolf: hsl(38, 8%, 81%);
   --color-timberwolf-light: hsl(38, 8%, 91%);
   --color-primary: var(--color-minion-yellow);
   --color-secondary: var(--color-blue-shapire);
-  --color-secondary-dark: var(--color-blue-shapire-dark);
   --color-text: black;
-  --color-text--darkmode: white;
+  --color-text--darkmode: var(--color-timberwolf-light);
   --color-danger: indianred;
   --color-danger-light: lightcoral;
   --color-error: indianred;
   --color-success: lightgreen;
+  --btn-primary-color: hsl(201, 38%, 19%);
+  --btn-primary-color-bg: var(--color-primary);
+  --btn-secondary-color: var(--color-timberwolf);
+  --btn-secondary-color-bg: var(--color-secondary);
 }
