@@ -1,8 +1,12 @@
 import VueRouter from 'vue-router';
-import KataList from '../pages/KataList.vue';
-import KataAdmin from '../pages/KataAdmin.vue';
-import SigningPage from '../pages/SigningPage.vue';
-import Training from '../pages/Training.vue';
+const KataList = () =>
+  import(/* webpackChunkName: "kata-list" */ '../pages/KataList.vue');
+const KataAdmin = () =>
+  import(/* webpackChunkName: "kata-admin" */ '../pages/KataAdmin.vue');
+const SigningPage = () =>
+  import(/* webpackChunkName: "signing-page" */ '../pages/SigningPage.vue');
+const Training = () =>
+  import(/* webpackChunkName: "training" */ '../pages/Training.vue');
 
 const routes = [
   {

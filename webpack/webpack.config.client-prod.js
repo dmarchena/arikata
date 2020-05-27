@@ -27,10 +27,6 @@ module.exports = merge(baseConfig, {
   },
 
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
-    }),
     new CompressionPlugin({
       filename: '[path].gz[query]',
       algorithm: 'gzip',

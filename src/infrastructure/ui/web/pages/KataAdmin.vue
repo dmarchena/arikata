@@ -89,6 +89,7 @@
 </template>
 
 <script>
+import '../css/pages/kata-admin.css';
 import { publish, events } from '../event-bus';
 import application from '../application';
 import VButtonAsync from '../components/VButtonAsync';

@@ -4,7 +4,7 @@ const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const appDir = path.join(__dirname, '..', 'src/application');
 const infrastructureDir = path.join(__dirname, '..', 'src/infrastructure');
@@ -58,9 +58,15 @@ module.exports = {
   },
 
   output: {
-    filename: '[name].js',
+    filename: '[name].[contenthash].js',
     path: distDir,
     publicPath: '/',
+  },
+
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
   },
 
   performance: {

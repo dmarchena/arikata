@@ -8,6 +8,8 @@
 
 <script>
 import { codemirror } from 'vue-codemirror';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/pastel-on-dark.css';
 import 'codemirror/mode/javascript/javascript.js';
 import 'codemirror/addon/edit/closebrackets.js';
 import 'codemirror/addon/edit/matchbrackets.js';

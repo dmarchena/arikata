@@ -1,3 +1,5 @@
+@import 'vue-multiselect/dist/vue-multiselect.min.css';
+
 .kata-admin {
   display: grid;
   flex-grow: 1;

@@ -73,6 +73,7 @@
 </template>
 
 <script>
+import '../css/pages/training.css';
 import { publish, events } from '../event-bus';
 import application from '../application';
 import VButtonAsync from '../components/VButtonAsync';

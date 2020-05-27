@@ -21,15 +21,15 @@
   padding-inline: var(--inset-inline-m);
 }
 
-.app__home-link {
-  color: currentColor;
-  text-decoration: none;
-}
-
 .app__name {
   margin: 0;
   font-size: 1.2em;
   text-transform: uppercase;
+}
+
+.app__name a {
+  color: currentColor;
+  text-decoration: none;
 }
 
 .app__main {
