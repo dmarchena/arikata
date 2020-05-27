@@ -12,6 +12,7 @@
     "stylelint-config-rational-order/plugin"
   ],
   "rules": {
+    "a11y/media-prefers-reduced-motion": null,
     "prettier/prettier": true
   }
 }

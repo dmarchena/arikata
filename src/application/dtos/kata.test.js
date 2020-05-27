@@ -5,6 +5,7 @@ describe('kata DTO', () => {
     expect.assertions(1);
     expect(() => {
       kataDto();
+      // eslint-disable-next-line jest/require-to-throw-message
     }).toThrow();
   });
   it('should return an object', () => {
