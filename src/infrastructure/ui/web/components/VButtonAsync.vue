@@ -12,8 +12,8 @@
   >
     <slot />
 
-    <CircleSpinner
-      v-show="loadingState"
+    <VSpinner
+      v-if="loadingState"
       v-bem:spinner
     />
     <VIcon
@@ -29,13 +29,14 @@
   </button>
 </template>
 <script>
-import { CircleSpinner } from 'vue-spinners/dist/vue-spinners.common';
+const VSpinner = () =>
+  import(/* webpackChunkName: "vue-spinner" */ './VSpinner.vue');
 import VIcon from './VIcon';
 
 export default {
   name: 'VButtonAsync',
   components: {
-    CircleSpinner,
+    VSpinner,
     VIcon,
   },
   inheritAttrs: false,

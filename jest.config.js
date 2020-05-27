@@ -190,8 +190,8 @@ module.exports = {
     '.*\\.(vue)$': 'vue-jest',
     // process js with `babel-jest`
     '^.+\\.js$': '<rootDir>/node_modules/babel-jest',
-    '^[./a-zA-Z0-9$_-]+\\.(bmp|gif|jpg|jpeg|png|psd|svg|webp)$':
-      '<rootDir>/__mocks__/imageMock.js',
+    '^[./a-zA-Z0-9$_-]+\\.(css|bmp|gif|jpg|jpeg|png|psd|svg|webp)$':
+      '<rootDir>/__mocks__/fileMock.js',
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation

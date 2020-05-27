@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import '../css/pages/signing-page.css';
 import VUserForm from '../components/VUserForm';
 import computerS from '../images/computer-s.jpg';
 import computerM from '../images/computer-m.jpg';
