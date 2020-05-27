@@ -8,13 +8,13 @@
   --color-primary: var(--color-minion-yellow);
   --color-secondary: var(--color-blue-shapire);
   --color-text: black;
-  --color-text--darkmode: white;
+  --color-text--darkmode: var(--color-timberwolf-light);
   --color-danger: indianred;
   --color-danger-light: lightcoral;
   --color-error: indianred;
   --color-success: lightgreen;
-  --btn-primary-color: var(--color-blue-shapire);
+  --btn-primary-color: hsl(201, 38%, 19%);
   --btn-primary-color-bg: var(--color-primary);
-  --btn-secondary-color: #dadada;
+  --btn-secondary-color: var(--color-timberwolf);
   --btn-secondary-color-bg: var(--color-secondary);
 }

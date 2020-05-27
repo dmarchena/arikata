@@ -73,6 +73,10 @@
   color: var(--color-secondary);
 }
 
+.btn--primary .icon--success {
+  color: currentColor;
+}
+
 /**
  * Button delete
 \* ------------------------------------------------------------------------- */

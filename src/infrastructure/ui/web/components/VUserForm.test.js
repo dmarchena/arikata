@@ -1,16 +1,16 @@
 /**
  * @jest-environment jsdom
  */
-import SignIn from './SignIn';
+import VUserForm from './VUserForm';
 import { shallowMount, mount } from '@vue/test-utils';
 import Vue from 'vue';
 
 jest.mock('../application');
 const localVue = createCustomLocalVue();
 
-describe('SignIn', () => {
+describe('VUserForm', () => {
   it('should render', () => {
-    const wrapper = shallowMount(SignIn, { localVue });
+    const wrapper = shallowMount(VUserForm, { localVue });
     expect.hasAssertions();
     expect(wrapper.exists()).toBe(true);
   });

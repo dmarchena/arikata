@@ -237,7 +237,7 @@ export default {
       setTimeout(() => {
         this.errorMsg = undefined;
       }, 6000);
-      return error;
+      return Promise.reject(error);
     },
   },
 };

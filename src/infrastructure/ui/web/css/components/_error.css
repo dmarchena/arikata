@@ -50,6 +50,15 @@
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
+  .error-message--hidden,
+  .error-message:empty {
+    max-height: 0;
+    opacity: 0;
+    transition: none;
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
 .error-message--hidden,
 .error-message:empty {
   max-height: 0;

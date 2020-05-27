@@ -1,0 +1,21 @@
+.v-user-form {
+  padding-block: var(--inset-block-l);
+  padding-inline: var(--inset-inline-l);
+  width: 25em;
+  max-width: 90vw;
+}
+
+.v-user-form__error {
+  margin: 1em 0;
+  color: var(--color-error);
+  font-style: italic;
+}
+
+.v-user-form__actions {
+  flex-direction: column;
+}
+
+.v-user-form .link-signup {
+  display: block;
+  margin-top: var(--spacing-stack-m);
+}

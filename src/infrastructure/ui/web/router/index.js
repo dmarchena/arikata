@@ -1,13 +1,25 @@
 import VueRouter from 'vue-router';
 import KataList from '../pages/KataList.vue';
 import KataAdmin from '../pages/KataAdmin.vue';
-import SignIn from '../pages/SignIn.vue';
-import SignUp from '../pages/SignUp.vue';
+import SigningPage from '../pages/SigningPage.vue';
 import Training from '../pages/Training.vue';
 
 const routes = [
-  { path: '/signin', name: 'signin', component: SignIn },
-  { path: '/signup', name: 'signup', component: SignUp },
+  {
+    path: '/signin',
+    name: 'signin',
+    component: SigningPage,
+    props: (route) => ({
+      signedOut: route.query.from === 'signout',
+      newUser: false,
+    }),
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: SigningPage,
+    props: { newUser: true },
+  },
   {
     path: '/katas/',
     name: 'katas',
