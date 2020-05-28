@@ -17,7 +17,7 @@
   justify-content: space-between;
   height: var(--header-height);
   color: var(--color-primary);
-  background-color: var(--color-secondary);
+  background-color: var(--color-blue-shapire);
   padding-inline: var(--inset-inline-m);
 }
 

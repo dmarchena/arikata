@@ -7,12 +7,15 @@
     'editor details' minmax(0, 2fr)
     'editor console' minmax(0, 3fr) / 2fr 1fr;
   max-height: var(--scrollless-page-height);
+  color: black;
+  background-color: var(--color-cadet-grey);
 }
 
 .training__back {
   grid-area: back;
   padding-block: var(--inset-block-m);
   padding-inline: var(--inset-inline-m);
+  color: currentColor;
   text-align: right;
 }
 
@@ -20,6 +23,7 @@
   grid-area: kata;
   padding-block: var(--inset-block-m);
   padding-inline: var(--inset-inline-m);
+  margin: 0;
 }
 
 .training__details {

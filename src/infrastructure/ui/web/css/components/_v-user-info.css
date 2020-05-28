@@ -21,11 +21,16 @@
   border-radius: 50%;
 }
 
+.v-user-info > .btn {
+  background-color: transparent;
+  border-color: transparent;
+}
+
 .v-user-info__form {
   position: absolute;
   right: 0;
   bottom: 0;
-  color: var(--color-text);
+  color: black;
   background-color: var(--color-timberwolf-light);
   transform: translateY(100%);
 }

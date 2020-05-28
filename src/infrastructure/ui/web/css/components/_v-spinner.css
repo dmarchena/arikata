@@ -1,0 +1,11 @@
+.v-spinner {
+  width: 1em;
+  height: 1em;
+  font-size: 1.2em;
+}
+
+.v-spinner .sk-fading-circle {
+  width: inherit;
+  height: inherit;
+  margin: 0;
+}

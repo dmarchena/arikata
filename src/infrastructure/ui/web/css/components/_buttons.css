@@ -33,12 +33,13 @@
 }
 
 .btn--ghost {
-  color: var(--btn-secondary-color-bg);
+  color: var(--color-timberwolf);
   background-color: transparent;
+  border-color: currentColor;
 }
 
 .btn--ghost:focus {
-  color: var(--color-light-stale-grey);
+  color: var(--color-timberwolf);
 }
 
 /**
@@ -63,7 +64,7 @@
 \* ------------------------------------------------------------------------- */
 .btn--delete {
   color: var(--color-danger);
-  background-color: var(--color-timberwolf-light);
+  background-color: transparent;
 }
 
 .btn--delete:focus {

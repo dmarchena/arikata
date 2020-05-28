@@ -94,6 +94,10 @@
   text-align: center;
 }
 
+.home__info {
+  color: black;
+}
+
 .home__project {
   position: relative;
   padding-bottom: 40%;

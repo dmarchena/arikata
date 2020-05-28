@@ -19,4 +19,5 @@
   margin-left: auto;
   margin-block: var(--inset-block-m);
   margin-inline: var(--inset-inline-m);
+  color: var(--color-blue-shapire);
 }
