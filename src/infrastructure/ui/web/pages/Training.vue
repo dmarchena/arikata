@@ -7,8 +7,8 @@
     <a
       v-bem:back
       href="#"
-      @click="$router.go(-1)"
-      @keydown.enter="$router.go(-1)"
+      @click="back"
+      @keydown.enter="back"
     >&lt; Back</a>
     <h2 v-bem:kata>
       {{ kata.name }}
@@ -138,6 +138,10 @@ export default {
   },
 
   methods: {
+    back(e) {
+      e.preventDefault();
+      this.$router.back();
+    },
     clearConsole() {
       publish(events.CONSOLE_CLEAR);
     },
