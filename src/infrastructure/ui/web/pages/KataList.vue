@@ -57,6 +57,7 @@
         </div>
         <div
           v-if="isAdmin && !kata.trainings"
+          v-bem:kata-actions
           class="btn-set"
         >
           <router-link

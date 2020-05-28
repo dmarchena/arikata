@@ -63,6 +63,11 @@
         v-bem:test
       />
       <div v-bem:editor-actions>
+        <a
+          v-bem:chai-help
+          href="https://www.chaijs.com/api/bdd/"
+          target="_blank"
+        >Help? Go to Chai docs</a>
         <VCodeRunner
           v-bem:run
           :code="code"
@@ -119,10 +124,12 @@ console.log(this, window, self, top, frames, document, parent, document.defaultV
 setTimeout(function () { console.log(this, window); }, 100);
 `;
 
-const sampleCode = `const add = (a, b) => a + b;
-const mul = (a, b) => a * b;`;
-const sampleTest = `it('should add', () => expect(add(1,2)).to.be.equal(3));
-it('should mul', () => expect(mul(1,2)).to.be.equal(2));`;
+const sampleCode = `// Sample initial code
+const add = (a, b) => ...;`;
+const sampleTest = `// Sample test
+it('should add', () => {
+  expect(add(1,2)).to.be.equal(3);
+})`;
 
 export default {
   name: 'KataAdmin',

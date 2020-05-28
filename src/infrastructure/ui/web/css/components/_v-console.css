@@ -11,6 +11,7 @@
   padding-inline: var(--inset-inline-m);
   overflow: auto;
   background-color: var(--color-timberwolf);
+  color: var(--color-blue-shapire);
 }
 
 .v-console__clear {

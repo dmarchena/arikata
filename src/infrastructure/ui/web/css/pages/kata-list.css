@@ -35,21 +35,6 @@
   margin-block-end: var(--spacing-stack-l);
 }
 
-/* .kata-list__kata::after {
-  display: block;
-  width: 100%;
-  height: 2px;
-  margin-block: var(--inset-block-xl);
-  background-image: linear-gradient(
-    90deg,
-    var(--color-blue-shapire),
-    var(--color-blue-shapire) 33%,
-    var(--background-color)
-  );
-  background-repeat: no-repeat;
-  content: '';
-} */
-
 .kata-list__kata-name {
   display: flex;
   align-items: center;

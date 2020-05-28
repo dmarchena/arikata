@@ -68,9 +68,13 @@
 .kata-admin__editor-actions {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding-block: var(--inset-block-m);
   padding-inline: var(--inset-inline-m);
+}
+
+.kata-admin__chai-help {
+  color: var(--color-primary);
 }
 
 .kata-admin__console {
