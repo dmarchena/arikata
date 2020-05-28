@@ -29,13 +29,13 @@
 .kata-list__kata {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: stretch;
   justify-content: flex-end;
-  padding-inline: var(--inset-inline-m);
   list-style: none;
+  margin-block-end: var(--spacing-stack-l);
 }
 
-.kata-list__kata::after {
+/* .kata-list__kata::after {
   display: block;
   width: 100%;
   height: 2px;
@@ -47,14 +47,37 @@
     var(--background-color)
   );
   background-repeat: no-repeat;
-  transform: translateX(calc(-1 * var(--inset-inline-m)));
   content: '';
-}
+} */
 
 .kata-list__kata-name {
+  display: flex;
+  align-items: center;
   flex-grow: 1;
+  padding-block: var(--inset-block-m);
+  padding-inline: var(--inset-inline-m);
+  background-image: linear-gradient(
+    90deg,
+    var(--color-blue-shapire),
+    var(--color-blue-shapire) 85%,
+    var(--background-color)
+  );
   font-weight: 300;
   font-size: 1.2em;
+}
+
+.kata-list__kata-name--link {
+  color: currentColor;
+  text-decoration: none;
+}
+
+.kata-list__kata-name--link:hover {
+  color: var(--color-primary);
+}
+
+.kata-list__kata-name,
+.kata-list__kata-actions {
+  margin-block-end: var(--spacing-stack-m);
 }
 
 .kata-list__tags,
@@ -63,13 +86,16 @@
   flex: 0 1 100%;
   flex-wrap: wrap;
   justify-content: flex-end;
-  margin-block-start: var(--spacing-stack-m);
   padding: 0;
 }
 
 .kata-list__tag {
   margin-left: var(--spacing-inline-m);
   list-style: none;
+}
+
+.kata-list__tag a:hover {
+  color: var(--color-primary);
 }
 
 .kata-list__training {

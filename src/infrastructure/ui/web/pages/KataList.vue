@@ -32,9 +32,20 @@
         :key="kata.id"
         v-bem:kata
       >
-        <strong v-bem:kata-name>{{ kata.name }}</strong>
+        <router-link
+          v-if="!isAdmin"
+          v-bem:kata-name.link
+          :to="{ name: 'training', query: { kataId: kata.id } }"
+        >
+          {{ kata.name }}
+        </router-link>
+        <strong
+          v-if="isAdmin"
+          v-bem:kata-name
+        >{{ kata.name }}</strong>
         <div
           v-if="!isAdmin && !kata.trainings"
+          v-bem:kata-actions
           class="btn-set"
         >
           <router-link

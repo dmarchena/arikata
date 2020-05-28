@@ -34,6 +34,16 @@
       {{ errorMessage }}
     </div>
     <div v-bem:actions>
+      <router-link
+        v-show="newAccountForm"
+        class="link-signin btn btn--ghost"
+        :to="{ name: 'signin' }"
+        :event="''"
+        @click.native.prevent="goToSignIn"
+        @keydown.enter.native.prevent="goToSignIn"
+      >
+        Sign in
+      </router-link>
       <VButtonAsync
         class="btn btn--primary"
         @active="handleSubmit"
@@ -101,6 +111,13 @@ export default {
   },
 
   methods: {
+    goToSignIn() {
+      if (this.redirect) {
+        this.$router.push({ name: 'signin' });
+      } else {
+        this.newAccountForm = false;
+      }
+    },
     goToSignUp() {
       if (this.redirect) {
         this.$router.push({ name: 'signup' });

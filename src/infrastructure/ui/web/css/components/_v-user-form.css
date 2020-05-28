@@ -12,10 +12,17 @@
 }
 
 .v-user-form__actions {
-  flex-direction: column;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.v-user-form .btn--ghost {
+  color: var(--btn-secondary-color-bg);
 }
 
 .v-user-form .link-signup {
   display: block;
+  flex-basis: 100%;
+  text-align: center;
   margin-top: var(--spacing-stack-m);
 }
