@@ -1,4 +1,5 @@
 import VueRouter from 'vue-router';
+import Home from '../pages/Home.vue';
 const KataList = () =>
   import(/* webpackChunkName: "kata-list" */ '../pages/KataList.vue');
 const KataAdmin = () =>
@@ -42,7 +43,7 @@ const routes = [
     component: Training,
     props: (route) => ({ id: route.params.id, kataId: route.query.kataId }),
   },
-  { path: '/admin/katas/new', component: KataAdmin },
+  { path: '/admin/katas/new', name: 'newKata', component: KataAdmin },
   {
     path: '/admin/katas/:id',
     name: 'editKata',
@@ -50,7 +51,7 @@ const routes = [
     props: true,
   },
   { path: '/admin/katas/', component: KataList },
-  { path: '/', redirect: '/katas/' },
+  { path: '/', component: Home },
 ];
 
 export default new VueRouter({

@@ -23,8 +23,18 @@
 
 .app__name {
   margin: 0;
+  font-weight: 400;
   font-size: 1.2em;
   text-transform: uppercase;
+  padding-block-start: var(--inset-block-s);
+}
+
+.app__name svg {
+  width: 1em;
+  height: 1em;
+  margin-right: var(--spacing-inline-s);
+  font-size: 1.6em;
+  transform: translateY(-0.1em);
 }
 
 .app__name a {

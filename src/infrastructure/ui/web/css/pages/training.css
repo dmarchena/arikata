@@ -49,14 +49,6 @@
   padding-inline: var(--inset-inline-m);
 }
 
-@media screen and (prefers-reduced-motion: reduce) {
-  .training__editor:focus-within + .training__editor-tip {
-    height: auto;
-    opacity: 1;
-    transition: none;
-  }
-}
-
 .training__editor:focus-within + .training__editor-tip {
   height: auto;
   opacity: 1;

@@ -2,8 +2,8 @@
   <div id="app">
     <header v-bem:header>
       <h1 v-bem:name>
-        <router-link to="/">
-          Arikata
+        <router-link :to="isSignedIn ? '/katas' : '/'">
+          <svg><use xlink:href="#logo" /></svg>Arikata
         </router-link>
       </h1>
       <VUserInfo />

@@ -18,6 +18,13 @@
       >
         view my trainings
       </router-link>
+      <router-link
+        v-show="isAdmin"
+        class="btn btn--ghost"
+        :to="{ name: 'newKata' }"
+      >
+        new kata
+      </router-link>
     </header>
     <ul v-bem:katas>
       <li
@@ -90,6 +97,7 @@
 </template>
 
 <script>
+import '../css/pages/kata-list.css';
 import app from '../application';
 import VButtonAsync from '../components/VButtonAsync.vue';
 import VIconSuccess from '../components/VIconSuccess.vue';

@@ -22,6 +22,10 @@ a {
   color: var(--color-secondary);
 }
 
+img {
+  max-width: 100%;
+}
+
 kbd {
   display: inline-block;
   font-family: var(--font-family-monospace);
