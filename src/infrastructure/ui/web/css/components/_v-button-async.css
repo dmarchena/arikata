@@ -16,13 +16,5 @@
 }
 
 .v-button-async__spinner {
-  width: 1.2em;
-  height: 1.2em;
   margin-left: var(--spacing-inline-s);
-}
-
-.v-button-async__spinner .sk-fading-circle {
-  width: inherit;
-  height: inherit;
-  margin: 0;
 }

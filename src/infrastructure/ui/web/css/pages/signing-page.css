@@ -11,6 +11,7 @@
 .signing-page__heading {
   margin-block-start: 10vh;
   z-index: 2;
+  font-weight: 300;
 }
 
 .signing-page__form {
@@ -46,8 +47,9 @@
   }
 
   .signing-page__heading {
-    margin-inline-start: 20vw;
+    flex-grow: 1;
     font-size: 3em;
+    text-align: center;
   }
 
   .signing-page__image {

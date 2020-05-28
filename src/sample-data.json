@@ -1,0 +1,20 @@
+{
+  "katas": [
+    {
+      "id": "f18940bb-d77b-4f42-a64f-f07e9dfc18ee",
+      "details": "Function composition is a mechanism of combining multiple simple functions to build a more complicated one. The result of each function is passed to the next one. In mathematics, we often write something like: f(g(x)). So this is the result of g(x) that is passed to f. In programing we can achieved the composition by writing something similar.\n\nYour goal in this section is to create a high order function that take two or more functions and compose them into a new function.",
+      "name": "Composing functions",
+      "code": "const square = (a) => a * a;\nconst increment = (a) => a + 1;\n\nconst compose = (...) => {\n  ...\n}\n\nconst composed = compose(square, increment);",
+      "test": "it('should increment and square the result', () => {\n  expect(composed(1)).to.be.equal(4));\n  expect(composed(2)).to.be.equal(9));\n});",
+      "tags": ["Functional programming"]
+    },
+    {
+      "id": "4e16bd65-9afb-4399-afd0-dc6dc268e37c",
+      "details": "Complete this arrow functions and return the results without using brackets.",
+      "name": "Arrow functions",
+      "code": "const add = (a, b) => ...;\nconst mul = (a, b) => ...;",
+      "test": "it('should add', () => expect(add(1,2)).to.be.equal(3));\nit('should mul', () => expect(mul(1,2)).to.be.equal(2));",
+      "tags": ["ES2015"]
+    }
+  ]
+}

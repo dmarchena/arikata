@@ -1,12 +1,15 @@
 @import 'vue-multiselect/dist/vue-multiselect.min.css';
 
 .kata-admin {
+  --background-color: var(--color-light-stale-grey);
+
   display: grid;
   flex-grow: 1;
   grid-template:
     'editor form' minmax(0, 3fr)
     'console form' minmax(0, 1fr) / 1fr 1fr;
   max-height: var(--scrollless-page-height);
+  background-color: var(--background-color);
 }
 
 .kata-admin__form {
@@ -19,6 +22,11 @@
 
 .kata-admin__form .field {
   margin-bottom: var(--spacing-stack-m);
+}
+
+.kata-admin__form .field__control {
+  color: black;
+  background-color: var(--color-cadet-grey);
 }
 
 .kata-admin__form-actions {
@@ -47,7 +55,7 @@
 .kata-admin__editor-label {
   color: var(--color-text--darkmode);
   text-align: center;
-  background-color: var(--color-light-stale-grey);
+  background-color: var(--background-color);
   padding-block: var(--inset-block-xs);
   padding-inline: var(--inset-inline-xs);
 }

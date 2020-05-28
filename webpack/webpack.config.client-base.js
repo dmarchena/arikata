@@ -51,14 +51,14 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|webp)$/,
         use: ['file-loader'],
       },
     ],
   },
 
   output: {
-    filename: '[name].[contenthash].js',
+    filename: '[name].[hash].js',
     path: distDir,
     publicPath: '/',
   },
