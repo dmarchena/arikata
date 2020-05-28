@@ -1,0 +1,44 @@
+{
+  "katas": [
+    {
+      "id": "f18940bb-d77b-4f42-a64f-f07e9dfc18ee",
+      "details": "Function composition is a mechanism of combining multiple simple functions to build a more complicated one. The result of each function is passed to the next one. In mathematics, we often write something like: f(g(x)). So this is the result of g(x) that is passed to f. In programing we can achieved the composition by writing something similar.\n\nYour goal in this section is to create a high order function that take two or more functions and compose them into a new function.",
+      "name": "Composing functions",
+      "code": "const square = (a) => a * a;\nconst increment = (a) => a + 1;\n\nconst compose = (...) => {\n  ...\n}\n\nconst composed = compose(square, increment);",
+      "test": "it('should increment and square the result', () => {\n  expect(composed(1)).to.be.equal(4));\n  expect(composed(2)).to.be.equal(9));\n});",
+      "tags": ["Functional programming"]
+    },
+    {
+      "id": "4e16bd65-9afb-4399-afd0-dc6dc268e37c",
+      "details": "Complete this arrow functions and return the results without using brackets.",
+      "name": "Arrow functions",
+      "code": "const add = (a, b) => ...;\nconst mul = (a, b) => ...;",
+      "test": "it('should add', () => expect(add(1,2)).to.be.equal(3));\nit('should mul', () => expect(mul(1,2)).to.be.equal(2));",
+      "tags": ["ES2015"]
+    },
+    {
+      "id": "e4acdfeb-d6fa-48a8-86c9-46b34ee69ea7",
+      "details": "In mathematics and computer science, currying is the technique of translating the evaluation of a function that takes multiple arguments into evaluating a sequence of functions, each with a single argument.",
+      "name": "Currying",
+      "code": "// Currify this function\nconst add = (a, b) => a + b;",
+      "test": "// Sample test\nit('should add', () => {\n  expect(add(1)(2)).to.be.equal(3);\n});",
+      "tags": ["Functional programming"]
+    },
+    {
+      "id": "703bc85e-06a0-4424-bfa8-b3997e26c9d5",
+      "details": "According to Wikipedia, \"In object-oriented and functional programming, an immutable object (unchangeable[1] object) is an object whose state cannot be modified after it is created.[2] This is in contrast to a mutable object (changeable object), which can be modified after it is created\".\n\nIn spite of having the static method Object.freeze(obj), EcmaScript objects are mutable. However, there are some techniques to immutably update them. One of those is by means of Object.assign() method.\n\nThe Object.assign() method copies all enumerable own properties from one or more source objects to a target object. It returns the target object.",
+      "name": "Immutable objects using Object.assign()",
+      "code": "const initialObject = { a: 1 };\n\n// Implement update to modify the object in an immutable way\nconst updateA = (obj, newA) => {\n  ...\n  return obj;\n};",
+      "test": "// Sample test\nit('should immutably update', () => {\n  const source = { a: 2 }\n  const result = updateA(source,2);\n  expect(result).to.deep.equal({a: 2});\n  expect(result).to.not.equal(source);\n})",
+      "tags": ["Immutability"]
+    }
+  ],
+  "users": [
+    {
+      "id": "539c1cda-7402-5002-92d1-6d9f812ce88a",
+      "email": "test@arikata.dev",
+      "password": "test",
+      "roles": ["ROLE_USER"]
+    }
+  ]
+}
