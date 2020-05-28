@@ -95,6 +95,16 @@
         >
       </picture>
     </section>
+    <section v-bem:info>
+      <h3 v-bem:info-heading>
+        Why Arikata?
+      </h3>
+      <p v-bem:info-text>
+        <dfn>Ariketa</dfn> is a Basque word which means <em>exercise</em>. It
+        was clear that was the perfect name to refer to katas or programming
+        exercises.
+      </p>
+    </section>
   </div>
 </template>
 
