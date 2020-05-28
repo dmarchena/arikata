@@ -11,6 +11,13 @@
     <main v-bem:main>
       <router-view />
     </main>
+    <footer v-bem:footer>
+      Arikata is an open source project by
+      <a
+        href="https://github.com/dmarchena"
+        title="go to my GitHub"
+      >David Marchena</a>.
+    </footer>
   </div>
 </template>
 

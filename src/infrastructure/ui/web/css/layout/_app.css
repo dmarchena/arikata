@@ -3,7 +3,8 @@
   flex-grow: 1;
   grid-template:
     'header' auto
-    'main' 1fr / auto;
+    'main' 1fr
+    'footer' auto / auto;
   min-height: 100vh;
 }
 
@@ -48,4 +49,17 @@
   flex-grow: 1;
   grid-area: main;
   margin: 0;
+}
+
+.app__footer {
+  grid-area: footer;
+  display: block;
+  padding-block: var(--inset-block-xl);
+  padding-inline: var(--inset-inline-xl);
+  background-color: var(--background-color);
+  text-align: center;
+}
+
+.app__footer a {
+  color: var(--color-primary);
 }
