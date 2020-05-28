@@ -111,6 +111,12 @@ export default {
   },
 
   methods: {
+    clearForm() {
+      this.email = '';
+      this.error = false;
+      this.password = '';
+      this.passwordConfirmation = '';
+    },
     goToSignIn() {
       if (this.redirect) {
         this.$router.push({ name: 'signin' });
@@ -130,11 +136,19 @@ export default {
       this.loading = true;
       let success = false;
       const request = this.newAccountForm ? this.signUp() : this.signIn();
-      return request.catch((err) => {
-        this.printError(err.message);
-        this.$emit('error', err.message);
-        return Promise.reject(err);
-      });
+      return request
+        .then(() => {
+          this.clearForm();
+          const routeName = this.$router.currentRoute?.name;
+          if (routeName !== 'training') {
+            this.$router.push({ name: 'katas' });
+          }
+        })
+        .catch((err) => {
+          this.printError(err.message);
+          this.$emit('error', err.message);
+          return Promise.reject(err);
+        });
     },
     printError(message) {
       this.error = true;
