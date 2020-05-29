@@ -5,7 +5,7 @@
       "details": "Function composition is a mechanism of combining multiple simple functions to build a more complicated one. The result of each function is passed to the next one. In mathematics, we often write something like: f(g(x)). So this is the result of g(x) that is passed to f. In programing we can achieved the composition by writing something similar.\n\nYour goal in this section is to create a high order function that take two or more functions and compose them into a new function.",
       "name": "Composing functions",
       "code": "const square = (a) => a * a;\nconst increment = (a) => a + 1;\n\nconst compose = (...) => {\n  ...\n}\n\nconst composed = compose(square, increment);",
-      "test": "it('should increment and square the result', () => {\n  expect(composed(1)).to.be.equal(4));\n  expect(composed(2)).to.be.equal(9));\n});",
+      "test": "it('should increment and square the result', () => {\n  expect(composed(1)).to.be.equal(4);\n  expect(composed(2)).to.be.equal(9);\n});",
       "tags": ["Functional programming"]
     },
     {
