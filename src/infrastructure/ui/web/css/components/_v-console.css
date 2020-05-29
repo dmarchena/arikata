@@ -7,11 +7,11 @@
 .v-console__output {
   flex-grow: 1;
   margin: 0;
+  overflow: auto;
+  color: var(--color-blue-shapire);
+  background-color: var(--color-timberwolf);
   padding-block: var(--inset-block-m);
   padding-inline: var(--inset-inline-m);
-  overflow: auto;
-  background-color: var(--color-timberwolf);
-  color: var(--color-blue-shapire);
 }
 
 .v-console__clear {

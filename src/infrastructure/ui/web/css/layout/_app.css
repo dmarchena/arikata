@@ -52,12 +52,13 @@
 }
 
 .app__footer {
-  grid-area: footer;
+  z-index: 2;
   display: block;
+  grid-area: footer;
+  text-align: center;
+  background-color: var(--background-color);
   padding-block: var(--inset-block-xl);
   padding-inline: var(--inset-inline-xl);
-  background-color: var(--background-color);
-  text-align: center;
 }
 
 .app__footer a {

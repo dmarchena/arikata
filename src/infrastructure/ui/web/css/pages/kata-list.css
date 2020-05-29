@@ -37,18 +37,18 @@
 
 .kata-list__kata-name {
   display: flex;
-  align-items: center;
   flex-grow: 1;
-  padding-block: var(--inset-block-m);
-  padding-inline: var(--inset-inline-m);
+  align-items: center;
+  font-weight: 300;
+  font-size: 1.2em;
   background-image: linear-gradient(
     90deg,
     var(--color-blue-shapire),
     var(--color-blue-shapire) 85%,
     var(--background-color)
   );
-  font-weight: 300;
-  font-size: 1.2em;
+  padding-block: var(--inset-block-m);
+  padding-inline: var(--inset-inline-m);
 }
 
 .kata-list__kata-name--link {
@@ -56,7 +56,8 @@
   text-decoration: none;
 }
 
-.kata-list__kata-name--link:hover {
+.kata-list__kata-name--link:hover,
+.kata-list__kata-name--link:focus {
   color: var(--color-primary);
 }
 
@@ -70,7 +71,6 @@
   display: flex;
   flex: 0 1 100%;
   flex-wrap: wrap;
-  justify-content: flex-end;
   padding: 0;
 }
 
@@ -79,7 +79,8 @@
   list-style: none;
 }
 
-.kata-list__tag a:hover {
+.kata-list__tag a:hover,
+.kata-list__tag a:focus {
   color: var(--color-primary);
 }
 

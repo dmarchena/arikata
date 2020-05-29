@@ -12,8 +12,8 @@
 }
 
 .v-user-form__actions {
-  justify-content: space-around;
   flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .v-user-form .btn--ghost {
@@ -23,6 +23,6 @@
 .v-user-form .link-signup {
   display: block;
   flex-basis: 100%;
-  text-align: center;
   margin-top: var(--spacing-stack-m);
+  text-align: center;
 }

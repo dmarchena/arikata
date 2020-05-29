@@ -1,5 +1,5 @@
 .field-tags .multiselect__tags {
-  background-color: var(--color-light-stale-grey)
+  background-color: var(--color-light-stale-grey);
 }
 
 .field-tags .multiselect__tag {
@@ -15,7 +15,7 @@
   background-color: var(--color-blue-shapire);
 }
 
-.field-tags .multiselect__select:before {
+.field-tags .multiselect__select::before {
   color: black;
   border-top-color: currentColor;
 }
